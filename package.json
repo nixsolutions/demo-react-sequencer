@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "react": "^0.14.6",
+    "react-css-modules": "^4.1.0",
     "react-dom": "^0.14.6",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
