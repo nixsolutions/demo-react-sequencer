@@ -1,3 +1,4 @@
+import 'shared/reset.less';
 import React, { Component } from 'react';
 
 export default class App extends Component {
