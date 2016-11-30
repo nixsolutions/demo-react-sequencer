@@ -1,0 +1,42 @@
+@import "~shared/mixins.less";
+
+.step{
+    @step-width: 30px;
+    @shadow: 0 1px 3px #000;
+
+    position: relative;
+    width: 30px;
+    height: 40px;
+    border-radius: 10px;
+    background: lightslategrey;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: @shadow;
+
+    &:before{
+        @width: @step-width - 16;
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        height: 4px;
+        width: @width;
+        margin: 2px 0 0 -(@width / 2);
+        background: #fff;
+        opacity: 0.5;
+        border-radius: 10px;
+    }
+
+    &.active{
+        box-shadow: inset @shadow;
+        background: orange;
+    }
+
+    &.even{
+        background: darkslategrey;
+
+        &.active{
+            background: darkorange;
+        }
+    }
+}
