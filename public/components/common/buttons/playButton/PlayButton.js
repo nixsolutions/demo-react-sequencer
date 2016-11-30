@@ -9,7 +9,13 @@ class PlayButton extends Component {
 
     render() {
         let styleName = ['play-button', this.props.active ? 'active' : ''].join(' ');
-        return <button {...this.props} styleName={styleName}>{this.props.children}</button>
+        return <button {...this.props} 
+                        styleName={styleName}
+                        onClick={this.onClick.bind(this)}>{this.props.children}</button>
+    }
+
+    onClick(){
+        this.props.onToggle && this.props.onToggle(!this.props.active);
     }
 }
 
