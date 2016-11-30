@@ -10,3 +10,10 @@ export default function bpmReducer(state = INIT, action){
             return state;
     }
 }
+
+export function updateBPM(value){
+    return {
+        type: UPDATE_BPM,
+        payload: value
+    }
+}
