@@ -1,12 +1,14 @@
 import 'shared/reset.less';
 import React, { Component } from 'react';
-import PlayButton from 'components/common/buttons/playButton/PlayButton';
+import SoundManager from 'containers/SoundManager';
+import Sampler from 'containers/Sampler';
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <PlayButton active={true}></PlayButton>
+        <Sampler/>
+        <SoundManager/>
       </div>
     );
   }
