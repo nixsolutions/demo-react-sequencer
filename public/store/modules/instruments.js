@@ -14,7 +14,7 @@ const INIT = [
     {
         active: true,
         path: './samples/techno_hi-hat.wav',
-        notes: [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        notes: [0, 0, 0, 0, 0, 0, 0, 0]
     }
 ];
 
