@@ -45,8 +45,10 @@ class SoundManager extends Component {
         this.updateMatrix(instruments);
         this.sequencer = this.createSequencer(this.matrix, this.samples);
 
-        Tone.Transport.start()
-        this.sequencer.start(0);
+        Tone.Buffer.on('load', () => {
+            Tone.Transport.start()
+            this.sequencer.start(0);
+        });
     }
 
     stop(){
