@@ -15,10 +15,6 @@ class Sampler extends Component {
             </div>
         ); 
     }
-
-    togglePlay(){
-
-    }
 }
 
 Sampler.propTypes = {
