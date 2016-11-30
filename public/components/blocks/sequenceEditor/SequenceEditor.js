@@ -13,7 +13,7 @@ class SequenceEditor extends Component {
     createSteps(steps){
         return steps.map((step, i) => {
             let isEven = Math.floor(i / 4) % 2 !== 0;
-            return <li key={i}><Step active={step.active} isEven={isEven}/></li>;
+            return <li key={i}><Step active={step !== undefined} isEven={isEven}/></li>;
         })
     }
 }
