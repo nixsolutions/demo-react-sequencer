@@ -22,9 +22,14 @@ class SoundManager extends Component {
     render(){ return <div></div>; }
 
     applyUpdates(nextProps){
-        let {instruments, play} = nextProps;
+        let {instruments, play, bpm} = nextProps;
+
+        if (bpm !== this.props.bpm) {
+            this.updateBPM(bpm);
+        }
+
         if (instruments !== this.props.instruments) {
-            console.log(instruments);
+            this.updateMatrix(instruments);
         }
 
         if (play !== this.props.play) {
@@ -41,16 +46,26 @@ class SoundManager extends Component {
             throw new Error('Matrix doesn\'t exist');
         }
 
-        this.samples = this.loadSamples(instruments);
-        this.matrix = this.createMatrix(instruments);
+        this.updateSamples(instruments);
+        this.updateMatrix(instruments);
         this.sequencer = this.createSequencer(this.matrix, this.samples);
 
-        Tone.Transport.start()
-        this.sequencer.start(0);
+        Tone.Buffer.on('load', () => {
+            Tone.Transport.start()
+            this.sequencer.start(0);
+        });
     }
 
     stop(){
         this.sequencer.stop(0);
+    }
+
+    updateBPM(value){
+        Tone.Transport.bpm.value = value;
+    }
+
+    updateSamples(instruments){
+        this.samples = this.loadSamples(instruments);
     }
 
     loadSamples(instruments){
@@ -58,6 +73,10 @@ class SoundManager extends Component {
             result[instrument.path] = new Tone.Sampler(instrument.path).toMaster();
             return result;
         }, {});
+    }
+
+    updateMatrix(instruments){
+        this.matrix = this.createMatrix(instruments);
     }
 
     createMatrix(instruments){
@@ -94,7 +113,8 @@ SoundManager.propTypes = {
             notes: PropTypes.array
         })
     ),
-    play: PropTypes.bool
+    play: PropTypes.bool,
+    bpm: PropTypes.number
 };
 
 export default connect(mapStateToProps)(SoundManager);
@@ -103,5 +123,6 @@ function mapStateToProps(state){
     return {
         instruments: state.instruments,
         play: state.play,
+        bpm: state.bpm
     };
 }

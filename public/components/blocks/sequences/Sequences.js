@@ -15,7 +15,12 @@ class Sequences extends Component {
     }
 
     createItem(instrument, i){
-        return (<li key={i}><SequenceEditor steps={instrument.notes}/></li>);
+        return (
+            <li key={i}>
+                <SequenceEditor 
+                    instrument={instrument}
+                    onToggleStep={this.props.onToggleStep}/>
+            </li>);
     }
 }
 
@@ -25,7 +30,8 @@ Sequences.propTypes = {
             active: PropTypes.bool,
             notes: PropTypes.array
         })
-    )
+    ),
+    onToggleStep: PropTypes.func
 };
 
 export default CSSModules(Sequences, styles, {allowMultiple: true});

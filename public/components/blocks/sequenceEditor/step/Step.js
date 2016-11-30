@@ -11,6 +11,10 @@ class Step extends Component {
 
         return <div styleName={className}></div>
     }
+
+    onClick(){
+        this.props.onToggle && this.props.onToggle()
+    }
 }
 
 Step.propTypes = {
