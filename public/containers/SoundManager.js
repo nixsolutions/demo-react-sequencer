@@ -22,7 +22,12 @@ class SoundManager extends Component {
     render(){ return <div></div>; }
 
     applyUpdates(nextProps){
-        let {instruments, play} = nextProps;
+        let {instruments, play, bpm} = nextProps;
+
+        if (bpm !== this.props.bpm) {
+            this.updateBPM(bpm);
+        }
+
         if (instruments !== this.props.instruments) {
             this.updateMatrix(instruments);
         }
@@ -53,6 +58,10 @@ class SoundManager extends Component {
 
     stop(){
         this.sequencer.stop(0);
+    }
+
+    updateBPM(value){
+        Tone.Transport.bpm.value = value;
     }
 
     updateSamples(instruments){
@@ -104,7 +113,8 @@ SoundManager.propTypes = {
             notes: PropTypes.array
         })
     ),
-    play: PropTypes.bool
+    play: PropTypes.bool,
+    bpm: PropTypes.number
 };
 
 export default connect(mapStateToProps)(SoundManager);
@@ -113,5 +123,6 @@ function mapStateToProps(state){
     return {
         instruments: state.instruments,
         play: state.play,
+        bpm: state.bpm
     };
 }
