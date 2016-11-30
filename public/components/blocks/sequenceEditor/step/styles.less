@@ -1,0 +1,28 @@
+@import "~shared/mixins.less";
+
+.step{
+    position: relative;
+    width: 30px;
+    height: 40px;
+    border-radius: 10px;
+    background: lightslategrey;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:before{
+        content: ' ';
+        .fit();
+        background: darkorange;
+        display: none;
+    }
+
+    &.even{
+        background: darkslategrey;
+    }
+
+    &.active{
+        &:before{
+            display: block;
+        }
+    }
+}
