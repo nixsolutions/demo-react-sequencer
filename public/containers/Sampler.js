@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PlayButton from 'components/common/buttons/playButton/PlayButton';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {updatePlay} from 'modules/play';
+import {toggleStep} from 'modules/instruments';
 
 class Sampler extends Component {
     render(){
@@ -11,7 +12,7 @@ class Sampler extends Component {
             <div>
                 <PlayButton active={this.props.play} 
                             onToggle={this.props.updatePlay}></PlayButton>
-                <Sequences instruments={this.props.instruments}/>
+                <Sequences instruments={this.props.instruments} onToggleStep={this.props.toggleStep}/>
             </div>
         ); 
     }
@@ -28,7 +29,8 @@ Sampler.propTypes = {
 };
 
 export default connect(mapStateToProps, {
-    updatePlay
+    updatePlay,
+    toggleStep
 })(Sampler);
 
 function mapStateToProps(state){

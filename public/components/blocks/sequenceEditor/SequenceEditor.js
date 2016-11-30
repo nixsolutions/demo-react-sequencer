@@ -5,21 +5,36 @@ import Step from './step/Step';
 
 class SequenceEditor extends Component {
     render() {
-        let {steps} = this.props; 
-        let items = this.createSteps(steps);
+        let {instrument} = this.props; 
+        let items = this.createSteps(instrument.notes);
         return <ul styleName="sequence-editor">{items}</ul>
     }
 
-    createSteps(steps){
-        return steps.map((step, i) => {
+    createSteps(notes){
+        return notes.map((note, i) => {
             let isEven = Math.floor(i / 4) % 2 !== 0;
-            return <li key={i}><Step active={step !== undefined} isEven={isEven}/></li>;
+            return (
+                <li key={i} onClick={this.onStepClick.bind(this, note, i, this.props.instrument)}>
+                    <Step active={note !== undefined} 
+                        isEven={isEven}/>
+                </li>
+            );
         })
+    }
+
+    onStepClick(step, index, instrument){
+        this.props.onToggleStep && this.props.onToggleStep(step, index, instrument);
     }
 }
 
 SequenceEditor.propTypes = {
-
+    instruments: PropTypes.arrayOf(PropTypes.shape({
+            path: PropTypes.string,
+            active: PropTypes.bool,
+            notes: PropTypes.array
+        })
+    ),
+    onToggleStep: PropTypes.func
 };
 
 export default CSSModules(SequenceEditor, styles, {allowMultiple: true});
