@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
 import PlayButton from 'components/common/buttons/playButton/PlayButton';
-import SequenceEditor from 'components/blocks/sequenceEditor/SequenceEditor';
+import Sequences from 'components/blocks/sequences/Sequences';
 import {updatePlay} from 'modules/play';
 
 class Sampler extends Component {
@@ -11,24 +11,7 @@ class Sampler extends Component {
             <div>
                 <PlayButton active={this.props.play} 
                             onToggle={this.props.updatePlay}></PlayButton>
-                <SequenceEditor steps={[
-                    {active: false},
-                    {active: false},
-                    {active: false},
-                    {active: false},
-                    {active: true},
-                    {active: false},
-                    {active: false},
-                    {active: false},
-                    {active: false},
-                    {active: true},
-                    {active: false},
-                    {active: false},
-                    {active: false},
-                    {active: false},
-                    {active: false},
-                    {active: false}
-                    ]}/>
+                <Sequences instruments={this.props.instruments}/>
             </div>
         ); 
     }
@@ -39,7 +22,13 @@ class Sampler extends Component {
 }
 
 Sampler.propTypes = {
-    play: PropTypes.bool
+    play: PropTypes.bool,
+    instruments: PropTypes.arrayOf(PropTypes.shape({
+            path: PropTypes.string,
+            active: PropTypes.bool,
+            notes: PropTypes.array
+        })
+    )
 };
 
 export default connect(mapStateToProps, {
@@ -48,7 +37,7 @@ export default connect(mapStateToProps, {
 
 function mapStateToProps(state){
     return {
-        matrix: state.matrix,
+        instruments: state.instruments,
         play: state.play,
     };
 }
