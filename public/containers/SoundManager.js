@@ -24,7 +24,7 @@ class SoundManager extends Component {
     applyUpdates(nextProps){
         let {instruments, play} = nextProps;
         if (instruments !== this.props.instruments) {
-            console.log(instruments);
+            this.updateMatrix(instruments);
         }
 
         if (play !== this.props.play) {
@@ -41,8 +41,8 @@ class SoundManager extends Component {
             throw new Error('Matrix doesn\'t exist');
         }
 
-        this.samples = this.loadSamples(instruments);
-        this.matrix = this.createMatrix(instruments);
+        this.updateSamples(instruments);
+        this.updateMatrix(instruments);
         this.sequencer = this.createSequencer(this.matrix, this.samples);
 
         Tone.Transport.start()
@@ -53,11 +53,19 @@ class SoundManager extends Component {
         this.sequencer.stop(0);
     }
 
+    updateSamples(instruments){
+        this.samples = this.loadSamples(instruments);
+    }
+
     loadSamples(instruments){
         return instruments.reduce((result, instrument) => {
             result[instrument.path] = new Tone.Sampler(instrument.path).toMaster();
             return result;
         }, {});
+    }
+
+    updateMatrix(instruments){
+        this.matrix = this.createMatrix(instruments);
     }
 
     createMatrix(instruments){
