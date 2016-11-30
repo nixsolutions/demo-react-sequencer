@@ -1,4 +1,5 @@
 import 'shared/reset.less';
+import 'shared/layouts.less';
 import React, { Component } from 'react';
 import SoundManager from 'containers/SoundManager';
 import Sampler from 'containers/Sampler';

@@ -1,15 +1,19 @@
-.play-button{
-    @border-width: 10px;
-
-    width: 20px;
-    height: 20px;
-    background: none;
-    border: @border-width solid transparent;
-    border-left-color: #000;
+.play-button {
+    width: 0px;
+    height: 0px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #000;
     border-right: 0;
-    cursor: pointer;
+    background: transparent;
+    vertical-align: top;
+    padding: 0;
 
-    &.active{
+    &.active {
       border-left-color: gray;  
+    }
+
+    &:hover {
+      cursor: pointer;
     }
 }
