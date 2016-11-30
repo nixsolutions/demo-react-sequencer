@@ -24,7 +24,7 @@ class SoundManager extends Component {
     applyUpdates(nextProps){
         let {instruments, play} = nextProps;
         if (instruments !== this.props.instruments) {
-            console.log(matrix);
+            console.log(instruments);
         }
 
         if (play !== this.props.play) {
