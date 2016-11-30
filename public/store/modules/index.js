@@ -1,9 +1,9 @@
 import bpm from './bpm';
-import matrix from './matrix';
+import instruments from './instruments';
 import play from './play';
 
 export default {
     bpm,
-    matrix,
+    instruments,
     play
 };
