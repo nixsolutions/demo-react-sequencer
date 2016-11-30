@@ -13,13 +13,13 @@ class SequenceEditor extends Component {
     createSteps(steps){
         return steps.map((step, i) => {
             let isEven = Math.floor(i / 4) % 2 !== 0;
-            return <li><Step active={step.active} isEven={isEven}/></li>;
+            return <li key={i}><Step active={step.active} isEven={isEven}/></li>;
         })
     }
 }
 
 SequenceEditor.propTypes = {
-    children: PropTypes.node
+
 };
 
 export default CSSModules(SequenceEditor, styles, {allowMultiple: true});
