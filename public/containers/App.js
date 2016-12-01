@@ -9,19 +9,21 @@ import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
 export default class App extends Component {
   render() {
     return (
-      <Dashboard>
-        <DashboardBlock>
+      <div>
+        <Dashboard>
+          <DashboardBlock>
 
-        </DashboardBlock>
+          </DashboardBlock>
 
-         <DashboardBlock>
-          <Sampler/>
-          <SoundManager/>
-        </DashboardBlock>
-        <DashboardBlock>
-          
-        </DashboardBlock>
-      </Dashboard>
+          <DashboardBlock>
+            <Sampler/>
+          </DashboardBlock>
+          <DashboardBlock>
+            
+          </DashboardBlock>
+        </Dashboard>
+        <SoundManager/>
+      </div>
     );
   }
 }
