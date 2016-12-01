@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PlayButton from 'components/common/buttons/playButton/PlayButton';
 import Sequences from 'components/blocks/sequences/Sequences';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
+import Controller from 'components/common/controller/Controller';
 import {updatePlay} from 'modules/play';
 import {toggleStep, toggleInstrument, removeInstrument} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';

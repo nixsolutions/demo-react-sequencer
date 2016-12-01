@@ -1,6 +1,7 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
+import Controller from 'components/common/controller/Controller';
 
 class SequenceControl extends Component {
     render() {
@@ -14,6 +15,7 @@ class SequenceControl extends Component {
                     title={muteText} 
                     onClick={this.props.toggleInstrument.bind(this, instrument)}></div>
                 <div styleName="name">{instrument.name}</div>
+                <div styleName="controller"><Controller size="25" value={instrument.volume}/></div>
                 <div styleName="remove" 
                     onClick={this.props.removeInstrument.bind(this, instrument)}>X</div>
             </div>
