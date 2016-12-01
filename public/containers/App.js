@@ -3,25 +3,25 @@ import 'shared/layouts.less';
 import React, { Component } from 'react';
 import SoundManager from 'containers/SoundManager';
 import Sampler from 'containers/Sampler';
-import DashBoard from 'components/dashboard/DashBoard.js';
-import DashBoardBlock from 'components/dashboardBlock/DashBoardBlock.js';
+import Dashboard from 'components/dashboard/Dashboard';
+import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
 
 export default class App extends Component {
   render() {
     return (
-      <DashBoard>
-        <DashBoardBlock>
+      <Dashboard>
+        <DashboardBlock>
 
-        </DashBoardBlock>
+        </DashboardBlock>
 
-         <DashBoardBlock>
+         <DashboardBlock>
           <Sampler/>
           <SoundManager/>
-        </DashBoardBlock>
-        <DashBoardBlock>
+        </DashboardBlock>
+        <DashboardBlock>
           
-        </DashBoardBlock>
-      </DashBoard>
+        </DashboardBlock>
+      </Dashboard>
     );
   }
 }
