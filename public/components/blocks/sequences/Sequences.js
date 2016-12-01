@@ -1,7 +1,7 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
-import SequenceEditor from 'components/blocks/sequenceEditor/SequenceEditor';
+import Sequence from 'components/blocks/sequence/Sequence';
 
 class Sequences extends Component {
     render() {
@@ -17,16 +17,17 @@ class Sequences extends Component {
     createItem(instrument, i){
         return (
             <li key={i}>
-                <SequenceEditor 
+                <Sequence
                     instrument={instrument}
                     playedStep={this.props.playedStep}
-                    onToggleStep={this.props.onToggleStep}/>
+                    toggleStep={this.props.onToggleStep}/>
             </li>);
     }
 }
 
 Sequences.propTypes = {
     instruments: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string,
             path: PropTypes.string,
             active: PropTypes.bool,
             notes: PropTypes.array
