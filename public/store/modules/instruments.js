@@ -56,7 +56,6 @@ export default function instrumentsReducer(state = INIT, action){
             });
         case UPDATE_INSTRUMENT_VOLUME:
             return state.map(instrument => {
-                debugger
                 if(instrument === payload.instrument){
                     return {...instrument, volume: payload.volume};
                 }
