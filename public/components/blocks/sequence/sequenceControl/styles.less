@@ -4,11 +4,20 @@
 .sequence-control{
     .gradient-1();
     display: flex;
+    align-items: center;
     height: @step-height;
     color: @color-1;
     font-size: @font-size-1;
     line-height: @step-height;
     font-weight: bold;
+
+    .segment{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 @padding-1;
+        border-left: 1px solid @color-6;
+    }
 
     .name{
         padding: 0 @padding-2;
@@ -30,9 +39,12 @@
     }
 
     .remove{
-        padding: 0 @padding-1;
-        border-left: 1px solid @color-6;
+        .segment();
         color: @color-13;
         cursor: pointer;
+    }
+
+    .controller{
+        .segment();
     }
 }

@@ -10,7 +10,6 @@ class Controller extends Component {
     constructor(props, state) {
         super(props, state);
         this.state = {};
-        this.step = 10;
         this.center = 40;
         this.startAngle = 40;
         this.endAngle = 320;
@@ -65,12 +64,6 @@ class Controller extends Component {
         let y = offsetY || layerY;
 
         return { x, y };
-    }
-
-    getStep(deg) {
-        let diff = this.startAngle % this.step;
-        let step = deg - deg % this.step + diff;
-        return step;
     }
 
     getDeg(pointer) {
@@ -151,7 +144,7 @@ Controller.propTypes = {
             );
         }
     },
-    size: PropTypes.number,
+    size: PropTypes.string,
     onChange: PropTypes.func
 };
 
