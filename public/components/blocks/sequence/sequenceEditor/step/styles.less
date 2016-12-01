@@ -1,20 +1,18 @@
+@import "~shared/variables.less";
 @import "~shared/mixins.less";
 
 .step{
-    @step-width: 30px;
-    @shadow: 0 1px 3px #000;
-
     position: relative;
-    width: 30px;
-    height: 40px;
-    border-radius: 10px;
-    background: lightslategrey;
+    width: @step-width;
+    height: @step-Height;
+    border-radius: @radius-1;
+    background: @step-color-1;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: @shadow;
+    box-shadow: @shadow-1;
 
     &:before{
-        @width: @step-width - 16;
+        @width: @step-width / 2;
         content: ' ';
         position: absolute;
         top: 0;
@@ -22,30 +20,30 @@
         height: 4px;
         width: @width;
         margin: 2px 0 0 -(@width / 2);
-        background: #fff;
-        opacity: 0.5;
-        border-radius: 10px;
+        background: @color-1;
+        opacity: @opacity-2;
+        border-radius: @radius-1;
     }
 
     &.active{
-        box-shadow: inset @shadow;
-        background: orange;
+        box-shadow: inset @shadow-1;
+        background: @step-color-1-active;
     }
 
     &.even{
-        background: darkslategrey;
+        background: @step-color-2;
 
         &.active{
-            background: darkorange;
+            background: @step-color-2-active;
         }
     }
 
     &.highlight{
         &:after{
-            content: ' ';
             .fit();
-            background: #fff;
-            opacity: 0.3;
+            content: ' ';
+            background: @color-1;
+            opacity: @opacity-1;
         }
     }
 }
