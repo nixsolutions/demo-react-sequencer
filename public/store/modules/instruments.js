@@ -3,16 +3,19 @@ export const TOGGLE_STEP = 'TOGGLE_STEP';
 
 const INIT = [
     {
+        name: 'kick',
         active: true,
         path: './samples/hip-hop_kick.wav',
         notes: [0, 0, undefined, undefined,  undefined, 0, undefined, undefined]
     },
     {
+        name: 'snare',
         active: true,
         path: './samples/hip-hop_snare.wav',
         notes: [undefined, undefined, undefined, 0, undefined, undefined, undefined, 0]
     },
     {
+        name: 'hi-hat',
         active: true,
         path: './samples/techno_hi-hat.wav',
         notes: [0, 0, 0, 0, 0, 0, 0, 0]
