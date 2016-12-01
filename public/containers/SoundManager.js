@@ -106,7 +106,7 @@ class SoundManager extends Component {
     
             let currentStepIndex = this.matrix.indexOf(step);
             this.props.updatePlayedStep(currentStepIndex);
-        }, matrix, "4n");
+        }, matrix, "8n");
     }
 }
 
