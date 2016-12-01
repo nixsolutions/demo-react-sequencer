@@ -2,10 +2,12 @@ export const UPDATE_INSTRUMENTS = 'UPDATE_INSTRUMENTS';
 export const TOGGLE_INSTRUMENT = 'TOGGLE_INSTRUMENT';
 export const REMOVE_INSTRUMENT = 'REMOVE_INSTRUMENT';
 export const TOGGLE_STEP = 'TOGGLE_STEP';
+export const UPDATE_INSTRUMENT_VOLUME = 'UPDATE_INSTRUMENT_VOLUME';
 
 const INIT = [
     {
         name: 'kick',
+        volume: 60,
         active: true,
         path: './samples/hip-hop_kick.wav',
         notes: [0, 0, undefined, undefined,  undefined, 0, undefined, undefined]
@@ -13,12 +15,14 @@ const INIT = [
     {
         name: 'hip-hop_snare',
         active: true,
+        volume: 36,
         path: './samples/hip-hop_snare.wav',
         notes: [undefined, undefined, undefined, 0, undefined, undefined, undefined, 0]
     },
     {
         name: 'hi-hat',
         active: true,
+        volume: 96,
         path: './samples/techno_hi-hat.wav',
         notes: [0, 0, 0, 0, 0, 0, 0, 0]
     }
@@ -46,6 +50,15 @@ export default function instrumentsReducer(state = INIT, action){
             return state.map(instrument => {
                 if(instrument === payload){
                     return {...instrument, active: !instrument.active};
+                }
+
+                return instrument;
+            });
+        case UPDATE_INSTRUMENT_VOLUME:
+            return state.map(instrument => {
+                debugger
+                if(instrument === payload.instrument){
+                    return {...instrument, volume: payload.volume};
                 }
 
                 return instrument;
@@ -79,5 +92,15 @@ export function removeInstrument(instrument){
     return {
         type: REMOVE_INSTRUMENT,
         payload: instrument
+    }
+}
+
+export function updateInstrumentVolume(instrument, volumePercents){
+    return {
+        type: UPDATE_INSTRUMENT_VOLUME,
+        payload: {
+            instrument,
+            volume: volumePercents
+        }
     }
 }

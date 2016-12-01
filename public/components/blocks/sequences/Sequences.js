@@ -22,6 +22,7 @@ class Sequences extends Component {
                     playedStep={this.props.playedStep}
                     toggleInstrument={this.props.toggleInstrument}
                     removeInstrument={this.props.removeInstrument}
+                    updateInstrumentVolume={this.props.updateInstrumentVolume}
                     toggleStep={this.props.onToggleStep}/>
             </li>);
     }
@@ -38,7 +39,8 @@ Sequences.propTypes = {
     playedStep: PropTypes.number,
     onToggleStep: PropTypes.func,
     toggleInstrument: PropTypes.func,
-    removeInstrument: PropTypes.func
+    removeInstrument: PropTypes.func,
+    updateInstrumentVolume: PropTypes.func
 };
 
 export default CSSModules(Sequences, styles, {allowMultiple: true});
