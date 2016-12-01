@@ -8,10 +8,15 @@ class Sequence extends Component {
     render() {
         let {instrument, playedStep, toggleStep} = this.props;
         return <div styleName="sequence">
-            <SequenceControl instrument={instrument} toggleInstrument={this.props.toggleInstrument}/>
-            <SequenceEditor instrument={instrument}
+            <div styleName="control-holder">
+                <SequenceControl instrument={instrument} 
+                            toggleInstrument={this.props.toggleInstrument}/>
+            </div>
+            <div>
+                <SequenceEditor instrument={instrument}
                     playedStep={playedStep}
                     onToggleStep={toggleStep}/>
+            </div>
         </div>;
     }
 }

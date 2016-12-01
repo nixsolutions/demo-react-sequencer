@@ -10,7 +10,7 @@ const INIT = [
         notes: [0, 0, undefined, undefined,  undefined, 0, undefined, undefined]
     },
     {
-        name: 'snare',
+        name: 'hip-hop_snare',
         active: true,
         path: './samples/hip-hop_snare.wav',
         notes: [undefined, undefined, undefined, 0, undefined, undefined, undefined, 0]
