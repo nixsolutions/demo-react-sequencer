@@ -13,9 +13,11 @@ class SequenceEditor extends Component {
     createSteps(notes){
         return notes.map((note, i) => {
             let isEven = Math.floor(i / 4) % 2 !== 0;
+            let isHighlighted = this.props.playedStep === i;
             return (
                 <li key={i} onClick={this.onStepClick.bind(this, note, i, this.props.instrument)}>
                     <Step active={note !== undefined} 
+                        isHighlighted={isHighlighted}
                         isEven={isEven}/>
                 </li>
             );
@@ -28,6 +30,7 @@ class SequenceEditor extends Component {
 }
 
 SequenceEditor.propTypes = {
+    playedStep: PropTypes.number,
     instruments: PropTypes.arrayOf(PropTypes.shape({
             path: PropTypes.string,
             active: PropTypes.bool,

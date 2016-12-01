@@ -15,7 +15,9 @@ class Sampler extends Component {
                 <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                 <PlayButton active={this.props.play} 
                             onToggle={this.props.updatePlay}></PlayButton>
-                <Sequences instruments={this.props.instruments} onToggleStep={this.props.toggleStep}/>
+                <Sequences instruments={this.props.instruments}
+                            playedStep={this.props.playedStep}
+                            onToggleStep={this.props.toggleStep}/>
             </div>
         ); 
     }
@@ -23,12 +25,17 @@ class Sampler extends Component {
 
 Sampler.propTypes = {
     play: PropTypes.bool,
+    bpm: PropTypes.number,
+    playedStep: PropTypes.number,
     instruments: PropTypes.arrayOf(PropTypes.shape({
             path: PropTypes.string,
             active: PropTypes.bool,
             notes: PropTypes.array
         })
-    )
+    ),
+    updatePlay: PropTypes.func,
+    toggleStep: PropTypes.func,
+    updateBPM: PropTypes.func
 };
 
 export default connect(mapStateToProps, {
@@ -42,5 +49,6 @@ function mapStateToProps(state){
         instruments: state.instruments,
         play: state.play,
         bpm: state.bpm,
+        playedStep: state.playedStep,
     };
 }

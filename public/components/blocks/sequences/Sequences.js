@@ -19,6 +19,7 @@ class Sequences extends Component {
             <li key={i}>
                 <SequenceEditor 
                     instrument={instrument}
+                    playedStep={this.props.playedStep}
                     onToggleStep={this.props.onToggleStep}/>
             </li>);
     }
@@ -31,6 +32,7 @@ Sequences.propTypes = {
             notes: PropTypes.array
         })
     ),
+    playedStep: PropTypes.number,
     onToggleStep: PropTypes.func
 };
 
