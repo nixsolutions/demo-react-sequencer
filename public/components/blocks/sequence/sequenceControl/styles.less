@@ -1,3 +1,28 @@
+@import "~shared/variables.less";
+@import "~shared/mixins.less";
+
 .sequence-control{
-    margin: 0;
+    .gradient-1();
+    display: flex;
+    height: @step-height;
+    color: @color-1;
+    font-size: @font-size-2;
+    line-height: @step-height;
+    font-weight: bold;
+
+    .name{
+      padding: 0 @padding-2;
+      width: @size-5;
+    }
+
+    .mute{
+        .gradient-3();
+        height: 100%;
+        width: @size-1 / 2;
+        cursor: pointer;
+
+        &.active{
+            .gradient-2();
+        }
+    }
 }

@@ -87,6 +87,7 @@ class SoundManager extends Component {
                 matrix[i] = matrix[i] || {};
 
                 if(note === undefined) {return;}
+                if(!instrument.active) {return;}
 
                 matrix[i][instrument.name] = note;
             });

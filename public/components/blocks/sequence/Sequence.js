@@ -7,8 +7,8 @@ import SequenceControl from './sequenceControl/SequenceControl';
 class Sequence extends Component {
     render() {
         let {instrument, playedStep, toggleStep} = this.props;
-        return <div class="sequence">
-            <SequenceControl instrument={instrument}/>
+        return <div styleName="sequence">
+            <SequenceControl instrument={instrument} toggleInstrument={this.props.toggleInstrument}/>
             <SequenceEditor instrument={instrument}
                     playedStep={playedStep}
                     onToggleStep={toggleStep}/>
@@ -25,7 +25,8 @@ Sequence.propTypes = {
         })
     ),
     playedStep: PropTypes.number,
-    toggleStep: PropTypes.func
+    toggleStep: PropTypes.func,
+    toggleInstrument: PropTypes.func,
 };
 
 export default CSSModules(Sequence, styles, {allowMultiple: true});

@@ -5,7 +5,7 @@ import PlayButton from 'components/common/buttons/playButton/PlayButton';
 import Sequences from 'components/blocks/sequences/Sequences';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import {updatePlay} from 'modules/play';
-import {toggleStep} from 'modules/instruments';
+import {toggleStep, toggleInstrument} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
 
 class Sampler extends Component {
@@ -17,6 +17,7 @@ class Sampler extends Component {
                             onToggle={this.props.updatePlay}></PlayButton>
                 <Sequences instruments={this.props.instruments}
                             playedStep={this.props.playedStep}
+                            toggleInstrument={this.props.toggleInstrument}
                             onToggleStep={this.props.toggleStep}/>
             </div>
         ); 
@@ -36,13 +37,15 @@ Sampler.propTypes = {
     ),
     updatePlay: PropTypes.func,
     toggleStep: PropTypes.func,
-    updateBPM: PropTypes.func
+    updateBPM: PropTypes.func,
+    toggleInstrument: PropTypes.func
 };
 
 export default connect(mapStateToProps, {
     updatePlay,
     toggleStep,
-    updateBPM
+    updateBPM,
+    toggleInstrument
 })(Sampler);
 
 function mapStateToProps(state){
