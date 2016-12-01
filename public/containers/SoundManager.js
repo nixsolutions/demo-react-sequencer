@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
+import {updatePlayedStep} from 'modules/playedStep';
 
 class SoundManager extends Component {
     constructor(props, context){
@@ -57,7 +58,7 @@ class SoundManager extends Component {
     }
 
     stop(){
-        this.sequencer.stop(0);
+        this.sequencer.stop();
     }
 
     updateBPM(value){
@@ -102,6 +103,9 @@ class SoundManager extends Component {
 
                 sample.triggerAttackRelease(note);
             }
+    
+            let currentStepIndex = this.matrix.indexOf(step);
+            this.props.updatePlayedStep(currentStepIndex);
         }, matrix, "4n");
     }
 }
@@ -114,10 +118,13 @@ SoundManager.propTypes = {
         })
     ),
     play: PropTypes.bool,
-    bpm: PropTypes.number
+    bpm: PropTypes.number,
+    updatePlayedStep: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(SoundManager);
+export default connect(mapStateToProps, {
+    updatePlayedStep
+})(SoundManager);
 
 function mapStateToProps(state){
     return {
