@@ -114,6 +114,7 @@ class SoundManager extends Component {
 SoundManager.propTypes = {
     instruments: PropTypes.arrayOf(PropTypes.shape({
             name: PropTypes.string,
+            volume: PropTypes.number,
             path: PropTypes.string,
             active: PropTypes.bool,
             notes: PropTypes.array
