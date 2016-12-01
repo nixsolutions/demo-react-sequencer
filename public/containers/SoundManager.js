@@ -71,7 +71,7 @@ class SoundManager extends Component {
 
     loadSamples(instruments){
         return instruments.reduce((result, instrument) => {
-            result[instrument.path] = new Tone.Sampler(instrument.path).toMaster();
+            result[instrument.name] = new Tone.Sampler(instrument.path).toMaster();
             return result;
         }, {});
     }
@@ -88,7 +88,7 @@ class SoundManager extends Component {
 
                 if(note === undefined) {return;}
 
-                matrix[i][instrument.path] = note;
+                matrix[i][instrument.name] = note;
             });
 
             return matrix;
