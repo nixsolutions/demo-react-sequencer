@@ -10,7 +10,8 @@ class Sequence extends Component {
         return <div styleName="sequence">
             <div styleName="control-holder">
                 <SequenceControl instrument={instrument} 
-                            toggleInstrument={this.props.toggleInstrument}/>
+                            toggleInstrument={this.props.toggleInstrument}
+                            removeInstrument={this.props.removeInstrument}/>
             </div>
             <div>
                 <SequenceEditor instrument={instrument}
@@ -32,6 +33,7 @@ Sequence.propTypes = {
     playedStep: PropTypes.number,
     toggleStep: PropTypes.func,
     toggleInstrument: PropTypes.func,
+    removeInstrument: PropTypes.func,
 };
 
 export default CSSModules(Sequence, styles, {allowMultiple: true});

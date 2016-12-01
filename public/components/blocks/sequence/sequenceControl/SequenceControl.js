@@ -14,6 +14,8 @@ class SequenceControl extends Component {
                     title={muteText} 
                     onClick={this.props.toggleInstrument.bind(this, instrument)}></div>
                 <div styleName="name">{instrument.name}</div>
+                <div styleName="remove" 
+                    onClick={this.props.removeInstrument.bind(this, instrument)}>X</div>
             </div>
         );
     }
@@ -26,7 +28,8 @@ SequenceControl.propTypes = {
         active: PropTypes.bool,
         notes: PropTypes.array
     }),
-    toggleInstrument: PropTypes.func
+    toggleInstrument: PropTypes.func,
+    removeInstrument: PropTypes.func
 };
 
 export default CSSModules(SequenceControl, styles, {allowMultiple: true});

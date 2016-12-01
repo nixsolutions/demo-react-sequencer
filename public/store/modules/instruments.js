@@ -1,5 +1,6 @@
 export const UPDATE_INSTRUMENTS = 'UPDATE_INSTRUMENTS';
 export const TOGGLE_INSTRUMENT = 'TOGGLE_INSTRUMENT';
+export const REMOVE_INSTRUMENT = 'REMOVE_INSTRUMENT';
 export const TOGGLE_STEP = 'TOGGLE_STEP';
 
 const INIT = [
@@ -49,6 +50,8 @@ export default function instrumentsReducer(state = INIT, action){
 
                 return instrument;
             });
+        case REMOVE_INSTRUMENT:
+            return state.filter(instrument => instrument !== payload);
         default:
             return state;
     }
@@ -68,6 +71,13 @@ export function toggleStep(note, noteIndex, instrument){
 export function toggleInstrument(instrument){
     return {
         type: TOGGLE_INSTRUMENT,
+        payload: instrument
+    }
+}
+
+export function removeInstrument(instrument){
+    return {
+        type: REMOVE_INSTRUMENT,
         payload: instrument
     }
 }
