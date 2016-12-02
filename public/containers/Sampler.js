@@ -8,6 +8,7 @@ import Sequences from 'components/blocks/sequences/Sequences';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import Controller from 'components/common/controller/Controller';
 import Slider from 'components/common/slider/Slider';
+import Analyser from 'components/blocks/analyser/Analyser';
 import {updatePlay} from 'modules/play';
 import {toggleStep, toggleInstrument, removeInstrument, updateInstrumentVolume} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
@@ -16,6 +17,7 @@ class Sampler extends Component {
     render(){
         return (
             <div>
+                <Analyser analyser={this.props.analyser}/>
                 <Slider/>
                 <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                 <PlayButton active={this.props.play} 
@@ -70,5 +72,6 @@ function mapStateToProps(state){
         play: state.play,
         bpm: state.bpm,
         playedStep: state.playedStep,
+        analyser: state.analyser,
     };
 }
