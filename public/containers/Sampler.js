@@ -74,10 +74,7 @@ function mapStateToProps(state){
         play: state.play,
         bpm: state.bpm,
         playedStep: state.playedStep,
-<<<<<<< HEAD
-        volume: state.volume
-=======
-        analyser: state.analyser,
->>>>>>> master
+        volume: state.volume,
+        analyser: state.analyser
     };
 }
