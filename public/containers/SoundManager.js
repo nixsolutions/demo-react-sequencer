@@ -127,6 +127,8 @@ class SoundManager extends Component {
     }
 
     updateSequence(){
+        if(!this.sequencer) { return; }
+
         this.matrix.forEach((item, i) => {
             this.sequencer.at(i, item);
         });
