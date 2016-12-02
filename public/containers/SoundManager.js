@@ -31,6 +31,7 @@ class SoundManager extends Component {
 
         if (instruments !== this.props.instruments) {
             this.updateMatrix(instruments);
+            this.updateSequence();
             this.updateVolumes(instruments);
         }
 
@@ -92,7 +93,7 @@ class SoundManager extends Component {
     }
 
     getDecibels(volume){
-        return -50 + ((50 / 100) * volume);
+        return -40 + ((40 / 100) * volume);
     }
 
     createMatrix(instruments){
@@ -123,6 +124,12 @@ class SoundManager extends Component {
             let currentStepIndex = this.matrix.indexOf(step);
             this.props.updatePlayedStep(currentStepIndex);
         }, matrix, "8n");
+    }
+
+    updateSequence(){
+        this.matrix.forEach((item, i) => {
+            this.sequencer.at(i, item);
+        });
     }
 }
 
