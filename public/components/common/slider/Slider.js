@@ -5,7 +5,7 @@ import ReactSlider from 'react-slider';
 
 class Slider extends Component {
     render() {
-        return <ReactSlider  styleName="slider" defaultValue={70} {...this.props}>
+        return <ReactSlider  styleName="slider" {...this.props}>
                 <div styleName="handler"></div>
             </ReactSlider>
     }
