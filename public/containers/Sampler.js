@@ -11,12 +11,13 @@ import Slider from 'components/common/slider/Slider';
 import {updatePlay} from 'modules/play';
 import {toggleStep, toggleInstrument, removeInstrument, updateInstrumentVolume} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
+import {updateVolume} from 'modules/volume';
 
 class Sampler extends Component {
     render(){
         return (
             <div>
-                <Slider/>
+                <Slider  onChange={this.props.updateVolume}/>
                 <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                 <PlayButton active={this.props.play} 
                             onToggle={this.props.updatePlay}></PlayButton>
@@ -61,7 +62,8 @@ export default connect(mapStateToProps, {
     updateBPM,
     toggleInstrument,
     removeInstrument,
-    updateInstrumentVolume
+    updateInstrumentVolume,
+    updateVolume
 })(Sampler);
 
 function mapStateToProps(state){
@@ -70,5 +72,6 @@ function mapStateToProps(state){
         play: state.play,
         bpm: state.bpm,
         playedStep: state.playedStep,
+        volume: state.volume
     };
 }
