@@ -17,7 +17,7 @@ class Sampler extends Component {
     render(){
         return (
             <div>
-                <Slider  onChange={this.props.updateVolume}/>
+                <Slider value={this.props.volume} onChange={this.props.updateVolume}/>
                 <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                 <PlayButton active={this.props.play} 
                             onToggle={this.props.updatePlay}></PlayButton>
