@@ -1,0 +1,23 @@
+.slider{
+    position: relative;
+    width: 100px;
+    height: 20px;
+    display: block;
+
+    &:before{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: red;
+        margin: -2px 0 0;
+    }
+
+    .handler{
+        width: 10px;
+        height: 20px;
+        background: #000;
+    }
+}
