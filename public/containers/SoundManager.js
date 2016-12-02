@@ -31,6 +31,7 @@ class SoundManager extends Component {
 
         if (instruments !== this.props.instruments) {
             this.updateMatrix(instruments);
+            this.updateVolumes(instruments);
         }
 
         if (play !== this.props.play) {
@@ -48,6 +49,7 @@ class SoundManager extends Component {
         }
 
         this.updateSamples(instruments);
+        this.updateVolumes(instruments);
         this.updateMatrix(instruments);
         this.sequencer = this.createSequencer(this.matrix, this.samples);
 
@@ -78,6 +80,19 @@ class SoundManager extends Component {
 
     updateMatrix(instruments){
         this.matrix = this.createMatrix(instruments);
+    }
+
+    updateVolumes(instruments){
+        instruments.forEach(instrument => {
+            let sample = this.samples[instrument.name];
+            if(!sample) { return; }
+
+            sample.volume.value = this.getDecibels(instrument.volume);
+        })
+    }
+
+    getDecibels(volume){
+        return -50 + ((50 / 100) * volume);
     }
 
     createMatrix(instruments){
