@@ -1,19 +1,11 @@
+@import '~shared/variables.less';
+@import '~shared/mixins.less';
+
 .play-button {
-    width: 0px;
-    height: 0px;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 10px solid #000;
-    border-right: 0;
-    background: transparent;
-    vertical-align: top;
-    padding: 0;
-
-    &.active {
-      border-left-color: gray;  
-    }
-
-    &:hover {
-      cursor: pointer;
-    }
+    .button-1({
+      .corner(20px, 15px, @color-6);
+    }, 
+    {
+      border-left-color: @color-4;
+    });
 }

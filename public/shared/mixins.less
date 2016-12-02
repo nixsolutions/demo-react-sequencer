@@ -27,3 +27,46 @@
 .gradient-4{
     .gradient(@color-7, @color-6);
 }
+
+.corner(@width, @height, @color){
+    width: 0;
+    height: 0;
+    border-top: (@height / 2) solid transparent;
+    border-bottom: (@height / 2) solid transparent;
+    border-left: @width solid @color;
+    border-right: 0;
+    background: transparent;
+}
+
+.button-1(@content, @activeContent){
+    width: @size-3;
+    height: @size-1;
+    padding: 0;
+    border: 1px solid @color-6;
+    border-radius: @radius-2;
+    background: @color-11;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: @shadow-1;
+
+    &:before{
+        content: '';
+        display: block;
+        margin: 0 auto;
+        @content();
+    }
+
+    .active{
+        border-color: @color-4;
+        box-shadow:inset @shadow-1;
+        &:before{
+            @activeContent();
+        }
+    }
+
+    &:active, &.active{
+        .active();
+    }
+}

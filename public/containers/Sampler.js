@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
 import PlayButton from 'components/common/buttons/playButton/PlayButton';
+import PauseButton from 'components/common/buttons/pauseButton/PauseButton';
+import StopButton from 'components/common/buttons/stopButton/StopButton';
 import Sequences from 'components/blocks/sequences/Sequences';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import Controller from 'components/common/controller/Controller';
@@ -16,6 +18,10 @@ class Sampler extends Component {
                 <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                 <PlayButton active={this.props.play} 
                             onToggle={this.props.updatePlay}></PlayButton>
+                <PauseButton active={!this.props.play} 
+                            onToggle={this.props.updatePlay}></PauseButton>
+                <StopButton active={!this.props.play} 
+                            onToggle={this.props.updatePlay}></StopButton>
                 <Sequences instruments={this.props.instruments}
                             playedStep={this.props.playedStep}
                             toggleInstrument={this.props.toggleInstrument}
