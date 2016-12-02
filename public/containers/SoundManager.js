@@ -2,17 +2,20 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 import {updatePlayedStep} from 'modules/playedStep';
+import {updateAnalyser} from 'modules/analyser';
 
 class SoundManager extends Component {
     constructor(props, context){
         super(props, context);
 
         this.sequencer = null;
+        this.analyser = null;
         this.matrix = [];
         this.samples = {};
     }
 
     componentWillMount() {
+        this.initAnalyser();
         this.applyUpdates(this.props);
     }
 
@@ -133,6 +136,11 @@ class SoundManager extends Component {
             this.sequencer.at(i, item);
         });
     }
+
+    initAnalyser(){
+        this.analyser = new Tone.Analyser("fft", 32);
+        this.props.updateAnalyser(this.analyser);
+    }
 }
 
 SoundManager.propTypes = {
@@ -150,7 +158,8 @@ SoundManager.propTypes = {
 };
 
 export default connect(mapStateToProps, {
-    updatePlayedStep
+    updatePlayedStep,
+    updateAnalyser
 })(SoundManager);
 
 function mapStateToProps(state){
