@@ -4,15 +4,30 @@ import React, {Component, PropTypes} from 'react';
 import ReactSlider from 'react-slider';
 
 class Slider extends Component {
+    static defaultProps = {
+        width: 100,
+        height: 20
+    };
+
     render() {
-        return <ReactSlider  styleName="slider" {...this.props}>
-                <div styleName="handler"></div>
-            </ReactSlider>
+        let style = {
+            width: this.props.width,
+            height: this.props.height
+        };
+
+        let handlerStyle = {height: this.props.height};
+
+        return <div style={style}>
+                    <ReactSlider  styleName="slider" {...this.props}>
+                        <div styleName="handler" style={handlerStyle}></div>
+                    </ReactSlider>
+                </div>
     }
 }
 
 Slider.propTypes = {
-
+    width: PropTypes.number,
+    height: PropTypes.number
 };
 
 export default CSSModules(Slider, styles, {allowMultiple: true});
