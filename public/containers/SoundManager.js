@@ -58,7 +58,7 @@ class SoundManager extends Component {
         this.sequencer = this.createSequencer(this.matrix, this.samples);
 
         Tone.Buffer.on('load', () => {
-            Tone.Transport.start()
+            Tone.Transport.start();
             this.sequencer.start(0);
         });
     }
@@ -77,7 +77,7 @@ class SoundManager extends Component {
 
     loadSamples(instruments){
         return instruments.reduce((result, instrument) => {
-            result[instrument.name] = new Tone.Sampler(instrument.path).toMaster();
+            result[instrument.name] = new Tone.Sampler(instrument.path).fan(this.analyser).toMaster();
             return result;
         }, {});
     }
