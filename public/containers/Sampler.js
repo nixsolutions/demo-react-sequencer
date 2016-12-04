@@ -6,7 +6,6 @@ import PauseButton from 'components/common/buttons/pauseButton/PauseButton';
 import StopButton from 'components/common/buttons/stopButton/StopButton';
 import Sequences from 'components/blocks/sequences/Sequences';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
-import Controller from 'components/common/controller/Controller';
 import Slider from 'components/common/slider/Slider';
 import Analyser from 'components/blocks/analyser/Analyser';
 import {updatePlay} from 'modules/play';
