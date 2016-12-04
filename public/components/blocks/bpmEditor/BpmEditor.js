@@ -6,10 +6,11 @@ class BpmEditor extends Component {
     render() {
         return (
             <div styleName="bpm-editor">
-                <span styleName="title">BPM</span>
+                <span styleName="title">BPM </span>
                 <input type="text" 
                         onChange={this.onChange.bind(this)} 
                         value={this.props.value}
+                        maxLength="3"
                         ref="bpmInput"/>
             </div>
         );

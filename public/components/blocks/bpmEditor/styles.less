@@ -1,5 +1,21 @@
+@import '~shared/variables.less';
+@import '~shared/mixins.less';
+
 .bpm-editor{
+    font: @font-size-4/@size-1 'digets';
+
     .title{
         color: #000;
+    }
+
+    input{
+        .mono-area();
+        font: @font-size-3/@size-1 'digets';
+        border: 0;
+        margin: 0;
+        padding: 0 @padding-1;
+        text-align: center;
+        width: @size-1;
+        height: @size-1;
     }
 }
