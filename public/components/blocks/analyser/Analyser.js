@@ -3,32 +3,48 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 
 class Analyser extends Component {
+    static defaultProps = {
+        width: 100,
+        height: 30
+    };
+
     constructor(props, state){
         super(props, state);
     }
 
     componentDidMount(){
-        this.analyserContext = this.refs.canvas.getContext("2d")
+        this.analyserContext = this.refs.canvas.getContext("2d");
         this.loop();
     }
 
     render() {
-        return <div styleName="analyser"><canvas width="200" height="100" ref="canvas"></canvas></div>;
+        let style = {
+            width: this.props.width,
+            height: this.props.height
+        }
+
+        return <div styleName="analyser" style={style}>
+                    <canvas width={this.props.width}
+                            height={this.props.height}
+                            ref="canvas"></canvas>
+                </div>;
     }
 
     drawAnalyser(values){
-        let canvasWidth = 200;
-        let canvasHeight = 100;
+        let canvasWidth = this.props.width;
+        let canvasHeight = this.props.height;
 
         this.analyserContext.clearRect(0, 0, canvasWidth, canvasHeight);
-        var barWidth = canvasWidth / this.props.analyser.size;
-        for (var i = 0, len = values.length; i < len; i++){
-            var val = values[i] / 255;
-            var x = canvasWidth * (i / len);
-            var y = val * canvasHeight;
-            this.analyserContext.fillStyle = "rgba(0, 0, 0, " + val + ")";
+        let barWidth = canvasWidth / this.props.analyser.size;
+
+        values.forEach((value, i) => {
+            let saturation = value / 255;
+            let x = barWidth * i;
+            let y = saturation * canvasHeight;
+
+            this.analyserContext.fillStyle = `rgba(0, 0, 0, ${saturation})`;
             this.analyserContext.fillRect(x, canvasHeight - y, barWidth, canvasHeight);
-        }
+        });
     }
 
     loop(){
@@ -42,7 +58,9 @@ class Analyser extends Component {
 }
 
 Analyser.propTypes = {
-    analyser: PropTypes.object
+    analyser: PropTypes.object,
+    width: PropTypes.number,
+    height: PropTypes.number
 };
 
 export default CSSModules(Analyser, styles, {allowMultiple: true});
