@@ -3,9 +3,7 @@ import styles from './styles.less';
 import React, { Component, PropTypes } from 'react';
 
 class Controller extends Component {
-    static defaultProps() {
-        return { value: 0 };
-    }
+    static defaultProps = { value: 0 };
 
     constructor(props, state) {
         super(props, state);

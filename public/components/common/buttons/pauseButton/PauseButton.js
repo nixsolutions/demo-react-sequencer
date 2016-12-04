@@ -3,9 +3,7 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 
 class PauseButton extends Component {
-    static defaultProps() {
-        return { active: false };
-    }
+    static defaultProps = { active: false };
 
     render() {
         let styleName = ['pause-button', this.props.active ? 'active' : ''].join(' ');
