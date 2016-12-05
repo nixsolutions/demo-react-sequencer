@@ -17,13 +17,24 @@ class BpmEditor extends Component {
     }
 
     onChange(){
-        let value = parseInt(this.refs.bpmInput.value) || 1;
+        let parsedValue = parseInt(this.refs.bpmInput.value)
+        let value = isNaN(parsedValue) ? '' : parsedValue;
         this.props.onChange(value);
     }
 }
 
 BpmEditor.propTypes = {
-    value: PropTypes.number,
+    value: function(props, propName, componentName) {
+        let isNumber = typeof props[propName] === 'number';
+        let isEmptyString = props[propName] === '';
+
+        if (!isNumber && !isEmptyString)  {
+            return new Error(
+                'Invalid prop `' + propName + '` supplied to' +
+                ' `' + componentName + '`. Validation failed.'
+            );
+        }
+    },
     onChange: PropTypes.func
 };
 

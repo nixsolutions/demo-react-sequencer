@@ -42,7 +42,17 @@ class Sampler extends Component {
 
 Sampler.propTypes = {
     play: PropTypes.string,
-    bpm: PropTypes.number,
+    bpm: function(props, propName, componentName) {
+        let isNumber = typeof props[propName] === 'number';
+        let isEmptyString = props[propName] === '';
+debugger
+        if (!isNumber && !isEmptyString)  {
+            return new Error(
+                'Invalid prop `' + propName + '` supplied to' +
+                ' `' + componentName + '`. Validation failed.'
+            );
+        }
+    },
     playedStep: PropTypes.number,
     instruments: PropTypes.arrayOf(PropTypes.shape({
             name: PropTypes.string,

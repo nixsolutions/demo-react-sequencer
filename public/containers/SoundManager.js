@@ -89,7 +89,7 @@ class SoundManager extends Component {
     }
 
     updateBPM(value){
-        Tone.Transport.bpm.value = value;
+        Tone.Transport.bpm.value = value || 1;
     }
 
     updateSamples(instruments){
@@ -179,7 +179,17 @@ SoundManager.propTypes = {
         })
     ),
     play: PropTypes.string,
-    bpm: PropTypes.number,
+    bpm: function(props, propName, componentName) {
+        let isNumber = typeof props[propName] === 'number';
+        let isEmptyString = props[propName] === '';
+
+        if (!isNumber && !isEmptyString)  {
+            return new Error(
+                'Invalid prop `' + propName + '` supplied to' +
+                ' `' + componentName + '`. Validation failed.'
+            );
+        }
+    },
     volume: PropTypes.number,
     updatePlayedStep: PropTypes.func,
 };
