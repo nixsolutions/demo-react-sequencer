@@ -3,30 +3,10 @@ export const TOGGLE_INSTRUMENT = 'TOGGLE_INSTRUMENT';
 export const REMOVE_INSTRUMENT = 'REMOVE_INSTRUMENT';
 export const TOGGLE_STEP = 'TOGGLE_STEP';
 export const UPDATE_INSTRUMENT_VOLUME = 'UPDATE_INSTRUMENT_VOLUME';
+export const ADD_INSTRUMENT = 'ADD_INSTRUMENT';
 
-const INIT = [
-    {
-        name: 'kick',
-        volume: 60,
-        active: true,
-        path: './samples/hip-hop_kick.wav',
-        notes: [0, 0, undefined, undefined,  undefined, 0, undefined, undefined]
-    },
-    {
-        name: 'hip-hop_snare',
-        active: true,
-        volume: 36,
-        path: './samples/hip-hop_snare.wav',
-        notes: [undefined, undefined, undefined, 0, undefined, undefined, undefined, 0]
-    },
-    {
-        name: 'hi-hat',
-        active: true,
-        volume: 96,
-        path: './samples/techno_hi-hat.wav',
-        notes: [0, 0, 0, 0, 0, 0, 0, 0]
-    }
-];
+const DEFAULT_INSTRUMENT_VOLUME = 70;
+const INIT = [];
 
 export default function instrumentsReducer(state = INIT, action){
     let {payload} = action;
@@ -36,7 +16,7 @@ export default function instrumentsReducer(state = INIT, action){
             return payload;
         case TOGGLE_STEP:
             return state.map(instrument => {
-                if(instrument.path === payload.path){
+                if(instrument.name === payload.name){
                     let notes = [...instrument.notes];
 
                     notes[payload.noteIndex] = payload.noteValue;
@@ -46,6 +26,15 @@ export default function instrumentsReducer(state = INIT, action){
 
                 return instrument;
             });
+        case ADD_INSTRUMENT:
+            let newInstrument = {
+                name: payload.name,
+                path: payload.path,
+                notes: createDefaultSteps(payload.stepsAmount),
+                active: true,
+                volume: DEFAULT_INSTRUMENT_VOLUME
+            }
+            return [...state, newInstrument];
         case TOGGLE_INSTRUMENT:
             return state.map(instrument => {
                 if(instrument === payload){
@@ -69,11 +58,41 @@ export default function instrumentsReducer(state = INIT, action){
     }
 }
 
+function createDefaultSteps(stepsAmount){
+    let steps = [];
+    for(let i = 0; i < stepsAmount; i++, steps.push(undefined));
+    return steps;
+}
+
+function checkIfInstrumentWithNameExists(instrumentName, instruments){
+    return instruments.some(instrument => instrument.name === instrumentName);
+}
+
+function modifyInstrumentName(instrumentName, index){
+    return `${instrumentName}${index}`;
+}
+
+function defineInstrumentName(initialInstrumentName, instruments){
+    if(!checkIfInstrumentWithNameExists(initialInstrumentName, instruments)){
+        return initialInstrumentName;
+    }
+
+    let i = 1;
+    let instrumentName = initialInstrumentName;
+
+    while(checkIfInstrumentWithNameExists(instrumentName, instruments)){
+        instrumentName = modifyInstrumentName(initialInstrumentName, i);
+        i++;
+    }
+
+    return instrumentName;
+}
+
 export function toggleStep(note, noteIndex, instrument){
     return {
         type: TOGGLE_STEP,
         payload: {
-            path: instrument.path,
+            name: instrument.name,
             noteValue: note === undefined ? 0 : undefined,
             noteIndex
         }
@@ -91,6 +110,17 @@ export function removeInstrument(instrument){
     return {
         type: REMOVE_INSTRUMENT,
         payload: instrument
+    }
+}
+
+export function addInstrument(instrument){
+    return function(dispatch, getState){
+        let {stepsAmount, instruments} = getState();
+
+        dispatch({
+            type: ADD_INSTRUMENT,
+            payload: {...instrument, stepsAmount, name: defineInstrumentName(instrument.name, instruments)}
+        });
     }
 }
 
