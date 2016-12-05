@@ -9,7 +9,7 @@ import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import Slider from 'components/common/slider/Slider';
 import Analyser from 'components/blocks/analyser/Analyser';
 import {updatePlay} from 'modules/play';
-import {toggleStep, toggleInstrument, removeInstrument, updateInstrumentVolume} from 'modules/instruments';
+import {toggleStep, toggleInstrument, addInstrument, removeInstrument, updateInstrumentVolume} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
 
@@ -31,8 +31,8 @@ class SequencesManager extends Component {
                             updateInstrumentVolume={this.props.updateInstrumentVolume}
                             onToggleStep={this.props.toggleStep}/>
                 <div styleName="add-holder">
-                    <Dropdown items={[{title: 'item1', value: '1213123'}, {title: 'item2', value: 'ruvi'}]} 
-                        onSelect={function(value){ console.log(value)}} 
+                    <Dropdown items={this.props.dropdownItems} 
+                        onSelect={this.props.addInstrument} 
                         title="Add instrument"/>
                 </div>
             </div>
@@ -71,22 +71,29 @@ SequencesManager.propTypes = {
 };
 
 export default connect(mapStateToProps, {
-    updatePlay,
-    toggleStep,
-    updateBPM,
-    toggleInstrument,
-    removeInstrument,
-    updateInstrumentVolume,
-    updateVolume
-})(CSSModules(SequencesManager, styles));
+        updatePlay,
+        toggleStep,
+        updateBPM,
+        toggleInstrument,
+        removeInstrument,
+        updateInstrumentVolume,
+        updateVolume,
+        addInstrument
+    })(CSSModules(SequencesManager, styles));
 
 function mapStateToProps(state){
     return {
         instruments: state.instruments,
+        instrumentsSet: state.instrumentsSet,
+        dropdownItems: instrumentsSetToDropdownItems(state.instrumentsSet),
         play: state.play,
         bpm: state.bpm,
         playedStep: state.playedStep,
         volume: state.volume,
         analyser: state.analyser
     };
+}
+
+function instrumentsSetToDropdownItems(instrumentsSet){
+    return instrumentsSet.map(item => ({title: item.name, value: item}));
 }
