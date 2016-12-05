@@ -1,9 +1,12 @@
+import CSSModules from 'react-css-modules';
+import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
 import PlayButton from 'components/common/buttons/playButton/PlayButton';
 import PauseButton from 'components/common/buttons/pauseButton/PauseButton';
 import StopButton from 'components/common/buttons/stopButton/StopButton';
+import Dropdown from 'components/common/dropdown/Dropdown';
 import Sequences from 'components/blocks/sequences/Sequences';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import Slider from 'components/common/slider/Slider';
@@ -34,6 +37,11 @@ class SequencesManager extends Component {
                             removeInstrument={this.props.removeInstrument}
                             updateInstrumentVolume={this.props.updateInstrumentVolume}
                             onToggleStep={this.props.toggleStep}/>
+                <div styleName="add-holder">
+                    <Dropdown items={[{title: 'item1', value: '1213123'}, {title: 'item2', value: 'ruvi'}]} 
+                        onSelect={function(value){ console.log(value)}} 
+                        title="Add instrument"/>
+                </div>
             </div>
         ); 
     }
@@ -77,7 +85,7 @@ export default connect(mapStateToProps, {
     removeInstrument,
     updateInstrumentVolume,
     updateVolume
-})(SequencesManager);
+})(CSSModules(SequencesManager, styles));
 
 function mapStateToProps(state){
     return {
