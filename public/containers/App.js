@@ -2,7 +2,7 @@ import 'shared/reset.less';
 import 'shared/layouts.less';
 import React, { Component } from 'react';
 import SoundManager from 'containers/SoundManager';
-import Sampler from 'containers/Sampler';
+import SequencesManager from 'containers/SequencesManager';
 import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
 
@@ -15,7 +15,7 @@ export default class App extends Component {
 
           </DashboardBlock>
           <DashboardBlock>
-            <Sampler/>
+            <SequencesManager/>
           </DashboardBlock>
           <DashboardBlock>
             

@@ -13,7 +13,7 @@ import {toggleStep, toggleInstrument, removeInstrument, updateInstrumentVolume} 
 import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
 
-class Sampler extends Component {
+class SequencesManager extends Component {
     render(){
         return (
             <div>
@@ -39,7 +39,7 @@ class Sampler extends Component {
     }
 }
 
-Sampler.propTypes = {
+SequencesManager.propTypes = {
     play: PropTypes.string,
     bpm: function(props, propName, componentName) {
         let isNumber = typeof props[propName] === 'number';
@@ -77,7 +77,7 @@ export default connect(mapStateToProps, {
     removeInstrument,
     updateInstrumentVolume,
     updateVolume
-})(Sampler);
+})(SequencesManager);
 
 function mapStateToProps(state){
     return {
