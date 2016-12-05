@@ -8,16 +8,21 @@ import StopButton from 'components/common/buttons/stopButton/StopButton';
 class PlayControls extends Component {
     render() {
         return (
-            <div>
-                <PlayButton active={this.props.playState === 'play'}
-                            disabled={this.props.playState === 'play'}
+            <ul styleName="play-controls">
+                <li>
+                    <PlayButton active={this.props.playState === 'play'}
                             onClick={this.props.updatePlay}></PlayButton>
-                <PauseButton active={this.props.playState === 'pause'}
+                </li>
+                <li>
+                    <PauseButton active={this.props.playState === 'pause'}
                             onClick={this.props.updatePlay}></PauseButton>
-                <StopButton active={this.props.playState === 'stop'}
+                </li>
+                <li>
+                    <StopButton active={this.props.playState === 'stop'}
                             disabled={this.props.playState === 'stop'}
                             onClick={this.props.updatePlay}></StopButton>
-            </div>
+                </li>
+            </ul>
         )
     }
 };

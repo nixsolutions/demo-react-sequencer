@@ -1,3 +1,5 @@
+import CSSModules from 'react-css-modules';
+import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 
@@ -14,12 +16,10 @@ import {updateVolume} from 'modules/volume';
 class PanelControls extends Component {
     render() {
         return (
-                <div>
-                    <PlayControls updatePlay={this.props.updatePlay}
-                                  playState={this.props.play}
-                    />
-                    <Analyser analyser={this.props.analyser}/>
+                <div styleName="panel-controls">
+                    <PlayControls updatePlay={this.props.updatePlay} playState={this.props.play}/>
                     <Slider value={this.props.volume} onChange={this.props.updateVolume}/>
+                    <Analyser analyser={this.props.analyser}/>
                     <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                  </div>
         )
@@ -49,7 +49,7 @@ export default connect(mapStateToProps, {
     updatePlay,
     updateBPM,
     updateVolume
-})(PanelControls);
+})(CSSModules(PanelControls, styles));
 
 function mapStateToProps(state){
     return {

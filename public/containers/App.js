@@ -5,7 +5,7 @@ import SoundManager from 'containers/SoundManager';
 import SequencesManager from 'containers/sequencesManager/SequencesManager';
 import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
-import PanelControls from 'containers/PanelControls';
+import PanelControls from 'containers/panelControls/PanelControls';
 
 export default class App extends Component {
   render() {
