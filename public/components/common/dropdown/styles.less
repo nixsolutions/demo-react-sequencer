@@ -1,0 +1,70 @@
+@import "~shared/variables.less";
+@import "~shared/mixins.less";
+
+.dropdown{
+    text-align: center;
+    font-size: @font-size-1;
+    line-height: @size-2;
+    color: @color-1;
+    position: relative;
+    z-index: 100;
+    border-radius: @radius-1;
+
+    .common{
+        border-radius: @radius-2;
+        background: @color-4;
+        border: 1px solid @color-6;
+    }
+
+    &-list{
+        .common();
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        list-style: none;
+        border-radius: 0 0 @radius-2 @radius-2;
+        background: @color-7;
+
+        &>li{
+            border-top: 1px solid @color-6;
+            cursor: pointer;
+
+            &:hover{
+                background: @color-2;
+            }
+
+            &:first-child{
+                border-top: 0;
+            }
+        }
+
+    }
+
+    &-trigger-area{
+        .common();
+        color: @color-1;
+        display: block;
+        text-decoration: none;
+        overflow: hidden;
+
+        &:hover{
+            background: @color-7;
+        }
+    }
+
+    &.active{
+        .dropdown-list{
+            display: block;
+        }
+
+        .dropdown-trigger-area{
+            background: @color-7;
+            border-radius: @radius-2 @radius-2 0 0;
+        }
+    }
+}
