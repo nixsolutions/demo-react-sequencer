@@ -3,11 +3,7 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'components/common/dropdown/Dropdown';
-import PlayControls from 'components/blocks/playControls/PlayControls';
 import Sequences from 'components/blocks/sequences/Sequences';
-import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
-import Slider from 'components/common/slider/Slider';
-import Analyser from 'components/blocks/analyser/Analyser';
 import {updatePlay} from 'modules/play';
 import {toggleStep, toggleInstrument, addInstrument, removeInstrument, updateInstrumentVolume} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
@@ -17,13 +13,6 @@ class SequencesManager extends Component {
     render(){
         return (
             <div>
-                <PlayControls updatePlay={this.props.updatePlay}
-                              playState={this.props.play}
-                
-                 />
-                <Analyser analyser={this.props.analyser}/>
-                <Slider value={this.props.volume} onChange={this.props.updateVolume}/>
-                <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                 <Sequences instruments={this.props.instruments}
                             playedStep={this.props.playedStep}
                             toggleInstrument={this.props.toggleInstrument}
@@ -71,15 +60,13 @@ SequencesManager.propTypes = {
 };
 
 export default connect(mapStateToProps, {
-        updatePlay,
-        toggleStep,
-        updateBPM,
-        toggleInstrument,
-        removeInstrument,
-        updateInstrumentVolume,
-        updateVolume,
-        addInstrument
-    })(CSSModules(SequencesManager, styles));
+    updatePlay,
+    toggleStep,
+    toggleInstrument,
+    removeInstrument,
+    updateInstrumentVolume,
+    addInstrument
+})(CSSModules(SequencesManager, styles));
 
 function mapStateToProps(state){
     return {
