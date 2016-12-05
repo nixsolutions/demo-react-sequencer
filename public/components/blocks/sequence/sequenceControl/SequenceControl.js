@@ -15,7 +15,7 @@ class SequenceControl extends Component {
                     title={muteText} 
                     onClick={this.props.toggleInstrument.bind(this, instrument)}></div>
                 <div styleName="instrument-block">
-                    <div styleName="name">{instrument.name}</div>
+                    <div styleName="name" title={instrument.name}>{instrument.name}</div>
                     <div styleName="controller">
                         <Controller size="25" value={instrument.volume} onChange={this.updateInstrumentVolume.bind(this, instrument)}/>
                     </div>
