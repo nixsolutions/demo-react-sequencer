@@ -20,12 +20,15 @@ class Sampler extends Component {
                 <Analyser analyser={this.props.analyser}/>
                 <Slider value={this.props.volume} onChange={this.props.updateVolume}/>
                 <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
-                <PlayButton active={this.props.play} 
-                            onToggle={this.props.updatePlay}></PlayButton>
-                <PauseButton active={!this.props.play} 
-                            onToggle={this.props.updatePlay}></PauseButton>
-                <StopButton active={!this.props.play} 
-                            onToggle={this.props.updatePlay}></StopButton>
+                <PlayButton active={this.props.play === 'play'}
+                            disabled={this.props.play === 'play'}
+                            onClick={this.props.updatePlay}></PlayButton>
+                <PauseButton active={this.props.play === 'pause'}
+                            disabled={this.props.play === 'pause'}
+                            onClick={this.props.updatePlay}></PauseButton>
+                <StopButton active={this.props.play === 'stop'}
+                            disabled={this.props.play === 'stop'}
+                            onClick={this.props.updatePlay}></StopButton>
                 <Sequences instruments={this.props.instruments}
                             playedStep={this.props.playedStep}
                             toggleInstrument={this.props.toggleInstrument}
@@ -38,7 +41,7 @@ class Sampler extends Component {
 }
 
 Sampler.propTypes = {
-    play: PropTypes.bool,
+    play: PropTypes.string,
     bpm: PropTypes.number,
     playedStep: PropTypes.number,
     instruments: PropTypes.arrayOf(PropTypes.shape({

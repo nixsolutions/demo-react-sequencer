@@ -1,6 +1,6 @@
 export const UPDATE_PLAY = 'UPDATE_PLAY';
 
-const INIT = false;
+const INIT = 'stop';
 
 export default function playReducer(state = INIT, action){
     switch(action.type){

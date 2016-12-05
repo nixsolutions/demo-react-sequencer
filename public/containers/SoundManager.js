@@ -48,7 +48,17 @@ class SoundManager extends Component {
     }
 
     togglePlay(instruments, state){
-        state ? this.play(instruments) : this.stop(instruments)
+        switch(state){
+            case 'play':
+                this.play(instruments);
+                break;
+            case 'pause':
+                this.pause();
+                break;
+            case 'stop':
+                this.stop();
+                break;
+        }
     }
 
     play(instruments){
@@ -67,8 +77,15 @@ class SoundManager extends Component {
         });
     }
 
-    stop(){
+    pause(){
+        Tone.Transport.pause();
         this.sequencer.stop();
+    }
+
+    stop(){
+        Tone.Transport.stop();
+        this.sequencer.stop();
+        this.props.updatePlayedStep(-1);
     }
 
     updateBPM(value){
@@ -161,7 +178,7 @@ SoundManager.propTypes = {
             notes: PropTypes.array
         })
     ),
-    play: PropTypes.bool,
+    play: PropTypes.string,
     bpm: PropTypes.number,
     volume: PropTypes.number,
     updatePlayedStep: PropTypes.func,

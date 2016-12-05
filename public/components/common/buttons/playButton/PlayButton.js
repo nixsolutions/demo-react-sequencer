@@ -6,20 +6,25 @@ class PlayButton extends Component {
     static defaultProps = { active: false };
 
     render() {
-        let styleName = ['play-button', this.props.active ? 'active' : ''].join(' ');
+        let activeClass = this.props.active ? 'active' : '';
+        let styleName = ['play-button', activeClass].join(' ');
+
         return <button {...this.props} 
                         styleName={styleName}
-                        onClick={this.onClick.bind(this)}>{this.props.children}</button>
+                        onClick={this.onClick.bind(this)}
+                        disabled={this.props.disabled}>{this.props.children}</button>
     }
 
     onClick(){
-        this.props.onToggle && this.props.onToggle(!this.props.active);
+        this.props.onClick && this.props.onClick('play');
     }
 }
 
 PlayButton.propTypes = {
     children: PropTypes.node,
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
 };
 
 export default CSSModules(PlayButton, styles, {allowMultiple: true});

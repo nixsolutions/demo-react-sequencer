@@ -6,14 +6,25 @@ class StopButton extends Component {
     static defaultProps = { active: false };
 
     render() {
-        let styleName = ['stop-button', this.props.active ? 'active' : ''].join(' ');
-        return <button {...this.props} styleName={styleName}>{this.props.children}</button>
+        let activeClass = this.props.active ? 'active' : '';
+        let styleName = ['stop-button', activeClass].join(' ');
+
+        return <button {...this.props} 
+                        styleName={styleName}
+                        onClick={this.onClick.bind(this)}
+                        disabled={this.props.disabled}>{this.props.children}</button>
+    }
+
+    onClick(){
+        this.props.onClick && this.props.onClick('stop');
     }
 }
 
 StopButton.propTypes = {
     children: PropTypes.node,
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
 };
 
 export default CSSModules(StopButton, styles, {allowMultiple: true});
