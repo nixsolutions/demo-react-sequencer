@@ -16,7 +16,8 @@ class PauseButton extends Component {
     }
 
     onClick(){
-        this.props.onClick && this.props.onClick('pause');
+        let value = this.props.active ? 'play' : 'pause';
+        this.props.onClick && this.props.onClick(value);
     }
 }
 

@@ -24,7 +24,6 @@ class Sampler extends Component {
                             disabled={this.props.play === 'play'}
                             onClick={this.props.updatePlay}></PlayButton>
                 <PauseButton active={this.props.play === 'pause'}
-                            disabled={this.props.play === 'pause'}
                             onClick={this.props.updatePlay}></PauseButton>
                 <StopButton active={this.props.play === 'stop'}
                             disabled={this.props.play === 'stop'}
