@@ -44,7 +44,7 @@ Sampler.propTypes = {
     bpm: function(props, propName, componentName) {
         let isNumber = typeof props[propName] === 'number';
         let isEmptyString = props[propName] === '';
-debugger
+
         if (!isNumber && !isEmptyString)  {
             return new Error(
                 'Invalid prop `' + propName + '` supplied to' +
