@@ -26,7 +26,7 @@ class SoundManager extends Component {
     render(){ return <div></div>; }
 
     applyUpdates(nextProps){
-        let {instruments, play, bpm} = nextProps;
+        let {instruments, play, bpm, volume} = nextProps;
 
         if (bpm !== this.props.bpm) {
             this.updateBPM(bpm);
@@ -40,6 +40,10 @@ class SoundManager extends Component {
 
         if (play !== this.props.play) {
             this.togglePlay(instruments, play);
+        }
+
+        if (volume !== this.props.volume) {
+            this.updateMasterVolume(volume);
         }
     }
 
@@ -93,6 +97,11 @@ class SoundManager extends Component {
 
             sample.volume.value = this.getDecibels(instrument.volume);
         })
+    }
+
+
+    updateMasterVolume(volumePercents){
+        Tone.Master.volume.value = this.getDecibels(volumePercents);
     }
 
     getDecibels(volume){
@@ -154,6 +163,7 @@ SoundManager.propTypes = {
     ),
     play: PropTypes.bool,
     bpm: PropTypes.number,
+    volume: PropTypes.number,
     updatePlayedStep: PropTypes.func,
 };
 
@@ -166,6 +176,7 @@ function mapStateToProps(state){
     return {
         instruments: state.instruments,
         play: state.play,
-        bpm: state.bpm
+        bpm: state.bpm,
+        volume: state.volume,
     };
 }
