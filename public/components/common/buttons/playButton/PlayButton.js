@@ -16,7 +16,8 @@ class PlayButton extends Component {
     }
 
     onClick(){
-        this.props.onClick && this.props.onClick('play');
+        let value = this.props.active ? 'pause' : 'play';
+        this.props.onClick && this.props.onClick(value);
     }
 }
 
