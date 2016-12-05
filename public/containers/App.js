@@ -12,7 +12,6 @@ export default class App extends Component {
       <div>
         <Dashboard>
           <DashboardBlock>
-
           </DashboardBlock>
           <DashboardBlock>
             <SequencesManager/>

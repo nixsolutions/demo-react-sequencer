@@ -2,11 +2,8 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
-
-import PlayButton from 'components/common/buttons/playButton/PlayButton';
-import PauseButton from 'components/common/buttons/pauseButton/PauseButton';
-import StopButton from 'components/common/buttons/stopButton/StopButton';
 import Dropdown from 'components/common/dropdown/Dropdown';
+import PlayControls from 'components/blocks/playControls/PlayControls';
 import Sequences from 'components/blocks/sequences/Sequences';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import Slider from 'components/common/slider/Slider';
@@ -20,17 +17,13 @@ class SequencesManager extends Component {
     render(){
         return (
             <div>
+                <PlayControls updatePlay={this.props.updatePlay}
+                              playState={this.props.play}
+                
+                 />
                 <Analyser analyser={this.props.analyser}/>
                 <Slider value={this.props.volume} onChange={this.props.updateVolume}/>
                 <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
-                <PlayButton active={this.props.play === 'play'}
-                            disabled={this.props.play === 'play'}
-                            onClick={this.props.updatePlay}></PlayButton>
-                <PauseButton active={this.props.play === 'pause'}
-                            onClick={this.props.updatePlay}></PauseButton>
-                <StopButton active={this.props.play === 'stop'}
-                            disabled={this.props.play === 'stop'}
-                            onClick={this.props.updatePlay}></StopButton>
                 <Sequences instruments={this.props.instruments}
                             playedStep={this.props.playedStep}
                             toggleInstrument={this.props.toggleInstrument}
