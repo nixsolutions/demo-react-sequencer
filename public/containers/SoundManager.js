@@ -105,21 +105,11 @@ class SoundManager extends Component {
         this.matrix = this.createMatrix(instruments);
     }
 
-    updateVolumes(instruments){
-        instruments.forEach(instrument => {
-            let sample = this.samples[instrument.name];
-            if(!sample) { return; }
-
-            sample.volume.value = this.getDecibels(instrument.volume);
-        })
-    }
-
-
     updateMasterVolume(volumePercents){
-        Tone.Master.volume.value = this.getDecibels(volumePercents);
+        Tone.Master.volume.value = this.toDecibels(volumePercents);
     }
 
-    getDecibels(volume){
+    toDecibels(volume){
         return -40 + ((40 / 100) * volume);
     }
 
@@ -139,18 +129,19 @@ class SoundManager extends Component {
         }, []);
     }
 
-    createSequencer(matrix, samples){
-        return new Tone.Sequence((time, step) => {
+    createSequencer(){
+        this.sequencer = new Tone.Sequence((time, step) => {
             for(let key in step){
-                let sample = samples[key];
-                let note = step[key];
+                let {note, path, volume} = step[key];
+                let sample = this.samples[path];
+                let processedVolume = volume / 100;
 
-                sample.triggerAttackRelease(note);
+                sample.triggerAttackRelease(note, undefined, undefined, processedVolume);
             }
     
             let currentStepIndex = this.matrix.indexOf(step);
             this.props.updatePlayedStep(currentStepIndex);
-        }, matrix, "16n");
+        }, this.matrix, "16n");
     }
 
     updateSequence(){
