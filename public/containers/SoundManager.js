@@ -205,5 +205,6 @@ function mapStateToProps(state){
         play: state.play,
         bpm: state.bpm,
         volume: state.volume,
+        volume: state.volume,
     };
 }

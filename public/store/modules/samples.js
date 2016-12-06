@@ -1,4 +1,4 @@
-export const ADD_INSTRUMENTS_TO_SET = 'ADD_INSTRUMENTS_TO_SET';
+export const ADD_SAMPLES = 'ADD_SAMPLES';
 
 const INIT = [
     {
@@ -15,18 +15,18 @@ const INIT = [
     }
 ];
 
-export default function instrumentsSetReducer(state = INIT, action){
+export default function samplesReducer(state = INIT, action){
     switch(action.type){
-        case ADD_INSTRUMENTS_TO_SET:
+        case ADD_SAMPLES:
             return [...state, ...action.payload];
         default:
             return state;
     }
 }
 
-export function addInstrumentsToSet(value){
+export function addSamples(value){
     return {
-        type: ADD_INSTRUMENTS_TO_SET,
+        type: ADD_SAMPLES,
         payload: value
     }
 }

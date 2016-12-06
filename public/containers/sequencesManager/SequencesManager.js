@@ -71,8 +71,8 @@ export default connect(mapStateToProps, {
 function mapStateToProps(state){
     return {
         instruments: state.instruments,
-        instrumentsSet: state.instrumentsSet,
-        dropdownItems: instrumentsSetToDropdownItems(state.instrumentsSet),
+        samples: state.samples,
+        dropdownItems: samplesToDropdownItems(state.samples),
         play: state.play,
         bpm: state.bpm,
         playedStep: state.playedStep,
@@ -81,6 +81,6 @@ function mapStateToProps(state){
     };
 }
 
-function instrumentsSetToDropdownItems(instrumentsSet){
-    return instrumentsSet.map(item => ({title: item.name, value: item}));
+function samplesToDropdownItems(samples){
+    return samples.map(item => ({title: item.name, value: item}));
 }
