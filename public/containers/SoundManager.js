@@ -16,7 +16,10 @@ class SoundManager extends Component {
 
     componentWillMount() {
         this.initAnalyser();
+        this.loadSamples(this.props.samples);
         this.applyUpdates(this.props);
+
+        Tone.Buffer.on('load', () => Tone.Transport.start());
     }
 
     componentWillReceiveProps(nextProps) {
@@ -35,7 +38,6 @@ class SoundManager extends Component {
         if (instruments !== this.props.instruments) {
             this.updateMatrix(instruments);
             this.updateSequence();
-            this.updateVolumes(instruments);
         }
 
         if (play !== this.props.play) {
@@ -92,13 +94,9 @@ class SoundManager extends Component {
         Tone.Transport.bpm.value = value || 1;
     }
 
-    updateSamples(instruments){
-        this.samples = this.loadSamples(instruments);
-    }
-
-    loadSamples(instruments){
-        return instruments.reduce((result, instrument) => {
-            result[instrument.name] = new Tone.Sampler(instrument.path).fan(this.analyser).toMaster();
+    loadSamples(samples){
+        this.samples = samples.reduce((result, sample) => {
+            result[sample.path] = new Tone.Sampler(sample.path).fan(this.analyser).toMaster();
             return result;
         }, {});
     }
@@ -206,5 +204,6 @@ function mapStateToProps(state){
         bpm: state.bpm,
         volume: state.volume,
         volume: state.volume,
+        samples: state.samples,
     };
 }
