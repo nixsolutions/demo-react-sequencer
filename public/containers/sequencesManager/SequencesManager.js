@@ -8,17 +8,20 @@ import {updatePlay} from 'modules/play';
 import {toggleStep, toggleInstrument, addInstrument, removeInstrument, updateInstrumentVolume} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
+import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
 class SequencesManager extends Component {
     render(){
         return (
-            <div>
+            <div> 
+            <ScrollableBlock>
                 <Sequences instruments={this.props.instruments}
                             playedStep={this.props.playedStep}
                             toggleInstrument={this.props.toggleInstrument}
                             removeInstrument={this.props.removeInstrument}
                             updateInstrumentVolume={this.props.updateInstrumentVolume}
                             onToggleStep={this.props.toggleStep}/>
+            </ScrollableBlock>
                 <div styleName="add-holder">
                     <Dropdown items={this.props.dropdownItems} 
                         onSelect={this.props.addInstrument} 

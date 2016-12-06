@@ -5,9 +5,6 @@ import SoundManager from 'containers/SoundManager';
 import SequencesManager from 'containers/sequencesManager/SequencesManager';
 import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
-import PanelControls from 'containers/PanelControls';
-import SequencesManager from 'containers/SequencesManager';
-import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 import PanelControls from 'containers/panelControls/PanelControls';
 
 export default class App extends Component {
@@ -19,12 +16,7 @@ export default class App extends Component {
             <PanelControls />
           </DashboardBlock>
           <DashboardBlock>
-            <ScrollableBlock>
               <SequencesManager />
-              <SequencesManager />
-              <SequencesManager />
-              <SequencesManager />
-            </ScrollableBlock>
           </DashboardBlock>
           <DashboardBlock>
           </DashboardBlock>
