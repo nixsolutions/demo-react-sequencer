@@ -45,6 +45,7 @@
     "file-loader": "^0.9.0",
     "react": "^0.14.6",
     "react-css-modules": "^4.1.0",
+    "react-custom-scrollbars": "^4.0.0",
     "react-dom": "^0.14.6",
     "react-redux": "^4.4.6",
     "react-simple-dropdown": "^1.1.5",

@@ -16,7 +16,7 @@ export default class App extends Component {
             <PanelControls />
           </DashboardBlock>
           <DashboardBlock>
-            <SequencesManager />
+              <SequencesManager />
           </DashboardBlock>
           <DashboardBlock>
           </DashboardBlock>
