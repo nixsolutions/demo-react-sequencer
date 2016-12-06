@@ -14,14 +14,14 @@ class SequencesManager extends Component {
     render(){
         return (
             <div> 
-            <ScrollableBlock>
-                <Sequences instruments={this.props.instruments}
-                            playedStep={this.props.playedStep}
-                            toggleInstrument={this.props.toggleInstrument}
-                            removeInstrument={this.props.removeInstrument}
-                            updateInstrumentVolume={this.props.updateInstrumentVolume}
-                            onToggleStep={this.props.toggleStep}/>
-            </ScrollableBlock>
+                <ScrollableBlock>
+                    <Sequences instruments={this.props.instruments}
+                                playedStep={this.props.playedStep}
+                                toggleInstrument={this.props.toggleInstrument}
+                                removeInstrument={this.props.removeInstrument}
+                                updateInstrumentVolume={this.props.updateInstrumentVolume}
+                                onToggleStep={this.props.toggleStep}/>
+                </ScrollableBlock>
                 <div styleName="add-holder">
                     <Dropdown items={this.props.dropdownItems} 
                         onSelect={this.props.addInstrument} 
