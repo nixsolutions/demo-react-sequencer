@@ -18,7 +18,7 @@ class Octave extends Component {
         return <ul styleName="octave">{keys}</ul>
     }
 
-    onKeyClick(e, note){
+    onKeyClick(note, e){
         this.props.onKeyPress && this.props.onKeyPress(note);
     }
 };
