@@ -6,6 +6,7 @@ import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
 import PanelControls from 'containers/PanelControls';
 import SequencesManager from 'containers/SequencesManager';
+import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
 export default class App extends Component {
   render() {
@@ -16,7 +17,12 @@ export default class App extends Component {
             <PanelControls />
           </DashboardBlock>
           <DashboardBlock>
-            <SequencesManager />
+            <ScrollableBlock>
+              <SequencesManager />
+              <SequencesManager />
+              <SequencesManager />
+              <SequencesManager />
+            </ScrollableBlock>
           </DashboardBlock>
           <DashboardBlock>
           </DashboardBlock>
