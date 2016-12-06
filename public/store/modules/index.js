@@ -5,6 +5,7 @@ import playedStep from './playedStep';
 import volume from './volume';
 import analyser from './analyser';
 import stepsAmount from './stepsAmount';
+import samples from './samples';
 
 export default {
     bpm,
@@ -13,5 +14,6 @@ export default {
     playedStep,
     volume,
     analyser,
-    stepsAmount
+    stepsAmount,
+    samples
 };
