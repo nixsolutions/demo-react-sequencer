@@ -1,0 +1,52 @@
+@import '~shared/variables.less';
+@import '~shared/mixins.less';
+
+.octave{
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    height: 200px;
+
+    .note{
+        background: @color-1;
+        flex: 1;
+        box-shadow: inset @shadow-3;
+        cursor: pointer;
+
+        &:not(.semitone):active{
+            box-shadow: inset @shadow-4;
+        }
+
+        &.semitone{
+            flex: 0;
+            height: 70%;
+            position: relative;
+
+            @width: @size-1;
+            
+            &:before{
+                content: '';
+                position: absolute;
+                width: @width;
+                margin: 0 0 0 -(@width / 2);
+                height: 100%;
+                .gradient-6();
+                display: block;
+                border-left: @padding-1 solid @color-6;
+                border-right: @padding-1 solid @color-6;
+                border-bottom: @padding-2 solid @color-14;
+            }
+
+            &:active{
+                &:before{
+                    padding-top: @padding-1;
+                    border-bottom-width: @padding-1;
+                    .gradient-7();
+                }
+            }
+        }
+    }
+}
