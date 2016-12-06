@@ -1,7 +1,5 @@
 import { Scrollbars } from 'react-custom-scrollbars';
 import React, {Component, PropTypes} from 'react';
-import CSSModules from 'react-css-modules';
-import styles from './styles.less';
 
 class ScrollableBlock extends Component {
   render() {
@@ -21,4 +19,4 @@ class ScrollableBlock extends Component {
   }
 };
  
-export default CSSModules(ScrollableBlock, styles, {allowMultiple: true});
+export default ScrollableBlock;
