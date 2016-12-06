@@ -17,6 +17,7 @@ class SoundManager extends Component {
     componentWillMount() {
         this.initAnalyser();
         this.loadSamples(this.props.samples);
+        this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
 
         Tone.Buffer.on('load', () => Tone.Transport.start());
@@ -26,7 +27,7 @@ class SoundManager extends Component {
         this.applyUpdates(nextProps);
     }
 
-    render(){ return <div></div>; }
+    render(){ return <div></div> }
 
     applyUpdates(nextProps){
         let {instruments, play, bpm, volume} = nextProps;
@@ -63,30 +64,17 @@ class SoundManager extends Component {
         }
     }
 
-    play(instruments){
-        if(!instruments){
-            throw new Error('Matrix doesn\'t exist');
-        }
-
-        this.updateSamples(instruments);
-        this.updateVolumes(instruments);
-        this.updateMatrix(instruments);
-        this.sequencer = this.createSequencer(this.matrix, this.samples);
-
-        Tone.Buffer.on('load', () => {
-            Tone.Transport.start();
-            this.sequencer.start(0);
-        });
+    play(){
+        Tone.Transport.start();
+        this.sequencer.start();
     }
 
     pause(){
         Tone.Transport.pause();
-        this.sequencer.stop();
     }
 
     stop(){
         Tone.Transport.stop();
-        this.sequencer.stop();
         this.props.updatePlayedStep(-1);
     }
 
@@ -119,10 +107,11 @@ class SoundManager extends Component {
             instrument.notes.forEach((note, i) => {
                 matrix[i] = matrix[i] || {};
 
-                if(note === undefined) {return;}
-                if(!instrument.active) {return;}
+                if((note === undefined) || !instrument.active) { return; }
 
-                matrix[i][instrument.name] = note;
+                let {volume, path} = instrument;
+
+                matrix[i][instrument.path] = {note, volume, path};
             });
 
             return matrix;
@@ -141,14 +130,19 @@ class SoundManager extends Component {
     
             let currentStepIndex = this.matrix.indexOf(step);
             this.props.updatePlayedStep(currentStepIndex);
-        }, this.matrix, "16n");
+        }, [], "16n");
+
+        this.sequencer.loopStart = '0m';
+        this.sequencer.loopEnd = '1m';
     }
 
     updateSequence(){
         if(!this.sequencer) { return; }
 
+        this.sequencer.removeAll();
+
         this.matrix.forEach((item, i) => {
-            this.sequencer.at(i, item);
+            this.sequencer.add(i, item);
         });
     }
 
@@ -193,7 +187,6 @@ function mapStateToProps(state){
         instruments: state.instruments,
         play: state.play,
         bpm: state.bpm,
-        volume: state.volume,
         volume: state.volume,
         samples: state.samples,
     };
