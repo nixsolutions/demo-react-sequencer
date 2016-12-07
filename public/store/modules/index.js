@@ -8,6 +8,7 @@ import stepsAmount from './stepsAmount';
 import samples from './samples';
 import loadingState from './loadingState';
 import playedNotes from './playedNotes';
+import bindings from './bindings';
 
 export default {
     bpm,
@@ -19,5 +20,6 @@ export default {
     stepsAmount,
     samples,
     loadingState,
-    playedNotes
+    playedNotes,
+    bindings
 };
