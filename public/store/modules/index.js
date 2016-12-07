@@ -6,6 +6,7 @@ import volume from './volume';
 import analyser from './analyser';
 import stepsAmount from './stepsAmount';
 import samples from './samples';
+import loadingState from './loadingState';
 
 export default {
     bpm,
@@ -15,5 +16,6 @@ export default {
     volume,
     analyser,
     stepsAmount,
-    samples
+    samples,
+    loadingState
 };
