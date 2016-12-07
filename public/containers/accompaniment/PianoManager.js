@@ -45,7 +45,7 @@ class PianoManager extends Component {
     }
 
     attackNote(note){
-        let sample = new Tone.Sampler(this.buffer).toMaster();
+        let sample = new Tone.Sampler(this.buffer).fan(this.props.analyser).toMaster();
         let pitch = noteToPitch(note);
 
         this.playedNotes[note] = sample;
@@ -69,6 +69,7 @@ export default connect(mapStateToProps, {
 
 function mapStateToProps(state){
      return {
-        playedNotes: state.playedNotes
+        playedNotes: state.playedNotes,
+        analyser: state.analyser
     };
 }
