@@ -1,0 +1,28 @@
+@import '~shared/variables.less';
+
+.spinner{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    background: @color-1;
+    opacity: @opacity-2;
+    display: none;
+    align-items: center;
+
+    &.active{
+       display: flex; 
+    }
+
+    &:before{
+        content: '';
+        display: block;
+        width: @spinner-size;
+        height: @spinner-size;
+        margin: 0 auto;
+        background: @spinner-background;
+        background-size: cover
+    }
+}
