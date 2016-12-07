@@ -11,7 +11,7 @@ class Octave extends Component {
             let isSemitone = note.indexOf('#') !== -1;
             let cssClass = ['note', isSemitone ? 'semitone' : ''].join(' ');
             let value = `${note}${this.props.number}`;
-console.log(this.props.keys)
+
             this.props.bindToKey({
                 keyCode: this.props.keys[i],
                 down: this.onMouseDown.bind(this, value),
