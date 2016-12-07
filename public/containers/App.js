@@ -1,12 +1,13 @@
 import 'shared/reset.less';
 import 'shared/layouts.less';
 import React, { Component } from 'react';
-import SoundManager from 'containers/SoundManager';
-import SequencesManager from 'containers/sequencesManager/SequencesManager';
 import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
-import Piano from 'components/blocks/piano/Piano';
+import SamplerManager from 'containers/SamplerManager';
+import Accompaniment from 'containers/accompaniment/Accompaniment';
+import SequencesManager from 'containers/sequencesManager/SequencesManager';
 import PanelControls from 'containers/panelControls/PanelControls';
+import KeyboardNavigation from 'containers/KeyboardNavigation';
 import Spinner from 'components/common/spinner/Spinner';
 import {connect} from 'react-redux';
 
@@ -22,10 +23,11 @@ class App extends Component {
             <SequencesManager/>
           </DashboardBlock>
           <DashboardBlock>
-            <Piano/>
+            <Accompaniment/>
           </DashboardBlock>
         </Dashboard>
-        <SoundManager/>
+        <SamplerManager/>
+        <KeyboardNavigation/>
         <Spinner active={this.props.loadingState}/>
       </div>
     );
