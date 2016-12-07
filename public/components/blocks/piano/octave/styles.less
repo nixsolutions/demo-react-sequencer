@@ -25,18 +25,22 @@
             height: 70%;
             position: relative;
 
-            @width: @size-1;
+            @width: @size-1 / 2;
             
             &:before{
+                @border-width: @padding-1;
+                @border: @border-width solid @color-6;
+                @full-width: @width + (@border-width * 2);
+
                 content: '';
                 position: absolute;
                 width: @width;
-                margin: 0 0 0 -(@width / 2);
+                margin: 0 0 0 -(@full-width / 2);
                 height: 100%;
                 .gradient-6();
                 display: block;
-                border-left: @padding-1 solid @color-6;
-                border-right: @padding-1 solid @color-6;
+                border-left: @border;
+                border-right: @border;
                 border-bottom: @padding-2 solid @color-14;
             }
 

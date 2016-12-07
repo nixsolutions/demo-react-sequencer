@@ -1,24 +1,35 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
+import {
+    OCTAVE_NOTES,
+    noteToPitch
+} from 'utils/notes';
 
 import React, {Component, PropTypes} from 'react';
+import Tone from 'tone';
 
 class Octave extends Component {
-    render() {
-        let notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    componentWillMount(){
+        this.sample = new Tone.Sampler('./samples/piano.wav').toMaster();
+    }
 
-        let keys = notes.map(note => {
+    render() {
+        let keys = OCTAVE_NOTES.map(note => {
             let isSemitone = note.indexOf('#') !== -1;
             let cssClass = ['note', isSemitone ? 'semitone' : ''].join(' ');
             let value = `${note}${this.props.number}`;
 
-            return <li key={note} styleName={cssClass} onClick={this.onKeyClick.bind(this, value)}></li>  
+            return <li key={note} styleName={cssClass} onMouseDown={this.onKeyClick.bind(this, value)}></li>  
         });
 
         return <ul styleName="octave">{keys}</ul>
     }
 
     onKeyClick(note, e){
+        let pitch = noteToPitch(note);
+
+        this.sample.triggerAttackRelease(pitch);
+
         this.props.onKeyPress && this.props.onKeyPress(note);
     }
 };
