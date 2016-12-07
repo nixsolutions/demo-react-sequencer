@@ -7,24 +7,29 @@ import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
 import Piano from 'components/blocks/piano/Piano';
 import PanelControls from 'containers/panelControls/PanelControls';
+import Spinner from 'components/common/spinner/Spinner';
+import {connect} from 'react-redux';
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <div>
         <Dashboard>
           <DashboardBlock>
-            <PanelControls />
+            <PanelControls/>
           </DashboardBlock>
           <DashboardBlock>
-            <SequencesManager />
+            <SequencesManager/>
           </DashboardBlock>
           <DashboardBlock>
             <Piano/>
           </DashboardBlock>
         </Dashboard>
         <SoundManager/>
+        <Spinner active={this.props.loadingState}/>
       </div>
     );
   }
 }
+
+export default connect(state => ({loadingState: state.loadingState}))(App);

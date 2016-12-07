@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Tone from 'tone';
 import {updatePlayedStep} from 'modules/playedStep';
 import {updateAnalyser} from 'modules/analyser';
+import {updateLoadingState} from 'modules/loadingState';
 
 class SoundManager extends Component {
     constructor(props, context){
@@ -20,7 +21,10 @@ class SoundManager extends Component {
         this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
 
-        Tone.Buffer.on('load', () => Tone.Transport.start());
+        Tone.Buffer.on('load', () => {
+            this.props.updateLoadingState(false);
+            Tone.Transport.start()
+        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -83,6 +87,8 @@ class SoundManager extends Component {
     }
 
     loadSamples(samples){
+        this.props.updateLoadingState(true);
+    
         this.samples = samples.reduce((result, sample) => {
             result[sample.path] = new Tone.Sampler(sample.path).fan(this.analyser).toMaster();
             return result;
@@ -175,11 +181,13 @@ SoundManager.propTypes = {
     },
     volume: PropTypes.number,
     updatePlayedStep: PropTypes.func,
+    updateLoadingState: PropTypes.func,
 };
 
 export default connect(mapStateToProps, {
     updatePlayedStep,
-    updateAnalyser
+    updateAnalyser,
+    updateLoadingState
 })(SoundManager);
 
 function mapStateToProps(state){
