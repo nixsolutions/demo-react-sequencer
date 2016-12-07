@@ -51,6 +51,7 @@ module.exports = {
             middleware: path.join(__dirname, '/public/middleware'),
             modules: path.join(__dirname, '/public/store/modules'),
             shared: path.join(__dirname, '/public/shared'),
+            utils: path.join(__dirname, '/public/utils'),
         },
         extensions: ['', '.js', '.less']
     }
