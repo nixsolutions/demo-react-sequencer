@@ -6,9 +6,26 @@ import Octave from './octave/Octave';
 
 class Piano extends Component {
     render() {
+        const OCTAVES = [2, 3, 4];
+        let items = OCTAVES.map(octave => {
+            return <li key={octave}>
+                    <Octave number={octave} 
+                        onKeyDown={this.onKeyDown.bind(this)} 
+                        onKeyUp={this.onKeyUp.bind(this)}/>
+                    </li>
+        });
+
         return <div styleName="piano">
-                    <Octave number={3} onKeyPress={note => console.log(note) }/>
-                </div>
+                <ul styleName="octaves">{items}</ul>
+            </div>
+    }
+
+    onKeyDown(note){
+
+    }
+
+    onKeyUp(note){
+
     }
 };
 
