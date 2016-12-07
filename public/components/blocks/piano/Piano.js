@@ -3,8 +3,16 @@ import styles from './styles.less';
 
 import React, {Component, PropTypes} from 'react';
 import Octave from './octave/Octave';
+import Tone from 'tone';
+import {
+    noteToPitch
+} from 'utils/notes';
 
 class Piano extends Component {
+    componentWillMount(){
+        this.sample = new Tone.Sampler('./samples/piano.wav').toMaster();
+    }
+
     render() {
         const OCTAVES = [2, 3, 4];
         let items = OCTAVES.map(octave => {
@@ -21,11 +29,13 @@ class Piano extends Component {
     }
 
     onKeyDown(note){
+        let pitch = noteToPitch(note);
 
+        this.sample.triggerAttack(pitch);
     }
 
     onKeyUp(note){
-
+        this.sample.triggerRelease();
     }
 };
 
