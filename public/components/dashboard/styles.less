@@ -1,14 +1,16 @@
+@import '~shared/variables.less';
+
 .dashboard {
     position: relative;
-    border: 3px solid #000;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    background: url(/images/bg05.jpg);
+    padding: @padding-4;
+    box-shadow: @shadow-2;
+    background: @background-1;
+    width: @dashboard-size;
 
 
     &:before {
-        @offset: 5px;
-        border: 1px solid #000;
+        @offset: @padding-2;
+        border: 1px solid @color-6;
         content: "";
         position: absolute;
         top: @offset;
@@ -18,7 +20,7 @@
     }
 
     &> *{
-        margin-bottom: 10px;
+        margin-bottom: @padding-2;
 
         &:last-child{
             margin-bottom: 0;
