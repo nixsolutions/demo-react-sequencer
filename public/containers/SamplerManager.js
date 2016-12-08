@@ -21,6 +21,7 @@ class SoundManager extends Component {
         this.loadSamples(this.props.samples);
         this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
+        this.updateBPM(this.props.bpm);
 
         Tone.Buffer.on('load', () => {
             this.props.updateLoadingState(false);
