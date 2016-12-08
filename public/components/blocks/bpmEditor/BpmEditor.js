@@ -9,6 +9,7 @@ class BpmEditor extends Component {
                 <span styleName="title">BPM </span>
                 <input type="text" 
                         onChange={this.onChange.bind(this)} 
+                        onKeyDown={this.onKeyDown} 
                         value={this.props.value}
                         maxLength="3"
                         ref="bpmInput"/>
@@ -16,10 +17,20 @@ class BpmEditor extends Component {
         );
     }
 
-    onChange(){
-        let parsedValue = parseInt(this.refs.bpmInput.value)
-        let value = isNaN(parsedValue) ? '' : parsedValue;
-        this.props.onChange(value);
+    onKeyDown(e){
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
+    onChange(e){
+        let value = this.refs.bpmInput.value;
+
+        if(isNaN(Number(value)) && value !== ''){
+            return false;
+        }
+
+        let processedValue = (value !== '') ? Number(value) : '';
+
+        this.props.onChange(processedValue);
     }
 }
 
