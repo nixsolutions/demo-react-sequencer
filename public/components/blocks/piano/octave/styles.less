@@ -16,7 +16,7 @@
         box-shadow: inset @shadow-3;
         cursor: pointer;
 
-        &:not(.semitone):active{
+        &:not(.semitone).active{
             box-shadow: inset @shadow-4;
         }
 
@@ -44,7 +44,7 @@
                 border-bottom: @padding-2 solid @color-14;
             }
 
-            &:active{
+            &.active{
                 &:before{
                     padding-top: @padding-1;
                     border-bottom-width: @padding-1;

@@ -8,20 +8,37 @@ import {
 class Octave extends Component {
     render() {
         let keys = OCTAVE_NOTES.map((note, i) => {
-            let isSemitone = note.indexOf('#') !== -1;
-            let cssClass = ['note', isSemitone ? 'semitone' : ''].join(' ');
             let value = `${note}${this.props.number}`;
+            let isSemitone = note.indexOf('#') !== -1;
+            let semitoneClass = isSemitone ? 'semitone' : '';
+            let activeClass = this.props.styles['active'];
+            let cssClass = ['note', semitoneClass].join(' ');
+
+            let onMouseDown = (e) => {
+                let el = this.refs[value];
+                
+                el.classList.add(activeClass);
+                this.onMouseDown(value, e);
+            };
+
+            let onMouseUp = (e) => {
+                let el = this.refs[value];
+               
+                el.classList.remove(activeClass);
+                this.onMouseUp(value, e);
+            };
 
             this.props.bindToKey({
                 keyCode: this.props.keys[i],
-                down: this.onMouseDown.bind(this, value),
-                up: this.onMouseUp.bind(this, value),
+                down: onMouseDown,
+                up: onMouseUp,
             });
 
             return <li key={note} 
                     styleName={cssClass} 
-                    onMouseDown={this.onMouseDown.bind(this, value)} 
-                    onMouseUp={this.onMouseUp.bind(this, value)}></li>  
+                    onMouseDown={onMouseDown} 
+                    onMouseUp={onMouseUp}
+                    ref={value}></li>  
         });
 
         return <ul styleName="octave">{keys}</ul>
