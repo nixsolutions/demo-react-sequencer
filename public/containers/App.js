@@ -8,6 +8,7 @@ import Accompaniment from 'containers/accompaniment/Accompaniment';
 import SequencesManager from 'containers/sequencesManager/SequencesManager';
 import PanelControls from 'containers/panelControls/PanelControls';
 import KeyboardNavigation from 'containers/KeyboardNavigation';
+import Master from 'containers/Master';
 import Spinner from 'components/common/spinner/Spinner';
 import {connect} from 'react-redux';
 
@@ -26,6 +27,7 @@ class App extends Component {
             <Accompaniment/>
           </DashboardBlock>
         </Dashboard>
+        <Master/>
         <SamplerManager/>
         <KeyboardNavigation/>
         <Spinner active={this.props.loadingState}/>

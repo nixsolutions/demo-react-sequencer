@@ -2,31 +2,22 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 import {updatePlayedStep} from 'modules/playedStep';
-import {updateAnalyser} from 'modules/analyser';
 import {updateLoadingState} from 'modules/loadingState';
-import {volumeToDecibels} from 'utils/notes';
 
 class SamplerManager extends Component {
     constructor(props, context){
         super(props, context);
 
         this.sequencer = null;
-        this.analyser = null;
         this.matrix = [];
         this.samples = {};
     }
 
     componentWillMount() {
-        this.initAnalyser();
         this.loadSamples(this.props.samples);
         this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
         this.updateBPM(this.props.bpm);
-
-        Tone.Buffer.on('load', () => {
-            this.props.updateLoadingState(false);
-            Tone.Transport.start()
-        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,10 +40,6 @@ class SamplerManager extends Component {
 
         if (play !== this.props.play) {
             this.togglePlay(instruments, play);
-        }
-
-        if (volume !== this.props.volume) {
-            this.updateMasterVolume(volume);
         }
     }
 
@@ -101,10 +88,6 @@ class SamplerManager extends Component {
         this.matrix = this.createMatrix(instruments);
     }
 
-    updateMasterVolume(volumePercents){
-        Tone.Master.volume.value = volumeToDecibels(volumePercents);
-    }
-
     createMatrix(instruments){
         return instruments.reduce((matrix, instrument) => {
 
@@ -149,12 +132,6 @@ class SamplerManager extends Component {
             this.sequencer.add(i, item);
         });
     }
-
-    initAnalyser(){
-        this.analyser = new Tone.Analyser("fft", 32);
-        this.props.updateAnalyser(this.analyser);
-        Tone.Master.fan(this.analyser);
-    }
 }
 
 SamplerManager.propTypes = {
@@ -178,14 +155,12 @@ SamplerManager.propTypes = {
             );
         }
     },
-    volume: PropTypes.number,
     updatePlayedStep: PropTypes.func,
     updateLoadingState: PropTypes.func,
 };
 
 export default connect(mapStateToProps, {
     updatePlayedStep,
-    updateAnalyser,
     updateLoadingState
 })(SamplerManager);
 
@@ -194,7 +169,6 @@ function mapStateToProps(state){
         instruments: state.instruments,
         play: state.play,
         bpm: state.bpm,
-        volume: state.volume,
         samples: state.samples,
     };
 }
