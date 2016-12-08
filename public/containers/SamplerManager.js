@@ -6,7 +6,7 @@ import {updateAnalyser} from 'modules/analyser';
 import {updateLoadingState} from 'modules/loadingState';
 import {volumeToDecibels} from 'utils/notes';
 
-class SoundManager extends Component {
+class SamplerManager extends Component {
     constructor(props, context){
         super(props, context);
 
@@ -92,7 +92,7 @@ class SoundManager extends Component {
         this.props.updateLoadingState(true);
     
         this.samples = samples.reduce((result, sample) => {
-            result[sample.path] = new Tone.Sampler(sample.path).fan(this.analyser).toMaster();
+            result[sample.path] = new Tone.Sampler(sample.path).toMaster();
             return result;
         }, {});
     }
@@ -153,10 +153,11 @@ class SoundManager extends Component {
     initAnalyser(){
         this.analyser = new Tone.Analyser("fft", 32);
         this.props.updateAnalyser(this.analyser);
+        Tone.Master.fan(this.analyser);
     }
 }
 
-SoundManager.propTypes = {
+SamplerManager.propTypes = {
     instruments: PropTypes.arrayOf(PropTypes.shape({
             name: PropTypes.string,
             volume: PropTypes.number,
@@ -186,7 +187,7 @@ export default connect(mapStateToProps, {
     updatePlayedStep,
     updateAnalyser,
     updateLoadingState
-})(SoundManager);
+})(SamplerManager);
 
 function mapStateToProps(state){
     return {
