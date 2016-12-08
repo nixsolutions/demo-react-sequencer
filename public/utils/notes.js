@@ -26,3 +26,7 @@ export let getFrequencyOfNote = note => {
 
     return 440 * Math.pow(2, (key_number - 49) / 12);
 }
+
+export let volumeToDecibels = volume => {
+        return -40 + ((40 / 100) * volume);
+    }
