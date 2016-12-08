@@ -4,6 +4,7 @@ import Tone from 'tone';
 import {updatePlayedStep} from 'modules/playedStep';
 import {updateAnalyser} from 'modules/analyser';
 import {updateLoadingState} from 'modules/loadingState';
+import {volumeToDecibels} from 'utils/notes';
 
 class SoundManager extends Component {
     constructor(props, context){
@@ -100,11 +101,7 @@ class SoundManager extends Component {
     }
 
     updateMasterVolume(volumePercents){
-        Tone.Master.volume.value = this.toDecibels(volumePercents);
-    }
-
-    toDecibels(volume){
-        return -40 + ((40 / 100) * volume);
+        Tone.Master.volume.value = volumeToDecibels(volumePercents);
     }
 
     createMatrix(instruments){
