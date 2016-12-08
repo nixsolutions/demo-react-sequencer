@@ -10,6 +10,7 @@ import loadingState from './loadingState';
 import playedNotes from './playedNotes';
 import bindings from './bindings';
 import pianoVolume from './pianoVolume';
+import accompanimentInstrument from './accompanimentInstrument';
 
 export default {
     bpm,
@@ -23,5 +24,6 @@ export default {
     loadingState,
     playedNotes,
     bindings,
-    pianoVolume
+    pianoVolume,
+    accompanimentInstrument
 };
