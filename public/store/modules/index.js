@@ -9,6 +9,7 @@ import samples from './samples';
 import loadingState from './loadingState';
 import playedNotes from './playedNotes';
 import bindings from './bindings';
+import pianoVolume from './pianoVolume';
 
 export default {
     bpm,
@@ -21,5 +22,6 @@ export default {
     samples,
     loadingState,
     playedNotes,
-    bindings
+    bindings,
+    pianoVolume
 };
