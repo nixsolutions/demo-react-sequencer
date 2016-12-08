@@ -4,11 +4,13 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Piano from 'components/blocks/piano/Piano';
 import Controller from 'components/common/controller/Controller';
+import Dropdown from 'components/common/dropdown/Dropdown';
 import VerticalControls, {VerticalItem} from 'components/common/verticalControls/VerticalControls';
 import PianoManager from './PianoManager';
 import Tone from 'tone';
 import {addPlayedNote, removePlayedNote} from 'modules/playedNotes';
 import {updatePianoVolume} from 'modules/pianoVolume';
+import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 import {bindToKey} from 'modules/bindings';
 
 class Accompaniment extends Component {
@@ -30,6 +32,11 @@ class Accompaniment extends Component {
                         bindToKey={this.props.bindToKey}/>
                     <PianoManager/>
                 </div>
+                <div styleName="selection-holder">
+                    <Dropdown title={this.props.accompanimentInstrument.name || 'Select instrument'}
+                            onSelect={this.props.updateAccompanimentInstrument} 
+                            items={this.props.dropdownItems}/>
+                </div>
             </div>
         </div> 
     }
@@ -40,17 +47,26 @@ Accompaniment.propTypes = {
     removePlayedNote: PropTypes.func,
     bindToKey: PropTypes.func,
     updatePianoVolume: PropTypes.func,
+    updateAccompanimentInstrument: PropTypes.func,
+    pianoVolume: PropTypes.number,
 };
 
 export default connect(mapStateToProps, {
     addPlayedNote,
     removePlayedNote,
     bindToKey,
-    updatePianoVolume
+    updatePianoVolume,
+    updateAccompanimentInstrument
 })(CSSModules(Accompaniment, styles));
 
 function mapStateToProps(state){
     return {
-       pianoVolume: state.pianoVolume
+       pianoVolume: state.pianoVolume,
+       dropdownItems: samplesToDropdownItems(state.samples),
+       accompanimentInstrument: state.accompanimentInstrument
     };
+}
+
+function samplesToDropdownItems(samples){
+    return samples.map(item => ({title: item.name, value: item}));
 }

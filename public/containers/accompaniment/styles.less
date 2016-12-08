@@ -1,6 +1,7 @@
 @import '~shared/variables.less';
 
 .section-holder{
+    position: relative;
     display: flex;
     height: 100%;
 
@@ -10,5 +11,13 @@
 
     .instrument-holder{
         flex: 1;
+    }
+
+    .selection-holder{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: @size-10;
+        margin: @padding-2
     }
 }

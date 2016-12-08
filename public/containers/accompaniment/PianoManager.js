@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 import { noteToPitch, volumeToDecibels} from 'utils/notes';
+import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
+import {updateLoadingState} from 'modules/loadingState';
 
 class PianoManager extends Component {
     constructor(props, state){
@@ -12,14 +14,18 @@ class PianoManager extends Component {
     }
 
     componentWillMount(){
-        this.buffer = new Tone.Buffer('./samples/piano.wav');
+        this.initInstrument();
     }
 
     componentWillReceiveProps(props){
-        let {playedNotes} = props;
+        let {playedNotes, accompanimentInstrument} = props;
 
         if(playedNotes !== this.props.playedNotes){
             this.updatePlayedNotes(playedNotes);
+        }
+
+        if(accompanimentInstrument !== this.props.accompanimentInstrument){
+            this.updateBuffer(accompanimentInstrument);
         }
     }
 
@@ -56,6 +62,18 @@ class PianoManager extends Component {
         this.playedNotes[note].triggerRelease();
         delete this.playedNotes[note];
     }
+
+    initInstrument(){
+        this.props.updateAccompanimentInstrument(this.props.samples[0]);
+    }
+
+    updateBuffer(accompanimentInstrument){
+        let {path} = accompanimentInstrument;
+        if(!path){ return; }
+
+        this.props.updateLoadingState(true);
+        this.buffer = new Tone.Buffer(path);
+    }
 }
 
 PianoManager.propTypes = {
@@ -63,13 +81,16 @@ PianoManager.propTypes = {
 };
 
 export default connect(mapStateToProps, {
-    
+    updateLoadingState,
+    updateAccompanimentInstrument
 })(PianoManager);
 
 function mapStateToProps(state){
      return {
+        samples: state.samples,
         playedNotes: state.playedNotes,
         analyser: state.analyser,
-        pianoVolume: state.pianoVolume
+        pianoVolume: state.pianoVolume,
+        accompanimentInstrument: state.accompanimentInstrument,
     };
 }
