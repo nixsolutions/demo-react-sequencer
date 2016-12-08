@@ -2,6 +2,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import Dropdown, {DropdownTrigger, DropdownContent} from 'react-simple-dropdown';
+import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
 class DropdownComponent extends Component {
     constructor (props, state) {
@@ -21,7 +22,11 @@ class DropdownComponent extends Component {
                         onShow={this.onShow.bind(this)} 
                         onHide={this.onHide.bind(this)} ref="dropdown">
                     <DropdownTrigger styleName="dropdown-trigger-area">{this.props.title}</DropdownTrigger>
-                    <DropdownContent>{content}</DropdownContent>
+                    <DropdownContent>
+                        <div styleName="holder">
+                            <ScrollableBlock autoHeightMax={122}>{content}</ScrollableBlock>
+                        </div>
+                    </DropdownContent>
                 </Dropdown>
     }
 
