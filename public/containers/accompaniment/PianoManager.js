@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
-import {
-    noteToPitch
-} from 'utils/notes';
+import { noteToPitch, volumeToDecibels} from 'utils/notes';
 
 class PianoManager extends Component {
     constructor(props, state){
@@ -50,6 +48,7 @@ class PianoManager extends Component {
 
         this.playedNotes[note] = sample;
 
+        sample.volume.value = volumeToDecibels(this.props.pianoVolume);
         sample.triggerAttack(pitch);
     }
 
@@ -70,6 +69,7 @@ export default connect(mapStateToProps, {
 function mapStateToProps(state){
      return {
         playedNotes: state.playedNotes,
-        analyser: state.analyser
+        analyser: state.analyser,
+        pianoVolume: state.pianoVolume
     };
 }

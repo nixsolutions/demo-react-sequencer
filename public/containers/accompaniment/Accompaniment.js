@@ -8,6 +8,7 @@ import VerticalControls, {VerticalItem} from 'components/common/verticalControls
 import PianoManager from './PianoManager';
 import Tone from 'tone';
 import {addPlayedNote, removePlayedNote} from 'modules/playedNotes';
+import {updatePianoVolume} from 'modules/pianoVolume';
 import {bindToKey} from 'modules/bindings';
 
 class Accompaniment extends Component {
@@ -17,7 +18,9 @@ class Accompaniment extends Component {
                 <div styleName="controls-holder">
                     <VerticalControls>
                         <VerticalItem label="volume"> 
-                            <Controller size="30"/>
+                            <Controller size="30" 
+                                onChange={this.props.updatePianoVolume}
+                                value={this.props.pianoVolume}/>
                         </VerticalItem>
                     </VerticalControls>
                 </div>
@@ -36,16 +39,18 @@ Accompaniment.propTypes = {
     addPlayedNote: PropTypes.func,
     removePlayedNote: PropTypes.func,
     bindToKey: PropTypes.func,
+    updatePianoVolume: PropTypes.func,
 };
 
 export default connect(mapStateToProps, {
     addPlayedNote,
     removePlayedNote,
-    bindToKey
+    bindToKey,
+    updatePianoVolume
 })(CSSModules(Accompaniment, styles));
 
 function mapStateToProps(state){
     return {
-       
+       pianoVolume: state.pianoVolume
     };
 }
