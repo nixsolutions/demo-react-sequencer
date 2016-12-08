@@ -6,43 +6,72 @@ import {
 } from 'utils/notes';
 
 class Octave extends Component {
+    componentWillMount(){
+        this.bindKeys();
+    }
+
     render() {
-        let keys = OCTAVE_NOTES.map((note, i) => {
-            let value = `${note}${this.props.number}`;
-            let isSemitone = note.indexOf('#') !== -1;
+        this.activeClass = this.props.styles['active'];
+
+        let noteValues = this.getNoteValues();
+
+        let keys = noteValues.map((noteValue, i) => {
+            let isSemitone = noteValue.indexOf('#') !== -1;
             let semitoneClass = isSemitone ? 'semitone' : '';
-            let activeClass = this.props.styles['active'];
             let cssClass = ['note', semitoneClass].join(' ');
+            let {onMouseDown, onMouseUp} = this.getHandlers(noteValue);
 
-            let onMouseDown = (e) => {
-                let el = this.refs[value];
-                
-                el.classList.add(activeClass);
-                this.onMouseDown(value, e);
-            };
-
-            let onMouseUp = (e) => {
-                let el = this.refs[value];
-               
-                el.classList.remove(activeClass);
-                this.onMouseUp(value, e);
-            };
-
-            this.props.bindToKey({
-                keyCode: this.props.keys[i],
-                down: onMouseDown,
-                up: onMouseUp,
-            });
-
-            return <li key={note} 
+            return <li key={noteValue} 
                     styleName={cssClass} 
                     onMouseDown={onMouseDown} 
                     onMouseUp={onMouseUp}
                     onMouseLeave={onMouseUp}
-                    ref={value}></li>  
+                    ref={noteValue}></li>  
         });
 
         return <ul styleName="octave">{keys}</ul>
+    }
+
+    getNoteValue(note, octaveIndex){
+        return `${note}${octaveIndex}`;
+    }
+
+    getNoteValues(){
+        return OCTAVE_NOTES.map(note => this.getNoteValue(note, this.props.number));
+    }
+
+    getHandlers(noteValue){
+        let onMouseDown = (e) => {
+            let el = this.refs[noteValue];
+            
+            el.classList.add(this.activeClass);
+            this.onMouseDown(noteValue, e);
+        };
+
+        let onMouseUp = (e) => {
+            let el = this.refs[noteValue];
+            
+            el.classList.remove(this.activeClass);
+            this.onMouseUp(noteValue, e);
+        };
+
+        return {onMouseDown, onMouseUp};
+    }
+
+    bindKeys(){
+        let noteValues = this.getNoteValues();
+
+        noteValues.forEach(this.bindKey.bind(this));
+    }
+
+    bindKey(noteValue, noteIndex){
+        let {onMouseDown, onMouseUp} = this.getHandlers(noteValue);
+
+        this.props.bindToKey({
+            keyCode: this.props.keys[noteIndex],
+            down: onMouseDown,
+            up: onMouseUp,
+        });
     }
 
     onMouseDown(note, e){
