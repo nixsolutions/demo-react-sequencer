@@ -38,6 +38,7 @@ class Octave extends Component {
                     styleName={cssClass} 
                     onMouseDown={onMouseDown} 
                     onMouseUp={onMouseUp}
+                    onMouseLeave={onMouseUp}
                     ref={value}></li>  
         });
 
