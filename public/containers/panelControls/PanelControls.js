@@ -10,6 +10,7 @@ import Analyser from 'components/blocks/analyser/Analyser';
 import {updatePlay} from 'modules/play';
 import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
+import {bindToKey} from 'modules/bindings';
 
 
 
@@ -17,7 +18,9 @@ class PanelControls extends Component {
     render() {
         return (
                 <div styleName="panel-controls">
-                    <PlayControls updatePlay={this.props.updatePlay} playState={this.props.play}/>
+                    <PlayControls updatePlay={this.props.updatePlay} 
+                                playState={this.props.play} 
+                                bindToKey={this.props.bindToKey}/>
                     <Slider value={this.props.volume} onChange={this.props.updateVolume}/>
                     <Analyser analyser={this.props.analyser}/>
                     <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
@@ -41,14 +44,19 @@ PanelControls.propTypes = {
         }
     },
     playedStep: PropTypes.number,
+    instruments: PropTypes.array,
+    analyser: PropTypes.object,
     updatePlay: PropTypes.func,
-    updateBPM: PropTypes.func
+    updateBPM: PropTypes.func,
+    updateVolume: PropTypes.func,
+    bindToKey: PropTypes.func,
 };
 
 export default connect(mapStateToProps, {
     updatePlay,
     updateBPM,
-    updateVolume
+    updateVolume,
+    bindToKey
 })(CSSModules(PanelControls, styles));
 
 function mapStateToProps(state){

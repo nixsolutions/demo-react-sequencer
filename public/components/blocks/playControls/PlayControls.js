@@ -4,8 +4,13 @@ import React, {Component, PropTypes} from 'react';
 import PlayButton from 'components/common/buttons/playButton/PlayButton';
 import PauseButton from 'components/common/buttons/pauseButton/PauseButton';
 import StopButton from 'components/common/buttons/stopButton/StopButton';
+import {SPACE_KEY} from 'utils/keys';
 
 class PlayControls extends Component {
+    componentWillMount(){
+        this.bindPlay();
+    }
+
     render() {
         return (
             <ul styleName="play-controls">
@@ -25,7 +30,26 @@ class PlayControls extends Component {
             </ul>
         )
     }
+
+    bindPlay(){
+        let onMouseDown = (e) => {
+            let value = (this.props.playState === 'play') ? 'pause' : 'play';
+
+            this.props.updatePlay(value);
+        };
+
+        this.props.bindToKey({
+            keyCode: SPACE_KEY,
+            down: onMouseDown
+        });
+    }
 };
+
+PlayControls.propTypes = {
+    playState: PropTypes.string,
+    updatePlay: PropTypes.func,
+    bindToKey: PropTypes.func,
+}
 
 export default CSSModules(PlayControls, styles, {allowMultiple: true});
 

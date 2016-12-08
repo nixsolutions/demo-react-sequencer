@@ -25,13 +25,17 @@ class KeyboardNavigation extends Component {
     handleKeyDown(e){
         let {keyCode} = e;
 
-        this.props.bindings[keyCode] && this.props.bindings[keyCode].down();
+        this.props.bindings[keyCode] && 
+        this.props.bindings[keyCode].down && 
+        this.props.bindings[keyCode].down();
     }
 
     handleKeyUp(e){
         let {keyCode} = e;
 
-        this.props.bindings[keyCode] && this.props.bindings[keyCode].up();
+        this.props.bindings[keyCode] && 
+        this.props.bindings[keyCode].up && 
+        this.props.bindings[keyCode].up();
     }
 
 
