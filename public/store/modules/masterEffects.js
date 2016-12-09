@@ -17,9 +17,12 @@ let getReverberatorDefaults = () => ({
     label: 'reverb',
     wet: 50,
     active: true,
-    settings: [
-        { label: 'room size', type: 'size', value: 30}
-    ]
+    settings: {
+        roomSize: {
+            label: 'room size', 
+            value: 30
+        }
+    }
 });
 
 let getDelayDefaults = () => ({
@@ -28,9 +31,12 @@ let getDelayDefaults = () => ({
     label: 'delay',
     wet: 50,
     active: true,
-    settings: [
-        { label: 'room size', type: 'size', value: 30}
-    ]
+    settings: {
+        roomSize: {
+            label: 'room size', 
+            value: 30
+        }
+    }
 });
 
 let getFilterDefaults = () => ({
@@ -39,9 +45,12 @@ let getFilterDefaults = () => ({
     label: 'filter',
     wet: 50,
     active: true,
-    settings: [
-        { label: 'room size', type: 'size', value: 30}
-    ]
+    settings: {
+        roomSize: {
+            label: 'room size', 
+            value: 30
+        }
+    }
 });
 
 export let getEffect = (effectType) => {
@@ -63,7 +72,7 @@ export default function masterEffectsReducer(state = INIT, action){
             return [...state, getEffect(payload)];
 
         case REMOVE_MASTER_EFFECT:
-            return stete.filter(effect => effect !== payload);
+            return state.filter(effect => effect.id !== payload);
 
         case CHANGE_WET_MASTER_EFFECT:
             return state.map(effect => {
@@ -83,12 +92,9 @@ export default function masterEffectsReducer(state = INIT, action){
             return state.map(effect => {
                 if(effect.id !== payload.id){ return effect; }
 
-                let settings = effect.settings.map(setting => {
-                    if(setting.type !== payload.type) { return setting; }
-                
-                    return {...setting, value: payload.value};
-                });
+                let settings = {...effect.settings};
 
+                settings[payload.type] = {...settings[payload.type], value: payload.value}
                 return {...effect, settings};
             });
     
