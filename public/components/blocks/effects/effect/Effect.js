@@ -7,12 +7,15 @@ import Controller from 'components/common/controller/Controller';
 class Effect extends Component {
     render() {
         let {effect} = this.props;
+        let settingsTypes = Object.keys(effect.settings);
 
-        let settings = effect.settings.map((item, i) => {
+        let settings = settingsTypes.map((type, i) => {
+            let item = effect.settings[type];
+
             return <div key={i} styleName="block">
                     <span styleName="label">{item.label}</span>
                     <Controller value={item.value} 
-                        onChange={this.changeSetting.bind(this, item.type)}/>
+                        onChange={this.changeSetting.bind(this, type)}/>
                 </div>
         })
         return <div styleName="effect">
@@ -58,11 +61,7 @@ Effect.propTypes = {
         label: PropTypes.string,
         wet: PropTypes.number,
         active: PropTypes.bool,
-        settings: PropTypes.arrayOf(PropTypes.shape({
-            label: PropTypes.string,
-            type: PropTypes.string,
-            value: PropTypes.number,
-        })),
+        settings: PropTypes.object,
     }),
     remove: PropTypes.func,
     toggleMute: PropTypes.func,

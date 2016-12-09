@@ -40,11 +40,7 @@ Effects.propTypes = {
         label: PropTypes.string,
         wet: PropTypes.number,
         active: PropTypes.bool,
-        settings: PropTypes.arrayOf(PropTypes.shape({
-            label: PropTypes.string,
-            type: PropTypes.string,
-            value: PropTypes.number,
-        })),
+        settings: PropTypes.object,
     })),
     remove: PropTypes.func,
     toggleMute: PropTypes.func,
