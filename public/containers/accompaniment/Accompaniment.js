@@ -8,6 +8,7 @@ import Controller from 'components/common/controller/Controller';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import VerticalControls, {VerticalItem} from 'components/common/verticalControls/VerticalControls';
 import PianoManager from './PianoManager';
+import MasterEffectsManager from './MasterEffectsManager';
 import Tone from 'tone';
 import {addPlayedNote, removePlayedNote} from 'modules/playedNotes';
 import {updatePianoVolume} from 'modules/pianoVolume';
@@ -62,7 +63,7 @@ class Accompaniment extends Component {
                             toggleMute={this.props.toggleMuteMasterEffect}
                             changeWet={this.props.changeWetMasterEffect}
                             changeSetting={this.props.changeSettingMasterEffect}/>
-                    <PianoManager/>
+                    <MasterEffectsManager/>
                 </div>
                 <div styleName="selection-holder">
                     <Dropdown title='Add effect'

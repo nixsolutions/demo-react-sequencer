@@ -1,0 +1,125 @@
+import React, {Component, PropTypes} from 'react';
+import { connect } from 'react-redux';
+import Tone from 'tone';
+import { noteToPitch, volumeToDecibels} from 'utils/notes';
+import {
+    REVERBERATOR,
+    DELAY,
+    FILTER,
+} from 'modules/masterEffects';
+
+class MasterEffectsManager extends Component {
+    constructor(props, state){
+        super(props, state);
+
+        this.effects = {};
+    }
+
+    componentWillMount(){
+        this.updateEffects(this.props.masterEffects);
+    }
+
+    componentWillReceiveProps(props){
+        let {masterEffects} = props;
+
+        if(masterEffects !== this.props.masterEffects){
+            this.updateEffects(masterEffects);
+        }
+    }
+
+    render(){ return <div></div> }
+
+    updateEffects(effects){
+        let commonEffects = this.extractCommonEffects(effects);
+        this.updateEffectsSettings(commonEffects);
+
+        let newEffects = this.extractNewEffects(effects);
+        this.addEffects(newEffects);
+
+        let removedEffects = this.extractAbsentEffects(effects);
+        this.removeEffects(removedEffects);
+    }
+
+    addEffects(effects){
+        effects.forEach(effect => {
+            let effectInstance = this.createEffect(effect);
+            Tone.Master.chain(effectInstance);
+            this.effects[effect.id] = effectInstance;
+        });
+
+        return this.effects;
+    }
+
+    removeEffects(effects){
+        effects.forEach(effect => {
+            effect.dispose();
+        })
+    }
+
+    updateEffectsSettings(effectsOptions){
+        effectsOptions.forEach(effectOptions => {
+            let masterEffect = this.effects[effectOptions.id];
+
+            this.updateSettings(masterEffect, effectOptions.settings)
+        });
+    }
+
+    updateSettings(effect, settings){
+        let settingsTypes = Object.keys(settings);
+
+        settingsTypes.forEach(type => {
+            effect[type].value = settings[type].value / 100;
+        });
+    }
+
+    extractNewEffects(effects){
+        let oldEffectIds = Object.keys(this.effects);
+
+        return effects.filter(effect => oldEffectIds.indexOf(String(effect.id)) === -1);
+    }
+
+    extractAbsentEffects(effects){
+        let oldEffectIds = Object.keys(this.effects);
+
+        return oldEffectIds.reduce((result, oldEffectId) => {
+            if(effects.some(effect => String(effect.id) === oldEffectId)){ return result;}
+
+            result.push(this.effects[oldEffectId]);
+
+            return result;
+        }, []);
+    }
+
+    extractCommonEffects(effects){
+        let oldEffectIds = Object.keys(this.effects);
+
+        return effects.filter(effect => oldEffectIds.indexOf(String(effect.id)) !== -1);
+    }
+
+    createEffect(effectOptions){
+        let {settings} = effectOptions;
+        let effectInstance;
+
+        switch(effectOptions.type){
+            case REVERBERATOR:
+                effectInstance = new Tone.JCReverb(settings.roomSize.value / 100);
+        }
+
+        effectInstance.wet.value = effectOptions.wet / 100;
+        return effectInstance;
+    }
+}
+
+MasterEffectsManager.propTypes = {
+    masterEffects: PropTypes.array
+};
+
+export default connect(mapStateToProps, {
+
+})(MasterEffectsManager);
+
+function mapStateToProps(state){
+     return {
+        masterEffects: state.masterEffects
+    };
+}
