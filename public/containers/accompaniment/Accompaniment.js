@@ -3,6 +3,7 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Piano from 'components/blocks/piano/Piano';
+import Effects from 'components/blocks/effects/Effects';
 import Controller from 'components/common/controller/Controller';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import VerticalControls, {VerticalItem} from 'components/common/verticalControls/VerticalControls';
@@ -12,6 +13,13 @@ import {addPlayedNote, removePlayedNote} from 'modules/playedNotes';
 import {updatePianoVolume} from 'modules/pianoVolume';
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 import {bindToKey} from 'modules/bindings';
+import {
+    addMasterEffect, 
+    removeMasterEffect, 
+    changeWetMasterEffect,
+    toggleMuteMasterEffect,
+    changeSettingMasterEffect,
+} from 'modules/masterEffects';
 
 class Accompaniment extends Component {
     render(){ 
@@ -38,6 +46,34 @@ class Accompaniment extends Component {
                             items={this.props.dropdownItems}/>
                 </div>
             </div>
+            <div styleName="section-holder">
+                <div styleName="controls-holder">
+                    <VerticalControls>
+                        <VerticalItem label="volume"> 
+                            <Controller size="30" 
+                                onChange={this.props.updatePianoVolume}
+                                value={this.props.pianoVolume}/>
+                        </VerticalItem>
+                    </VerticalControls>
+                </div>
+                <div styleName="instrument-holder">
+                    <Effects effects={this.props.masterEffects}
+                            remove={this.props.removeMasterEffect}
+                            toggleMute={this.props.toggleMuteMasterEffect}
+                            changeWet={this.props.changeWetMasterEffect}
+                            changeSetting={this.props.changeSettingMasterEffect}/>
+                    <PianoManager/>
+                </div>
+                <div styleName="selection-holder">
+                    <Dropdown title='Add effect'
+                            onSelect={this.props.addMasterEffect} 
+                            items={[
+                                {title: 'reverb', value: 'REVERBERATOR'},
+                                {title: 'filter', value: 'FILTER'},
+                                {title: 'delay', value: 'DELAY'}
+                            ]}/>
+                </div>
+            </div>
         </div> 
     }
 }
@@ -48,7 +84,12 @@ Accompaniment.propTypes = {
     bindToKey: PropTypes.func,
     updatePianoVolume: PropTypes.func,
     updateAccompanimentInstrument: PropTypes.func,
-    pianoVolume: PropTypes.number,
+    addMasterEffect: PropTypes.func,
+    removeMasterEffect: PropTypes.func,
+    changeWetMasterEffect: PropTypes.func,
+    toggleMuteMasterEffect: PropTypes.func,
+    changeSettingMasterEffect: PropTypes.func,
+    masterEffects: PropTypes.array,
 };
 
 export default connect(mapStateToProps, {
@@ -56,14 +97,20 @@ export default connect(mapStateToProps, {
     removePlayedNote,
     bindToKey,
     updatePianoVolume,
-    updateAccompanimentInstrument
+    updateAccompanimentInstrument,
+    addMasterEffect,
+    removeMasterEffect,
+    changeWetMasterEffect,
+    toggleMuteMasterEffect,
+    changeSettingMasterEffect,
 })(CSSModules(Accompaniment, styles));
 
 function mapStateToProps(state){
     return {
        pianoVolume: state.pianoVolume,
        dropdownItems: samplesToDropdownItems(state.samples),
-       accompanimentInstrument: state.accompanimentInstrument
+       accompanimentInstrument: state.accompanimentInstrument,
+       masterEffects: state.masterEffects,
     };
 }
 
