@@ -11,6 +11,7 @@ import playedNotes from './playedNotes';
 import bindings from './bindings';
 import pianoVolume from './pianoVolume';
 import accompanimentInstrument from './accompanimentInstrument';
+import masterEffects from './masterEffects';
 
 export default {
     bpm,
@@ -25,5 +26,6 @@ export default {
     playedNotes,
     bindings,
     pianoVolume,
-    accompanimentInstrument
+    accompanimentInstrument,
+    masterEffects
 };
