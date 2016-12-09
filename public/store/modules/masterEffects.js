@@ -13,7 +13,7 @@ const INIT = [];
 
 let getReverberatorDefaults = () => ({
     id: Date.now(),
-    name: REVERBERATOR,
+    type: REVERBERATOR,
     label: 'reverb',
     wet: 50,
     active: true,
@@ -24,7 +24,7 @@ let getReverberatorDefaults = () => ({
 
 let getDelayDefaults = () => ({
     id: Date.now(),
-    name: DELAY,
+    type: DELAY,
     label: 'delay',
     wet: 50,
     active: true,
@@ -35,7 +35,7 @@ let getDelayDefaults = () => ({
 
 let getFilterDefaults = () => ({
     id: Date.now(),
-    name: FILTER,
+    type: FILTER,
     label: 'filter',
     wet: 50,
     active: true,
@@ -44,8 +44,8 @@ let getFilterDefaults = () => ({
     ]
 });
 
-export let getEffect = (effectName) => {
-    switch(effectName){
+export let getEffect = (effectType) => {
+    switch(effectType){
         case REVERBERATOR:
             return getReverberatorDefaults();
         case DELAY:
