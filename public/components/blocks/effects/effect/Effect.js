@@ -12,7 +12,7 @@ class Effect extends Component {
             return <div key={i} styleName="block">
                     <span styleName="label">{item.label}</span>
                     <Controller value={item.value} 
-                        onChange={this.changeSetting.bind(this, item)}/>
+                        onChange={this.changeSetting.bind(this, item.type)}/>
                 </div>
         })
         return <div styleName="effect">
@@ -36,24 +36,25 @@ class Effect extends Component {
     }
 
     toggleMute(){
-        this.props.toggleMute(this.props.effect);
+        this.props.toggleMute(this.props.effect.id);
     } 
 
     remove(){
-        this.props.remove(this.props.effect);
+        this.props.remove(this.props.effect.id);
     }
 
     changeWet(percents){
-        this.props.changeWet(this.props.effect, percents);
+        this.props.changeWet(percents, this.props.effect.id);
     }
 
     changeSetting(setting, percents){
-        this.props.changeSetting(setting, this.props.effect, percents);
+        this.props.changeSetting(setting, percents, this.props.effect.id);
     } 
 };
 
 Effect.propTypes = {
     effect: PropTypes.shape({
+        id: PropTypes.number,
         label: PropTypes.string,
         wet: PropTypes.number,
         active: PropTypes.bool,
