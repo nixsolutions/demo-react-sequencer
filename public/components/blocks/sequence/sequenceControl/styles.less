@@ -35,23 +35,12 @@
     }
 
     .mute{
-        .gradient-3();
-        width: @size-1 / 2;
-        height: @size-1 / 2;
-        border-radius: @size-1 / 2;
-        cursor: pointer;
-        margin: 0 @padding-1 0 0;
-        box-shadow: @shadow-1;
-
-        &.active{
-            .gradient-2();
-        }
+        .mute-button();
     }
 
     .remove{
         .segment();
-        color: @color-13;
-        cursor: pointer;
+        .remove-button();
     }
 
     .controller{

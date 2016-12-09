@@ -87,3 +87,23 @@
     background: @color-12;
     box-shadow: inset @shadow-1;
 }
+
+.remove-button{
+    font-size: @font-size-1;
+    color: @color-13;
+    cursor: pointer;
+}
+
+.mute-button{
+    .gradient-3();
+    width: @size-1 / 2;
+    height: @size-1 / 2;
+    border-radius: @size-1 / 2;
+    cursor: pointer;
+    margin: 0 @padding-1 0 0;
+    box-shadow: @shadow-1;
+
+    &.active{
+        .gradient-2();
+    }
+}

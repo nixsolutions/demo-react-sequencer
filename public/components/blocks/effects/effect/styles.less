@@ -1,0 +1,52 @@
+@import '~shared/variables.less';
+@import '~shared/mixins.less';
+
+.effect{
+    background: @color-6;
+    border: 1px solid @color-1;
+
+    .head{
+        border-bottom: 1px solid @color-1;
+        background: @color-7;
+        display: flex;
+        justify-content: space-between;
+        padding: @padding-1;
+
+        .name{
+            color: @color-1;
+            text-transform: capitalize;
+        }
+
+        .remove{
+            .remove-button();
+        }
+    }
+
+    .mute{
+        .mute-button();
+    }
+
+    .content{
+        display: flex;
+        padding: @padding-1;
+        align-items: center;
+    }
+
+    .separator{
+        border-left: 1px solid @color-14;
+        height: @size-2;
+    }
+
+    .block{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 @padding-2;
+
+        .label{
+            font-size: @font-size-5;
+            color: @color-1;
+            text-transform: capitalize;
+        }
+    }
+}
