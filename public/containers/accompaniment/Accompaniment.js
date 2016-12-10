@@ -6,6 +6,7 @@ import Piano from 'components/blocks/piano/Piano';
 import Effects from 'components/blocks/effects/Effects';
 import Controller from 'components/common/controller/Controller';
 import Dropdown from 'components/common/dropdown/Dropdown';
+import Tabs from 'components/common/tabs/Tabs';
 import VerticalControls, {VerticalItem} from 'components/common/verticalControls/VerticalControls';
 import PianoManager from './PianoManager';
 import MasterEffectsManager from './MasterEffectsManager';
@@ -24,8 +25,8 @@ import {
 
 class Accompaniment extends Component {
     render(){ 
-        return <div>
-            <div styleName="section-holder">
+        return <Tabs>
+            <div styleName="section-holder" label="piano">
                 <div styleName="controls-holder">
                     <VerticalControls>
                         <VerticalItem label="volume"> 
@@ -47,7 +48,7 @@ class Accompaniment extends Component {
                             items={this.props.dropdownItems}/>
                 </div>
             </div>
-            <div styleName="section-holder">
+            <div styleName="section-holder"  label="effects">
                 <div styleName="controls-holder">
                     <VerticalControls>
                         <VerticalItem label="volume"> 
@@ -75,7 +76,7 @@ class Accompaniment extends Component {
                             ]}/>
                 </div>
             </div>
-        </div> 
+        </Tabs> 
     }
 }
 
