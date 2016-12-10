@@ -1,0 +1,31 @@
+@import "~shared/variables.less";
+@import "~shared/mixins.less";
+
+.tab-controls{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+
+    li{
+        border: 1px solid @color-1;
+        border-bottom: 0;
+        padding: @padding-1 @padding-6;
+        cursor: pointer;
+        color: @color-14;
+        text-transform: capitalize;
+
+        &[aria-selected=true]{
+            background: @color-6;
+            color: @color-1;
+            border-bottom: 1px solid @color-6;
+            margin: 0 0 -1px;
+        }
+    }
+}
+
+.tab-content{
+    margin: 0;
+    border: 1px solid @color-1;
+    background: @color-6;
+}
