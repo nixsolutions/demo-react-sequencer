@@ -6,6 +6,9 @@ import {
     REVERBERATOR,
     DELAY,
     FILTER,
+
+    RANGE_SETTING_TYPE,
+    TIME_SETTING_TYPE,
 } from 'modules/masterEffects';
 
 class MasterEffectsManager extends Component {
