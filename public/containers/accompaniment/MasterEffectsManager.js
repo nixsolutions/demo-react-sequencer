@@ -70,8 +70,25 @@ class MasterEffectsManager extends Component {
         let settingsTypes = Object.keys(settings);
 
         settingsTypes.forEach(type => {
-            effect[type].value = settings[type].value / 100;
+            let setting = settings[type]
+            effect[type].value = this.getSettingValue(setting);
         });
+    }
+
+    getSettingValue(setting, type){
+        if(typeof type === 'string'){
+            setting = {
+                value: setting,
+                type
+            }
+        }
+
+        switch(setting.type){
+            case RANGE_SETTING_TYPE:
+                return setting.value / 100;
+            default:
+                return setting.value;
+        }
     }
 
     extractNewEffectsOptions(effects){
