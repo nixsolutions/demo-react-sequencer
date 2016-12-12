@@ -121,7 +121,14 @@ class MasterEffectsManager extends Component {
 
         switch(effectOptions.type){
             case REVERBERATOR:
-                effectInstance = new Tone.JCReverb(settings.roomSize.value / 100);
+                let roomSize = this.getSettingValue(settings.roomSize.value, RANGE_SETTING_TYPE);
+
+                return effectInstance = new Tone.JCReverb(roomSize);
+            case DELAY:
+                let delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
+                let feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
+
+                return effectInstance = new Tone.PingPongDelay(delayTime, feedback);
         }
 
         effectInstance.wet.value = effectOptions.wet / 100;
