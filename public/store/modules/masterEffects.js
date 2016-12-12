@@ -8,6 +8,9 @@ export const REVERBERATOR = 'REVERBERATOR';
 export const DELAY = 'DELAY';
 export const FILTER = 'FILTER';
 
+export const RANGE_SETTING_TYPE = 'RANGE';
+export const TIME_SETTING_TYPE = 'RANGE';
+
 
 const INIT = [];
 
@@ -20,7 +23,8 @@ let getReverberatorDefaults = () => ({
     settings: {
         roomSize: {
             label: 'room size', 
-            value: 30
+            value: 30,
+            type: RANGE_SETTING_TYPE
         }
     }
 });
@@ -32,9 +36,15 @@ let getDelayDefaults = () => ({
     wet: 50,
     active: true,
     settings: {
-        roomSize: {
-            label: 'room size', 
-            value: 30
+        delayTime: {
+            label: 'Delay Time', 
+            value: 30,
+            type: RANGE_SETTING_TYPE
+        },
+        feedback: {
+            label: 'feedback', 
+            value: 30,
+            type: RANGE_SETTING_TYPE
         }
     }
 });
