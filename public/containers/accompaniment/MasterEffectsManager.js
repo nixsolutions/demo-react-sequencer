@@ -54,13 +54,14 @@ class MasterEffectsManager extends Component {
         effectsKeys.forEach(effectKey => {
             this.effects[effectKey].wet.value = 0;
             delete this.effects[effectKey];
-        })
+        });
     }
 
     updateEffectsSettings(effectsOptions){
         effectsOptions.forEach(effectOptions => {
             let masterEffect = this.effects[effectOptions.id];
 
+            masterEffect.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
             this.updateSettings(masterEffect, effectOptions.settings)
         });
     }
