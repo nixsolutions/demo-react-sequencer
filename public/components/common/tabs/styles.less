@@ -1,6 +1,10 @@
 @import "~shared/variables.less";
 @import "~shared/mixins.less";
 
+.tabs{
+    position: relative;
+}
+
 .tab-controls{
     margin: 0;
     padding: 0;
@@ -15,7 +19,7 @@
         color: @color-14;
         text-transform: capitalize;
 
-        &[aria-selected=true]{
+        &.active{
             background: @color-6;
             color: @color-1;
             border-bottom: 1px solid @color-6;
@@ -25,7 +29,17 @@
 }
 
 .tab-content{
+    position: relative;
     margin: 0;
     border: 1px solid @color-1;
     background: @color-6;
+    overflow: hidden;
+
+    .tab{
+        &:not(.active){
+            position: absolute;
+            left: 100%;
+            top: 100%;
+        }
+    }
 }
