@@ -5,77 +5,18 @@ export const CHANGE_SETTING_MASTER_EFFECT = 'CHANGE_SETTING_MASTER_EFFECT';
 export const TOGGLE_MUTE_MASTER_EFFECT = 'TOGGLE_MUTE_MASTER_EFFECT';
 
 export const REVERBERATOR = 'REVERBERATOR';
-export const DELAY = 'DELAY';
+export const PING_PONG_DELAY = 'PING_PONG_DELAY';
+export const FEEDBACK_DELAY = 'FEEDBACK_DELAY';
 export const FILTER = 'FILTER';
 
 export const RANGE_SETTING_TYPE = 'RANGE';
 export const TIME_SETTING_TYPE = 'RANGE';
 
-
 const INIT = [];
-
-let getReverberatorDefaults = () => ({
-    id: Date.now(),
-    type: REVERBERATOR,
-    label: 'reverb',
-    wet: 50,
-    active: true,
-    settings: {
-        roomSize: {
-            label: 'room size', 
-            value: 30,
-            type: RANGE_SETTING_TYPE
-        }
-    }
-});
-
-let getDelayDefaults = () => ({
-    id: Date.now(),
-    type: DELAY,
-    label: 'delay',
-    wet: 50,
-    active: true,
-    settings: {
-        delayTime: {
-            label: 'Delay Time', 
-            value: 30,
-            type: RANGE_SETTING_TYPE
-        },
-        feedback: {
-            label: 'feedback', 
-            value: 30,
-            type: RANGE_SETTING_TYPE
-        }
-    }
-});
-
-let getFilterDefaults = () => ({
-    id: Date.now(),
-    type: FILTER,
-    label: 'filter',
-    wet: 50,
-    active: true,
-    settings: {
-        roomSize: {
-            label: 'room size', 
-            value: 30
-        }
-    }
-});
-
-export let getEffect = (effectType) => {
-    switch(effectType){
-        case REVERBERATOR:
-            return getReverberatorDefaults();
-        case DELAY:
-            return getDelayDefaults();
-        case FILTER:
-            return getFilterDefaults();
-    }
-}
 
 export default function masterEffectsReducer(state = INIT, action){
     let {payload} = action;
+    let {getEffect} = require('utils/effects');
 
     switch(action.type){
         case ADD_MASTER_EFFECT:

@@ -22,6 +22,7 @@ import {
     toggleMuteMasterEffect,
     changeSettingMasterEffect,
 } from 'modules/masterEffects';
+import {getEffectsList} from 'utils/effects';
 
 class Accompaniment extends Component {
     render(){ 
@@ -69,11 +70,7 @@ class Accompaniment extends Component {
                 <div styleName="selection-holder">
                     <Dropdown title='Add effect'
                             onSelect={this.props.addMasterEffect} 
-                            items={[
-                                {title: 'reverb', value: 'REVERBERATOR'},
-                                {title: 'filter', value: 'FILTER'},
-                                {title: 'delay', value: 'DELAY'}
-                            ]}/>
+                            items={getEffectsList()}/>
                 </div>
             </div>
         </Tabs> 

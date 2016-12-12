@@ -4,7 +4,8 @@ import Tone from 'tone';
 import { noteToPitch, volumeToDecibels} from 'utils/notes';
 import {
     REVERBERATOR,
-    DELAY,
+    PING_PONG_DELAY,
+    FEEDBACK_DELAY,
     FILTER,
 
     RANGE_SETTING_TYPE,
@@ -103,17 +104,25 @@ class MasterEffectsManager extends Component {
     createEffect(effectOptions){
         let {settings} = effectOptions;
         let effectInstance;
+        let delayTime;
+        let feedback;
+        let roomSize;
 
         switch(effectOptions.type){
             case REVERBERATOR:
-                let roomSize = this.getSettingValue(settings.roomSize.value, RANGE_SETTING_TYPE);
+                roomSize = this.getSettingValue(settings.roomSize.value, RANGE_SETTING_TYPE);
 
                 return effectInstance = new Tone.JCReverb(roomSize);
-            case DELAY:
-                let delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
-                let feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
+            case PING_PONG_DELAY:
+                delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
+                feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
 
                 return effectInstance = new Tone.PingPongDelay(delayTime, feedback);
+            case FEEDBACK_DELAY:
+                delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
+                feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
+
+                return effectInstance = new Tone.FeedbackDelay(delayTime, feedback);
         }
 
         effectInstance.wet.value = effectOptions.wet / 100;
