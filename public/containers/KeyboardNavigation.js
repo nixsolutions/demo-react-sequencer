@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {updatePlayedStep} from 'modules/playedStep';
+import * as midi from 'utils/midi';
 
 class KeyboardNavigation extends Component {
     constructor(props, state){
@@ -11,13 +12,15 @@ class KeyboardNavigation extends Component {
     }
 
     componentWillMount(){
+        midi.connect(this.handleKeyDown, this.handleKeyUp);
+
         document.addEventListener('keydown', this.handleKeyDown);
         document.addEventListener('keyup', this.handleKeyUp);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown.bind());
-        window.removeEventListener('keyup', this.handleKeyUp);
+        document.removeEventListener('keydown', this.handleKeyDown);
+        document.removeEventListener('keyup', this.handleKeyUp);
     }
 
     render(){ return <div></div> }
