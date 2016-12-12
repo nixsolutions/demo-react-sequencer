@@ -33,26 +33,27 @@ class MasterEffectsManager extends Component {
         let commonEffects = this.extractCommonEffects(effects);
         this.updateEffectsSettings(commonEffects);
 
-        let newEffects = this.extractNewEffects(effects);
-        this.addEffects(newEffects);
+        let newEffectsOptions = this.extractNewEffectsOptions(effects);
+        this.addEffects(newEffectsOptions);
 
-        let removedEffects = this.extractAbsentEffects(effects);
-        this.removeEffects(removedEffects);
+        let removedEffectsKeys = this.extractAbsentEffectsKeys(effects);
+        this.removeEffects(removedEffectsKeys);
     }
 
-    addEffects(effects){
-        effects.forEach(effect => {
-            let effectInstance = this.createEffect(effect);
+    addEffects(effectsOptions){
+        effectsOptions.forEach(effectOptions => {
+            let effectInstance = this.createEffect(effectOptions);
             Tone.Master.chain(effectInstance);
-            this.effects[effect.id] = effectInstance;
+            this.effects[effectOptions.id] = effectInstance;
         });
 
         return this.effects;
     }
 
-    removeEffects(effects){
-        effects.forEach(effect => {
-            effect.dispose();
+    removeEffects(effectsKeys){
+        effectsKeys.forEach(effectKey => {
+            this.effects[effectKey].wet.value = 0;
+            delete this.effects[effectKey];
         })
     }
 
@@ -72,19 +73,19 @@ class MasterEffectsManager extends Component {
         });
     }
 
-    extractNewEffects(effects){
+    extractNewEffectsOptions(effects){
         let oldEffectIds = Object.keys(this.effects);
 
         return effects.filter(effect => oldEffectIds.indexOf(String(effect.id)) === -1);
     }
 
-    extractAbsentEffects(effects){
+    extractAbsentEffectsKeys(effects){
         let oldEffectIds = Object.keys(this.effects);
 
         return oldEffectIds.reduce((result, oldEffectId) => {
             if(effects.some(effect => String(effect.id) === oldEffectId)){ return result;}
 
-            result.push(this.effects[oldEffectId]);
+            result.push(oldEffectId);
 
             return result;
         }, []);
