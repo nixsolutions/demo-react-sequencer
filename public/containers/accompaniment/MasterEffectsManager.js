@@ -33,31 +33,37 @@ class MasterEffectsManager extends Component {
     render(){ return <div></div> }
 
     updateEffects(effects){
-        let commonEffects = this.extractCommonEffects(effects);
-        this.updateEffectsSettings(commonEffects);
+        this.clear();
+        this.addEffects(effects);
+        this.updateEffectsSettings(effects);
+        this.rechain();
+    }
 
-        let newEffectsOptions = this.extractNewEffectsOptions(effects);
-        this.addEffects(newEffectsOptions);
+    clear(){
+        let effectsIds = Object.keys(this.effects);
+        effectsIds.forEach(effectId => this.effects[effectId].dispose());
+        this.effects = {};
+    }
 
-        let removedEffectsKeys = this.extractAbsentEffectsKeys(effects);
-        this.removeEffects(removedEffectsKeys);
+    rechain(){
+        let effectsIds = Object.keys(this.effects);
+        let effects = effectsIds.map(effectId => this.effects[effectId]);
+
+        effects.push(new Tone.Gain());
+
+        if(effects.length){
+            Tone.Master.chain.apply(Tone.Master, effects);
+        }
     }
 
     addEffects(effectsOptions){
         effectsOptions.forEach(effectOptions => {
             let effectInstance = this.createEffect(effectOptions);
-            Tone.Master.chain(effectInstance);
+
             this.effects[effectOptions.id] = effectInstance;
         });
 
         return this.effects;
-    }
-
-    removeEffects(effectsKeys){
-        effectsKeys.forEach(effectKey => {
-            this.effects[effectKey].wet.value = 0;
-            delete this.effects[effectKey];
-        });
     }
 
     updateEffectsSettings(effectsOptions){
@@ -92,30 +98,6 @@ class MasterEffectsManager extends Component {
             default:
                 return setting.value;
         }
-    }
-
-    extractNewEffectsOptions(effects){
-        let oldEffectIds = Object.keys(this.effects);
-
-        return effects.filter(effect => oldEffectIds.indexOf(String(effect.id)) === -1);
-    }
-
-    extractAbsentEffectsKeys(effects){
-        let oldEffectIds = Object.keys(this.effects);
-
-        return oldEffectIds.reduce((result, oldEffectId) => {
-            if(effects.some(effect => String(effect.id) === oldEffectId)){ return result;}
-
-            result.push(oldEffectId);
-
-            return result;
-        }, []);
-    }
-
-    extractCommonEffects(effects){
-        let oldEffectIds = Object.keys(this.effects);
-
-        return effects.filter(effect => oldEffectIds.indexOf(String(effect.id)) !== -1);
     }
 
     createEffect(effectOptions){
