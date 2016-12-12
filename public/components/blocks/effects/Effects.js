@@ -2,6 +2,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import Effect from './effect/Effect';
+import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
 
 class Effects extends Component {
@@ -15,7 +16,9 @@ class Effects extends Component {
                         changeSetting={this.props.changeSetting}/>
         });
 
-        return <div styleName="effects">{effects}</div>
+        return <ScrollableBlock>
+                    <div styleName="effects">{effects}</div>
+                </ScrollableBlock>
     }
 
     toggleMute(){
