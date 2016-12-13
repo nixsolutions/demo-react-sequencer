@@ -4,6 +4,11 @@ import React, {Component, PropTypes} from 'react';
 import Popup from 'react-popup';
 
 class PopupComponent extends Popup {
+    static defaultProps = Object.assign({}, Popup.defaultProps, {
+        overlay: true,
+        width: 200 
+    })
+
     static show(options, noQueue) {
         if (noQueue) {
             return this.register(options);
@@ -16,6 +21,7 @@ class PopupComponent extends Popup {
         let popup;
 
         if(this.state.visible){
+            let overlay = this.props.overlay ? <div styleName="popup-overlay" onClick={this.onClose}></div> : '';
             let head = <div styleName="head">
                         <span styleName="title">{this.state.title}</span>
                         <span  styleName="close" onClick={this.onClose}>x</span> 
@@ -26,12 +32,14 @@ class PopupComponent extends Popup {
                                 styleName="button">{button.title}</button>;
             });
 
+            let buttonsBlock = buttons.length ? <div styleName="buttons">{buttons}</div> : '';
+
             popup = <div styleName="popup-holder">
-                        <div styleName="popup-overlay" onClick={this.onClose}></div>
-                        <div styleName='popup'>
+                        {overlay}
+                        <div styleName='popup' style={{width: this.props.width}}>
                             {head}
                             <div styleName='content'>{this.state.content}</div>
-                            <div styleName="buttons">{buttons}</div>
+                            {buttonsBlock}
                         </div>
                     </div>
         }
