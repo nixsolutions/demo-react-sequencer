@@ -83,6 +83,31 @@
     }
 }
 
+.button-2{
+    .gradient(@color-15, @color-17);
+    padding: 0 @padding-4;
+    border-radius: @radius-2;
+    cursor: pointer;
+    box-shadow: @shadow-1;
+    border: 0;
+    font-size: @font-size-1;
+    line-height: @size-1;
+    color: @color-1;
+
+    &:hover{
+        .gradient(@color-17, @color-15);
+    }
+
+    .active{
+        background: @color-14;
+        box-shadow:inset @shadow-1;
+    }
+
+    &:active, &.active{
+        .active();
+    }
+}
+
 .mono-area{
     background: @color-12;
     box-shadow: inset @shadow-1;
