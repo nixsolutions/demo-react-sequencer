@@ -3,8 +3,10 @@ import {
     PING_PONG_DELAY,
     FEEDBACK_DELAY,
     FILTER,
+    CHORUS,
 
     RANGE_SETTING_TYPE,
+    FREQUENCY_SETTING_TYPE,
     TIME_SETTING_TYPE
 } from 'modules/masterEffects';
 
@@ -77,10 +79,33 @@ let getFilterDefaults = () => ({
     }
 });
 
+let getChorusDefaults = () => ({
+    id: Date.now(),
+    type: CHORUS,
+    label: 'chorus',
+    wet: 50,
+    active: true,
+    settings: {
+        frequency: {
+            label: 'frequency', 
+            value: 30
+        },
+        delayTime: {
+            label: 'Delay Time', 
+            value: 30
+        },
+        depth: {
+            label: 'depth', 
+            value: 30
+        }
+    }
+});
+
 export let effects = [
     getReverberatorDefaults(),
     getPingPongDelayDefaults(),
     getFeedbackDelayDefaults(),
+    getChorusDefaults(),
     getFilterDefaults()
 ]
 

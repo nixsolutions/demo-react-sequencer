@@ -6,10 +6,12 @@ import {
     REVERBERATOR,
     PING_PONG_DELAY,
     FEEDBACK_DELAY,
+    CHORUS,
     FILTER,
 
     RANGE_SETTING_TYPE,
     TIME_SETTING_TYPE,
+    FREQUENCY_SETTING_TYPE
 } from 'modules/masterEffects';
 
 class MasterEffectsManager extends Component {
@@ -36,7 +38,6 @@ class MasterEffectsManager extends Component {
     updateEffects(effects){
         this.clear();
         this.addEffects(effects);
-        this.updateEffectsSettings(effects);
         this.rechain();
     }
 
@@ -67,24 +68,6 @@ class MasterEffectsManager extends Component {
         return this.effects;
     }
 
-    updateEffectsSettings(effectsOptions){
-        effectsOptions.forEach(effectOptions => {
-            let masterEffect = this.effects[effectOptions.id];
-
-            masterEffect.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
-            this.updateSettings(masterEffect, effectOptions.settings)
-        });
-    }
-
-    updateSettings(effect, settings){
-        let settingsTypes = Object.keys(settings);
-
-        settingsTypes.forEach(type => {
-            let setting = settings[type]
-            effect[type].value = this.getSettingValue(setting);
-        });
-    }
-
     getSettingValue(setting, type){
         if(typeof type === 'string'){
             setting = {
@@ -96,6 +79,11 @@ class MasterEffectsManager extends Component {
         switch(setting.type){
             case RANGE_SETTING_TYPE:
                 return setting.value / 100;
+            case FREQUENCY_SETTING_TYPE:
+                let range = 20000 - 20;
+                let percentValue = range / 100;
+
+                return percentValue * setting.value;
             default:
                 return setting.value;
         }
@@ -107,25 +95,37 @@ class MasterEffectsManager extends Component {
         let delayTime;
         let feedback;
         let roomSize;
+        let frequency;
+        let depth;
 
         switch(effectOptions.type){
             case REVERBERATOR:
                 roomSize = this.getSettingValue(settings.roomSize.value, RANGE_SETTING_TYPE);
 
-                return effectInstance = new Tone.JCReverb(roomSize);
+                effectInstance = new Tone.JCReverb(roomSize);
+                break;
             case PING_PONG_DELAY:
                 delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
                 feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
 
-                return effectInstance = new Tone.PingPongDelay(delayTime, feedback);
+                effectInstance = new Tone.PingPongDelay(delayTime, feedback);
+                break;
             case FEEDBACK_DELAY:
                 delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
                 feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
 
-                return effectInstance = new Tone.FeedbackDelay(delayTime, feedback);
+                effectInstance = new Tone.FeedbackDelay(delayTime, feedback);
+                break;
+            case CHORUS:
+                frequency = this.getSettingValue(settings.frequency.value, FREQUENCY_SETTING_TYPE);
+                delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
+                depth = this.getSettingValue(settings.depth.value, RANGE_SETTING_TYPE);
+
+                effectInstance = new Tone.Chorus(frequency, delayTime, depth);
+                break;
         }
 
-        effectInstance.wet.value = effectOptions.wet / 100;
+        effectInstance.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
         return effectInstance;
     }
 }

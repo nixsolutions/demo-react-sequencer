@@ -7,9 +7,11 @@ export const TOGGLE_MUTE_MASTER_EFFECT = 'TOGGLE_MUTE_MASTER_EFFECT';
 export const REVERBERATOR = 'REVERBERATOR';
 export const PING_PONG_DELAY = 'PING_PONG_DELAY';
 export const FEEDBACK_DELAY = 'FEEDBACK_DELAY';
+export const CHORUS = 'CHORUS';
 export const FILTER = 'FILTER';
 
 export const RANGE_SETTING_TYPE = 'RANGE';
+export const FREQUENCY_SETTING_TYPE = 'FREQUENCY_SETTING_TYPE';
 export const TIME_SETTING_TYPE = 'RANGE';
 
 const INIT = [];
