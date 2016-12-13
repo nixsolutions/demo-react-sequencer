@@ -12,7 +12,7 @@ import {
     RANGE_SETTING_TYPE,
     TIME_SETTING_TYPE,
     FREQUENCY_SETTING_TYPE
-} from 'modules/masterEffects';
+} from 'utils/effects';
 
 class MasterEffectsManager extends Component {
     constructor(props, state){
