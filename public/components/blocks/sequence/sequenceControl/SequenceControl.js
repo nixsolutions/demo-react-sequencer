@@ -32,7 +32,7 @@ class SequenceControl extends Component {
 
         Popup.show({
             title: 'Are you sure ?',
-            content: "You want to delete instrument ?",
+            content: "You want to delete an instrument ?",
             buttons: [
                 {
                     title: 'Yes',

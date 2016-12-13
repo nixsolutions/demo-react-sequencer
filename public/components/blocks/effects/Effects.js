@@ -4,13 +4,14 @@ import React, {Component, PropTypes} from 'react';
 import Effect from './effect/Effect';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
+import Popup from 'components/common/popup/Popup';
 
 class Effects extends Component {
     render() {
         let effects = this.props.effects.map((effect, i) => {
             return <Effect key={i} 
                         effect={effect}
-                        remove={this.props.remove}
+                        remove={this.onRemoveClick.bind(this)}
                         toggleMute={this.props.toggleMute}
                         changeWet={this.props.changeWet}
                         changeSetting={this.props.changeSetting}/>
@@ -25,8 +26,28 @@ class Effects extends Component {
         this.props.toggleMute(this.props.effect);
     } 
 
-    remove(){
-        this.props.remove(this.props.effect);
+    onRemoveClick(effect){
+        let {remove} = this.props;
+
+        Popup.show({
+            title: 'Are you sure ?',
+            content: "You want to delete an effect ?",
+            buttons: [
+                {
+                    title: 'Yes',
+                    click: function() {
+                        remove(effect);
+                        this.onClose();
+                    }
+                },
+                {
+                    title: 'No',
+                    click: function(){
+                        this.onClose();
+                    }
+                }
+            ]
+        });
     }
 
     changeWet(percents){
