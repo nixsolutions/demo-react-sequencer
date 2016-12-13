@@ -20,6 +20,9 @@ class SequenceControl extends Component {
                     <div styleName="controller">
                         <Controller size="25" value={instrument.volume} onChange={this.updateInstrumentVolume.bind(this, instrument)}/>
                     </div>
+                    <div styleName="controller">
+                        <span onClick={this.onFxClick.bind(this, instrument)} styleName="fx-button">FX</span>
+                    </div>
                     <div styleName="remove" 
                         onClick={this.onRemoveClick.bind(this, instrument)}>X</div>
                 </div>
@@ -48,6 +51,15 @@ class SequenceControl extends Component {
                     }
                 }
             ]
+        });
+    }
+
+    onFxClick(instrument){
+        let {removeInstrument} = this.props;
+
+        Popup.show({
+            title: `${instrument.name}'s effects`,
+            content: <a>sdfsdfsd</a>
         });
     }
 
