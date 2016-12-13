@@ -50,15 +50,6 @@ class Accompaniment extends Component {
                 </div>
             </div>
             <div styleName="section-holder"  label="effects">
-                <div styleName="controls-holder">
-                    <VerticalControls>
-                        <VerticalItem label="volume"> 
-                            <Controller size="30" 
-                                onChange={this.props.updatePianoVolume}
-                                value={this.props.pianoVolume}/>
-                        </VerticalItem>
-                    </VerticalControls>
-                </div>
                 <div styleName="instrument-holder">
                     <Effects effects={this.props.masterEffects}
                             remove={this.props.removeMasterEffect}
