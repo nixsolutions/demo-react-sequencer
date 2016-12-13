@@ -2,16 +2,14 @@ export const REVERBERATOR = 'REVERBERATOR';
 export const PING_PONG_DELAY = 'PING_PONG_DELAY';
 export const FEEDBACK_DELAY = 'FEEDBACK_DELAY';
 export const CHORUS = 'CHORUS';
-export const FILTER = 'FILTER';
 
 export const RANGE_SETTING_TYPE = 'RANGE';
 export const FREQUENCY_SETTING_TYPE = 'FREQUENCY_SETTING_TYPE';
-export const TIME_SETTING_TYPE = 'RANGE';
 
 let getReverberatorDefaults = () => ({
     id: Date.now(),
     type: REVERBERATOR,
-    label: 'reverb',
+    label: 'reverberator',
     wet: 50,
     active: true,
     settings: {
@@ -63,20 +61,6 @@ let getFeedbackDelayDefaults = () => ({
     }
 });
 
-let getFilterDefaults = () => ({
-    id: Date.now(),
-    type: FILTER,
-    label: 'filter',
-    wet: 50,
-    active: true,
-    settings: {
-        roomSize: {
-            label: 'room size', 
-            value: 30
-        }
-    }
-});
-
 let getChorusDefaults = () => ({
     id: Date.now(),
     type: CHORUS,
@@ -86,15 +70,18 @@ let getChorusDefaults = () => ({
     settings: {
         frequency: {
             label: 'frequency', 
-            value: 30
+            value: 30,
+            type: FREQUENCY_SETTING_TYPE
         },
         delayTime: {
             label: 'Delay Time', 
-            value: 30
+            value: 30,
+            type: RANGE_SETTING_TYPE
         },
         depth: {
             label: 'depth', 
-            value: 30
+            value: 30,
+            type: RANGE_SETTING_TYPE
         }
     }
 });
@@ -103,8 +90,7 @@ export let effects = [
     getReverberatorDefaults(),
     getPingPongDelayDefaults(),
     getFeedbackDelayDefaults(),
-    getChorusDefaults(),
-    getFilterDefaults()
+    getChorusDefaults()
 ]
 
 export let getEffect = (effectType) => {

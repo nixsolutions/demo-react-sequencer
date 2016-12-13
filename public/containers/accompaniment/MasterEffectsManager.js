@@ -7,10 +7,8 @@ import {
     PING_PONG_DELAY,
     FEEDBACK_DELAY,
     CHORUS,
-    FILTER,
 
     RANGE_SETTING_TYPE,
-    TIME_SETTING_TYPE,
     FREQUENCY_SETTING_TYPE
 } from 'utils/effects';
 
@@ -80,7 +78,7 @@ class MasterEffectsManager extends Component {
             case RANGE_SETTING_TYPE:
                 return setting.value / 100;
             case FREQUENCY_SETTING_TYPE:
-                let range = 20000 - 20;
+                let range = 10000 - 20;
                 let percentValue = range / 100;
 
                 return percentValue * setting.value;
@@ -97,29 +95,30 @@ class MasterEffectsManager extends Component {
         let roomSize;
         let frequency;
         let depth;
+        let width;
 
         switch(effectOptions.type){
             case REVERBERATOR:
-                roomSize = this.getSettingValue(settings.roomSize.value, RANGE_SETTING_TYPE);
+                roomSize = this.getSettingValue(settings.roomSize);
 
                 effectInstance = new Tone.JCReverb(roomSize);
                 break;
             case PING_PONG_DELAY:
-                delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
-                feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
+                delayTime = this.getSettingValue(settings.delayTime);
+                feedback = this.getSettingValue(settings.feedback);
 
                 effectInstance = new Tone.PingPongDelay(delayTime, feedback);
                 break;
             case FEEDBACK_DELAY:
-                delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
-                feedback = this.getSettingValue(settings.feedback.value, RANGE_SETTING_TYPE);
+                delayTime = this.getSettingValue(settings.delayTime);
+                feedback = this.getSettingValue(settings.feedback);
 
                 effectInstance = new Tone.FeedbackDelay(delayTime, feedback);
                 break;
             case CHORUS:
-                frequency = this.getSettingValue(settings.frequency.value, FREQUENCY_SETTING_TYPE);
-                delayTime = this.getSettingValue(settings.delayTime.value, RANGE_SETTING_TYPE);
-                depth = this.getSettingValue(settings.depth.value, RANGE_SETTING_TYPE);
+                frequency = this.getSettingValue(settings.frequency);
+                delayTime = this.getSettingValue(settings.delayTime);
+                depth = this.getSettingValue(settings.depth);
 
                 effectInstance = new Tone.Chorus(frequency, delayTime, depth);
                 break;
