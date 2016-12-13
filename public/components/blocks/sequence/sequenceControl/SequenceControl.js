@@ -2,6 +2,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import Controller from 'components/common/controller/Controller';
+import Popup from 'components/common/popup/Popup';
 
 class SequenceControl extends Component {
     render() {
@@ -20,10 +21,34 @@ class SequenceControl extends Component {
                         <Controller size="25" value={instrument.volume} onChange={this.updateInstrumentVolume.bind(this, instrument)}/>
                     </div>
                     <div styleName="remove" 
-                        onClick={this.props.removeInstrument.bind(this, instrument)}>X</div>
+                        onClick={this.onRemoveClick.bind(this, instrument)}>X</div>
                 </div>
             </div>
         );
+    }
+
+    onRemoveClick(instrument){
+        let {removeInstrument} = this.props;
+
+        Popup.show({
+            title: 'Are you sure ?',
+            content: "You want to delete instrument ?",
+            buttons: [
+                {
+                    title: 'Yes',
+                    click: function() {
+                        removeInstrument(instrument);
+                        this.onClose();
+                    }
+                },
+                {
+                    title: 'No',
+                    click: function(){
+                        this.onClose();
+                    }
+                }
+            ]
+        });
     }
 
     updateInstrumentVolume(instrument, volume){
