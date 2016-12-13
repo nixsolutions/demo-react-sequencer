@@ -27,7 +27,7 @@ class PopupComponent extends Popup {
                         <span  styleName="close" onClick={this.onClose}>x</span> 
                     </div>;
 
-            let buttons = this.state.buttons.map((button, i) => {
+            let buttons = (this.state.buttons || []).map((button, i) => {
                 return <button key={i} onClick={button.click.bind(this)} 
                                 styleName="button">{button.title}</button>;
             });
