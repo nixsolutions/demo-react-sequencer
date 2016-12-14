@@ -26,7 +26,7 @@ class InstrumentEffects extends Component {
                                 items={getEffectsList()}/>
                     <Effects effects={effects}
                         remove={this.removeEffect.bind(this)}
-                        toggleMute={this.props.toggleMuteInstrumentEffect}
+                        toggleMute={this.toggleMute.bind(this)}
                         changeWet={this.props.changeWetInstrumentEffect}
                         changeSetting={this.props.changeSettingInstrumentEffect}/>
                 </ScrollableBlock>
@@ -40,6 +40,10 @@ class InstrumentEffects extends Component {
 
     removeEffect(effectId){
         this.props.removeInstrumentEffect(effectId, this.props.instrumentName);
+    }
+
+    toggleMute(effectId){
+        this.props.toggleMuteInstrumentEffect(effectId, this.props.instrumentName);
     }
 }
 
