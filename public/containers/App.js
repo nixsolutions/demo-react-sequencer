@@ -10,7 +10,6 @@ import PanelControls from 'containers/panelControls/PanelControls';
 import KeyboardNavigation from 'containers/KeyboardNavigation';
 import Master from 'containers/Master';
 import Spinner from 'components/common/spinner/Spinner';
-import Popup from 'components/common/popup/Popup';
 import {connect} from 'react-redux';
 
 class App extends Component {
@@ -32,7 +31,6 @@ class App extends Component {
         <SamplerManager/>
         <KeyboardNavigation/>
         <Spinner active={this.props.loadingState}/>
-        <Popup/>
       </div>
     );
   }
