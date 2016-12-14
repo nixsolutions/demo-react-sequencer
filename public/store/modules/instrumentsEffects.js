@@ -19,8 +19,11 @@ export default function instrumentsEffectsReducer(state = INIT, action){
             return clone;
 
         case REMOVE_INSTRUMENT_EFFECT:
+            var {instrumentName, effectId} = action.payload;
             var clone = {...state};
-            delete clone[action.payload];
+            var effects = [...clone[instrumentName]];
+
+            clone[instrumentName] = effects.filter(effect => effect.id !== effectId);
             return clone;
 
         case TOGGLE_MUTE_INSTRUMENT_EFFECT:
@@ -61,10 +64,10 @@ export function addInstrumentEffect(effect, instrumentName){
     }
 }
 
-export function removeInstrumentEffect(instrimentId){
+export function removeInstrumentEffect(effectId, instrumentName){
     return {
-        type: ADD_INSTRUMENT_EFFECT,
-        payload: {instrimentId}
+        type: REMOVE_INSTRUMENT_EFFECT,
+        payload: {instrumentName, effectId}
     }
 }
 

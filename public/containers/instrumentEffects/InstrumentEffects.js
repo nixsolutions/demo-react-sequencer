@@ -25,7 +25,7 @@ class InstrumentEffects extends Component {
                                 onSelect={this.addInstrumentEffect.bind(this)} 
                                 items={getEffectsList()}/>
                     <Effects effects={effects}
-                        remove={this.props.removeInstrumentEffect}
+                        remove={this.removeEffect.bind(this)}
                         toggleMute={this.props.toggleMuteInstrumentEffect}
                         changeWet={this.props.changeWetInstrumentEffect}
                         changeSetting={this.props.changeSettingInstrumentEffect}/>
@@ -36,6 +36,10 @@ class InstrumentEffects extends Component {
 
     addInstrumentEffect(effectType){
         this.props.addInstrumentEffect(effectType, this.props.instrumentName);
+    }
+
+    removeEffect(effectId){
+        this.props.removeInstrumentEffect(effectId, this.props.instrumentName);
     }
 }
 
