@@ -9,7 +9,9 @@ class PopupComponent extends Popup {
             return this.register(options);
         }
 
-        return this.create(options);
+        let positionClass = options.position ? 'positioned' : '';
+
+        return this.create(Object.assign({}, options, {className: positionClass}));
     }
 
     render() {
@@ -28,10 +30,11 @@ class PopupComponent extends Popup {
             });
 
             let buttonsBlock = buttons.length ? <div styleName="buttons">{buttons}</div> : '';
+            let popupClass = ['popup', this.state.className].join(' ');
 
             popup = <div styleName="popup-holder">
                         {overlay}
-                        <div styleName='popup'  ref="box">
+                        <div styleName={popupClass}  ref="box">
                             {head}
                             <div styleName='content'>{this.state.content}</div>
                             {buttonsBlock}
