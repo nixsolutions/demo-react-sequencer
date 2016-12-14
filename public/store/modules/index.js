@@ -12,6 +12,7 @@ import bindings from './bindings';
 import pianoVolume from './pianoVolume';
 import accompanimentInstrument from './accompanimentInstrument';
 import masterEffects from './masterEffects';
+import instrumentsEffects from './instrumentsEffects';
 
 export default {
     bpm,
@@ -27,5 +28,6 @@ export default {
     bindings,
     pianoVolume,
     accompanimentInstrument,
-    masterEffects
+    masterEffects,
+    instrumentsEffects
 };
