@@ -41,11 +41,17 @@ export default function instrumentsEffectsReducer(state = INIT, action){
             return clone;
     
         case CHANGE_WET_INSTRUMENT_EFFECT:
-            var {instrumentName, value} = action.payload;
+            var {effectId, value, instrumentName} = action.payload;
             var clone = {...state};
-            var effect = {...clone[instrumentName]};
-            effect.wet = value;
-            clone[instrumentName] = effect;
+            var effects = [...clone[instrumentName]];
+            clone[instrumentName] = effects.map(effect => {
+                if(effect.id === effectId){
+                    return {...effect, wet: value};
+                }
+
+                return effect;
+            });
+
             return clone;
 
         case CHANGE_SETTING_INSTRUMENT_EFFECT:
@@ -84,10 +90,10 @@ export function toggleMuteInstrumentEffect(effectId, instrumentName){
     }
 }
 
-export function changeWetInstrumentEffect(value, instrimentId){
+export function changeWetInstrumentEffect(effectId, value, instrumentName){
     return {
         type: CHANGE_WET_INSTRUMENT_EFFECT,
-        payload: {value, instrimentId}
+        payload: {effectId, value, instrumentName}
     }
 }
 
