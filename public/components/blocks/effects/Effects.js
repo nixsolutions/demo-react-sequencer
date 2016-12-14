@@ -4,17 +4,37 @@ import React, {Component, PropTypes} from 'react';
 import Effect from './effect/Effect';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
-import Popup from 'components/common/popup/Popup';
+import Modal from 'components/common/modal/Modal';
 
 class Effects extends Component {
+    state = {isModalOpen: false};
+
     render() {
         let effects = (this.props.effects || []).map((effect, i) => {
-            return <Effect key={i} 
+            return <div key={effect.id}>
+                        <Effect
                         effect={effect}
-                        remove={this.onRemoveClick.bind(this)}
+                        remove={this.showModal.bind(this)}
                         toggleMute={this.props.toggleMute}
                         changeWet={this.props.changeWet}
                         changeSetting={this.props.changeSetting}/>
+                        <Modal
+                            contentLabel="Modal"
+                            title='Are you sure ?'
+                            isOpen={this.state.isModalOpen}
+                            buttons={[
+                                {
+                                    title: 'Yes',
+                                    click: this.removeEffect.bind(this, effect)
+                                },
+                                {
+                                    title: 'No',
+                                    click: this.closeModal.bind(this)
+                                }
+                            ]}>
+                            "You want to delete an effect ?"
+                        </Modal>
+                    </div>
         });
 
         return <ScrollableBlock>
@@ -24,30 +44,19 @@ class Effects extends Component {
 
     toggleMute(){
         this.props.toggleMute(this.props.effect);
-    } 
+    }
 
-    onRemoveClick(effect){
-        let {remove} = this.props;
+    removeEffect(effect){
+        this.props.remove(effect.id);
+        this.closeModal();
+    }
 
-        Popup.show({
-            title: 'Are you sure ?',
-            content: "You want to delete an effect ?",
-            buttons: [
-                {
-                    title: 'Yes',
-                    click: function() {
-                        remove(effect);
-                        this.onClose();
-                    }
-                },
-                {
-                    title: 'No',
-                    click: function(){
-                        this.onClose();
-                    }
-                }
-            ]
-        });
+    showModal(){
+        this.setState({isModalOpen: true});
+    }
+
+    closeModal(){
+        this.setState({isModalOpen: false});
     }
 
     changeWet(percents){
