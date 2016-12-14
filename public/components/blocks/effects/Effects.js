@@ -8,7 +8,7 @@ import Popup from 'components/common/popup/Popup';
 
 class Effects extends Component {
     render() {
-        let effects = this.props.effects.map((effect, i) => {
+        let effects = (this.props.effects || []).map((effect, i) => {
             return <Effect key={i} 
                         effect={effect}
                         remove={this.onRemoveClick.bind(this)}
