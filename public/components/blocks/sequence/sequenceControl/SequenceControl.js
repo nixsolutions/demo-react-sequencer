@@ -2,11 +2,16 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, { Component, PropTypes } from 'react';
 import Controller from 'components/common/controller/Controller';
-import Popup from 'components/common/popup/Popup';
+import Modal from 'components/common/modal/Modal';
 import Effects from 'components/blocks/effects/Effects';
 import InstrumentEffects from 'containers/instrumentEffects/InstrumentEffects';
 
 class SequenceControl extends Component {
+    state = {
+        isConfirmationRemoveActive: false,
+        isEffectsModalActive: false
+    };
+
     render() {
         let {instrument} = this.props;
         let muteClass = ['mute', instrument.active ? 'active' : ''].join(' ');
@@ -28,45 +33,52 @@ class SequenceControl extends Component {
                     <div styleName="remove"
                         onClick={this.onRemoveClick.bind(this, instrument)}>X</div>
                 </div>
+                <Modal title='Are you sure ?'
+                        isOpen={this.state.isConfirmationRemoveActive}
+                        onRequestClose={this.closeRemoveConfirmation.bind(this)}
+                        contentLabel="modal"
+                        buttons={[
+                            { title: 'Yes', click: this.removeInstrument.bind(this)},
+                            { title: 'No', click: this.closeRemoveConfirmation.bind(this)}
+                        ]}>
+                    <div>"You want to delete an instrument ?"</div>
+                </Modal>
+                <Modal title={`${instrument.name}'s effects`}
+                        isOpen={this.state.isEffectsModalActive}
+                        contentLabel="modal"
+                        onRequestClose={this.closeEffectsModal.bind(this)}>
+                    <InstrumentEffects instrumentName={instrument.name}/>
+                </Modal>
             </div>
         );
     }
 
-    onRemoveClick(instrument) {
-        let {removeInstrument} = this.props;
+    removeInstrument(){
+        this.props.removeInstrument(this.props.instrument);
+    }
 
-        Popup.show({
-            title: 'Are you sure ?',
-            content: "You want to delete an instrument ?",
-            buttons: [
-                {
-                    title: 'Yes',
-                    click: function () {
-                        removeInstrument(instrument);
-                        this.onClose();
-                    }
-                },
-                {
-                    title: 'No',
-                    click: function () {
-                        this.onClose();
-                    }
-                }
-            ]
-        });
+    openRemoveConfirmation(){
+        this.setState({isConfirmationRemoveActive: true});
+    }
+
+    closeRemoveConfirmation(){
+        this.setState({isConfirmationRemoveActive: false});
+    }
+
+    openEffectsModal(){
+        this.setState({isEffectsModalActive: true});
+    }
+
+    closeEffectsModal(){
+        this.setState({isEffectsModalActive: false});
+    }
+
+    onRemoveClick(instrument) {
+        this.openRemoveConfirmation();
     }
 
     onFxClick(instrument) {
-        let content = <InstrumentEffects instrumentName={instrument.name}/>;
-
-        let sequenceControlElement = this.refs['sequence-control'];
-        let coords = this.getCoords(sequenceControlElement);
-
-        Popup.show({
-            title: `${instrument.name}'s effects`,
-            position: { x: coords.right, y: coords.top },
-            content
-        });
+        this.openEffectsModal();
     }
 
     getCoords(elem) {

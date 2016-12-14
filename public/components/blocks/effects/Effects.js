@@ -19,18 +19,13 @@ class Effects extends Component {
                         changeWet={this.props.changeWet}
                         changeSetting={this.props.changeSetting}/>
                         <Modal
+                            onRequestClose={this.closeModal.bind(this)}
                             contentLabel="Modal"
                             title='Are you sure ?'
                             isOpen={this.state.isModalOpen}
                             buttons={[
-                                {
-                                    title: 'Yes',
-                                    click: this.removeEffect.bind(this, effect)
-                                },
-                                {
-                                    title: 'No',
-                                    click: this.closeModal.bind(this)
-                                }
+                                { title: 'Yes', click: this.removeEffect.bind(this, effect) },
+                                { title: 'No', click: this.closeModal.bind(this) }
                             ]}>
                             <div>"You want to delete an effect ?"</div>
                         </Modal>
