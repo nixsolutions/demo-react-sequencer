@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Controller from 'components/common/controller/Controller';
 import Popup from 'components/common/popup/Popup';
 import Effects from 'components/blocks/effects/Effects';
+import InstrumentEffects from 'containers/instrumentEffects/InstrumentEffects';
 
 class SequenceControl extends Component {
     render() {
@@ -56,14 +57,7 @@ class SequenceControl extends Component {
     }
 
     onFxClick(instrument) {
-        let {removeInstrument, styles} = this.props;
-        let content = CSSModules(<div styleName="effects-block">
-            <Effects effects={this.props.effects}
-                    remove={this.props.removeInstrumentEffect}
-                    toggleMute={this.props.toggleMuteInstrumentEffect}
-                    changeWet={this.props.changeWetInstrumentEffect}
-                    changeSetting={this.props.changeSettingInstrumentEffect}/>
-        </div>, styles);
+        let content = <InstrumentEffects instrumentName={instrument.name}/>;
 
         let sequenceControlElement = this.refs['sequence-control'];
         let coords = this.getCoords(sequenceControlElement);
