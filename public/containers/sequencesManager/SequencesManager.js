@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {updatePlay} from 'modules/play';
-import {toggleStep, toggleInstrument, addInstrument, removeInstrument, updateInstrumentVolume} from 'modules/instruments';
+import {
+    toggleStep, 
+    toggleInstrument, 
+    addInstrument, 
+    removeInstrument, 
+    updateInstrumentVolume
+} from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
