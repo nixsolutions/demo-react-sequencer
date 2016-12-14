@@ -1,0 +1,39 @@
+@import "~shared/variables.less";
+@import "~shared/mixins.less";
+
+.modal{
+    position: relative;
+    background: @color-11;
+    margin: 0 auto;
+    border: 1px solid @color-1;
+
+    .head{
+        background: @color-15;
+        border-bottom: 1px solid @color-1;
+        padding: @padding-1;
+        display: flex;
+        justify-content: space-between;
+
+        .title{
+            color: @color-1;
+        }
+
+        .close{
+            .remove-button();
+        }
+    }
+
+    .content{
+        text-align: center;
+        padding: @padding-1;
+    }
+
+    .buttons{
+        text-align: center;
+        padding: @padding-1;
+        .button{
+            .button-2();
+            margin: @padding-1;
+        }
+    }
+}
