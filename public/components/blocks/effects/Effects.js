@@ -32,7 +32,7 @@ class Effects extends Component {
                                     click: this.closeModal.bind(this)
                                 }
                             ]}>
-                            "You want to delete an effect ?"
+                            <div>"You want to delete an effect ?"</div>
                         </Modal>
                     </div>
         });
