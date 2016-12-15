@@ -11,10 +11,13 @@ class SamplerManager extends Component {
         this.sequencer = null;
         this.matrix = [];
         this.samples = {};
+        this.buffers = {};
     }
 
     componentWillMount() {
-        this.loadSamples(this.props.samples);
+        let buffersPaths = this.props.samples.map(sample => sample.path);
+
+        this.loadBuffers(buffersPaths);
         this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
         this.updateBPM(this.props.bpm);
@@ -34,6 +37,7 @@ class SamplerManager extends Component {
         }
 
         if (instruments !== this.props.instruments) {
+            this.updateSamples(instruments);
             this.updateMatrix(instruments);
             this.updateSequence();
         }
@@ -75,11 +79,43 @@ class SamplerManager extends Component {
         Tone.Transport.bpm.value = value || 1;
     }
 
-    loadSamples(samples){
+    updateSamples(instruments){
+        let oldSamples = {...this.samples};
+        let newSamples = {};
+
+        instruments.forEach(instrument => {
+            if(oldSamples[instrument.name]){
+                newSamples[instrument.name] = oldSamples[instrument.name];
+            }else{
+                newSamples[instrument.name] = new Tone.Sampler(this.buffers[instrument.path]).toMaster();
+            }
+
+            delete oldSamples[instrument.name];
+        });
+
+        this.samples = newSamples;
+        this.destroySamples(oldSamples);
+    }
+
+    destroySamples(samples){
+        this.mapObject(samples, (key, sample) => {
+            sample.dispose();
+            delete samples[key];
+        });
+    }
+
+    mapObject(obj, fn){
+        for(let key in obj){
+            fn(key, obj[key]);
+        }
+    }
+    }
+
+    loadBuffers(samplesPaths){
         this.props.updateLoadingState(true);
     
-        this.samples = samples.reduce((result, sample) => {
-            result[sample.path] = new Tone.Sampler(sample.path).toMaster();
+        this.buffers = samplesPaths.reduce((result, samplePath) => {
+            result[samplePath] = new Tone.Buffer(samplePath);
             return result;
         }, {});
     }
@@ -96,9 +132,9 @@ class SamplerManager extends Component {
 
                 if((note === undefined) || !instrument.active) { return; }
 
-                let {volume, path} = instrument;
+                let {volume, path, name} = instrument;
 
-                matrix[i][instrument.path] = {note, volume, path};
+                matrix[i][name] = {note, volume, path, name};
             });
 
             return matrix;
@@ -108,8 +144,8 @@ class SamplerManager extends Component {
     createSequencer(){
         this.sequencer = new Tone.Sequence((time, step) => {
             for(let key in step){
-                let {note, path, volume} = step[key];
-                let sample = this.samples[path];
+                let {note, path, volume, name} = step[key];
+                let sample = this.samples[name];
                 let processedVolume = volume / 100;
 
                 sample.triggerAttackRelease(note, undefined, undefined, processedVolume);
