@@ -124,8 +124,8 @@ class SamplerManager extends Component {
 
                 if(!instrumentEffects[effectSettings.id]){
                     let effect = newInstrumentsEffects[instrumentName][effectSettings.id] = createEffect(effectSettings);
-                    effect.toMaster(); 
-                    this.samples[instrumentName].chain(effect);
+
+                    this.samples[instrumentName].chain(effect, Tone.Master);
                 }else{
                     applySettingsToEffect(effectSettings, instrumentEffects[effectSettings.id]);
                     newInstrumentsEffects[instrumentName][effectSettings.id] = instrumentEffects[effectSettings.id];
@@ -142,8 +142,6 @@ class SamplerManager extends Component {
     destroyInstrumentsEffects(instrumentsEffects){
         mapObject(instrumentsEffects, (instrumentName, effects) => {
             mapObject(effects, (effectId, effect) => {
-                let sample = this.samples[instrumentName];
-
                 effect.disconnect();
                 effect.dispose();
                 delete effects[effectId];
