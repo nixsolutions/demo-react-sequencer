@@ -174,6 +174,6 @@ export let applySettingsToEffect = (effectOptions, effect) => {
         
     });
 
-    effect.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
+    effect.output.gain.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
     return effect;
 }
