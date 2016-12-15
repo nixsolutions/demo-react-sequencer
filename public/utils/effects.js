@@ -136,7 +136,7 @@ export let getSettingValue = (setting, type) => {
 }
 
 
-export let createEffect = (effectOptions) => {
+export let createEffect = (effectOptions, isMasterEffect) => {
     let {settings} = effectOptions;
     let effectInstance;
 
@@ -155,12 +155,11 @@ export let createEffect = (effectOptions) => {
             break;
     }
 
-    applySettingsToEffect(effectOptions, effectInstance);
-    effectInstance.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
+    applySettingsToEffect(effectOptions, effectInstance, isMasterEffect);
     return effectInstance;
 }
 
-export let applySettingsToEffect = (effectOptions, effect) => {
+export let applySettingsToEffect = (effectOptions, effect, isMasterEffect) => {
     let {settings} = effectOptions;
 
     mapObject(settings, (settingName, settingOptions) => {
@@ -174,6 +173,13 @@ export let applySettingsToEffect = (effectOptions, effect) => {
         
     });
 
-    effect.output.gain.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
+    let wetValue = effectOptions.active ? (effectOptions.wet / 100) : 0;
+
+    if(isMasterEffect){
+        effect.wet.value = wetValue;
+    } else{
+        effect.output.gain.value = wetValue;
+    }
+
     return effect;
 }

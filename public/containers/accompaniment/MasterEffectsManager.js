@@ -50,7 +50,7 @@ class MasterEffectsManager extends Component {
 
     addEffects(effectsOptions){
         effectsOptions.forEach(effectOptions => {
-            let effectInstance = createEffect(effectOptions);
+            let effectInstance = createEffect(effectOptions, true);
 
             this.effects[effectOptions.id] = effectInstance;
         });
