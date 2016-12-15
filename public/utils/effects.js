@@ -148,31 +148,20 @@ export let createEffect = (effectOptions) => {
 
     switch(effectOptions.type){
         case REVERBERATOR:
-            roomSize = getSettingValue(settings.roomSize);
-
-            effectInstance = new Tone.JCReverb(roomSize);
+            effectInstance = new Tone.JCReverb();
             break;
         case PING_PONG_DELAY:
-            delayTime = getSettingValue(settings.delayTime);
-            feedback = getSettingValue(settings.feedback);
-
-            effectInstance = new Tone.PingPongDelay(delayTime, feedback);
+            effectInstance = new Tone.PingPongDelay();
             break;
         case FEEDBACK_DELAY:
-            delayTime = getSettingValue(settings.delayTime);
-            feedback = getSettingValue(settings.feedback);
-
-            effectInstance = new Tone.FeedbackDelay(delayTime, feedback);
+            effectInstance = new Tone.FeedbackDelay();
             break;
         case CHORUS:
-            frequency = getSettingValue(settings.frequency);
-            delayTime = getSettingValue(settings.delayTime);
-            depth = getSettingValue(settings.depth);
-
-            effectInstance = new Tone.Chorus(frequency, delayTime, depth);
+            effectInstance = new Tone.Chorus();
             break;
     }
 
+    applySettingsToEffect(effectOptions, effectInstance);
     effectInstance.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
     return effectInstance;
 }
