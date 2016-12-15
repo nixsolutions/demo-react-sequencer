@@ -59,7 +59,8 @@ class PianoManager extends Component {
     }
 
     releaseNote(note){
-        this.playedNotes[note].triggerRelease();
+        // todo this should be uncommitted if you want note shout on keyup
+        // this.playedNotes[note].triggerRelease();
         delete this.playedNotes[note];
     }
 
