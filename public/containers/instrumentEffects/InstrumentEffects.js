@@ -28,7 +28,7 @@ class InstrumentEffects extends Component {
                         remove={this.removeEffect.bind(this)}
                         toggleMute={this.toggleMute.bind(this)}
                         changeWet={this.changeWet.bind(this)}
-                        changeSetting={this.props.changeSettingInstrumentEffect}/>
+                        changeSetting={this.changeSetting.bind(this)}/>
                 </ScrollableBlock>
             </div>
         );
@@ -48,6 +48,10 @@ class InstrumentEffects extends Component {
 
     changeWet(value, effectId){
         this.props.changeWetInstrumentEffect(effectId, value, this.props.instrumentName);
+    }
+
+    changeSetting(type, value, effectId){
+        this.props.changeSettingInstrumentEffect(effectId, type, value, this.props.instrumentName);
     }
 }
 

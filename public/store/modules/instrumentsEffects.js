@@ -55,13 +55,21 @@ export default function instrumentsEffectsReducer(state = INIT, action){
             return clone;
 
         case CHANGE_SETTING_INSTRUMENT_EFFECT:
-            var {instrumentName, type, value} = action.payload;
+            var {effectId, type, value, instrumentName} = action.payload;
             var clone = {...state};
-            var effect = {...clone[instrumentName]};
-            var settings = {...effect.settings}
-            settings[type].value = value;
-            effect.settings = settings;
-            clone[instrumentName] = effect;
+            var effects = [...clone[instrumentName]];
+            clone[instrumentName] = effects.map(effect => {
+                if(effect.id === effectId){
+                    let settings = {...effect.settings};
+
+                    settings[type].value = value;
+
+                    return {...effect, settings};
+                }
+
+                return effect;
+            });
+
             return clone;
 
         default:
@@ -97,9 +105,9 @@ export function changeWetInstrumentEffect(effectId, value, instrumentName){
     }
 }
 
-export function changeSettingInstrumentEffect(type, value, instrimentId){
+export function changeSettingInstrumentEffect(effectId, type, value, instrumentName){
     return {
         type: CHANGE_SETTING_INSTRUMENT_EFFECT,
-        payload: {instrimentId, type, value}
+        payload: {effectId, type, value, instrumentName}
     }
 }
