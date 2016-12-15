@@ -26,6 +26,7 @@ class KeyboardNavigation extends Component {
     render(){ return <div></div> }
 
     handleKeyDown(e){
+        e.preventDefault();
         let {keyCode} = e;
 
         this.props.bindings[keyCode] && 
