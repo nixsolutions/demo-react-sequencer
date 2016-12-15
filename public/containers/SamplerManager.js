@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Tone from 'tone';
 import {updatePlayedStep} from 'modules/playedStep';
 import {updateLoadingState} from 'modules/loadingState';
+import {createEffect, applySettingsToEffect} from 'utils/effects';
+import {mapObject} from 'utils/helper';
 
 class SamplerManager extends Component {
     constructor(props, context){
@@ -12,6 +14,7 @@ class SamplerManager extends Component {
         this.matrix = [];
         this.samples = {};
         this.buffers = {};
+        this.instrumentsEffects = {};
     }
 
     componentWillMount() {
@@ -30,7 +33,7 @@ class SamplerManager extends Component {
     render(){ return <div></div> }
 
     applyUpdates(nextProps){
-        let {instruments, play, bpm, volume} = nextProps;
+        let {instruments, instrumentsEffects, play, bpm, volume} = nextProps;
 
         if (bpm !== this.props.bpm) {
             this.updateBPM(bpm);
@@ -40,6 +43,10 @@ class SamplerManager extends Component {
             this.updateSamples(instruments);
             this.updateMatrix(instruments);
             this.updateSequence();
+        }
+
+        if (instrumentsEffects !== this.props.instrumentsEffects) {
+            this.updateInstrumentsEffects(instrumentsEffects);
         }
 
         if (play !== this.props.play) {
@@ -98,17 +105,50 @@ class SamplerManager extends Component {
     }
 
     destroySamples(samples){
-        this.mapObject(samples, (key, sample) => {
+        mapObject(samples, (key, sample) => {
             sample.dispose();
             delete samples[key];
         });
     }
 
-    mapObject(obj, fn){
-        for(let key in obj){
-            fn(key, obj[key]);
-        }
+    updateInstrumentsEffects(instrumentsEffects){
+        let oldInstrumentsEffects = {...this.instrumentsEffects};
+        let newInstrumentsEffects = {};
+
+        mapObject(instrumentsEffects, (instrumentName, effectsSettings) => {
+            let sample = this.samples[instrumentName];
+
+            effectsSettings.forEach(effectSettings => {
+                let instrumentEffects = oldInstrumentsEffects[instrumentName] || {};
+                newInstrumentsEffects[instrumentName] = newInstrumentsEffects[instrumentName] || {};
+
+                if(!instrumentEffects[effectSettings.id]){
+                    let effect = newInstrumentsEffects[instrumentName][effectSettings.id] = createEffect(effectSettings);
+                    effect.toMaster(); 
+                    this.samples[instrumentName].chain(effect);
+                }else{
+                    applySettingsToEffect(effectSettings, instrumentEffects[effectSettings.id]);
+                    newInstrumentsEffects[instrumentName][effectSettings.id] = instrumentEffects[effectSettings.id];
+                }
+
+                oldInstrumentsEffects[instrumentName] && delete oldInstrumentsEffects[instrumentName][effectSettings.id];
+            });
+        });
+
+        this.instrumentsEffects = newInstrumentsEffects;
+        this.destroyInstrumentsEffects(oldInstrumentsEffects);
     }
+
+    destroyInstrumentsEffects(instrumentsEffects){
+        mapObject(instrumentsEffects, (instrumentName, effects) => {
+            mapObject(effects, (effectId, effect) => {
+                let sample = this.samples[instrumentName];
+
+                effect.disconnect();
+                effect.dispose();
+                delete effects[effectId];
+            });
+        });
     }
 
     loadBuffers(samplesPaths){
@@ -203,6 +243,7 @@ export default connect(mapStateToProps, {
 function mapStateToProps(state){
     return {
         instruments: state.instruments,
+        instrumentsEffects: state.instrumentsEffects,
         play: state.play,
         bpm: state.bpm,
         samples: state.samples,
