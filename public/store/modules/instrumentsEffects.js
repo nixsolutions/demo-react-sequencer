@@ -1,3 +1,7 @@
+import {
+    REMOVE_INSTRUMENT
+} from './instruments';
+
 export const ADD_INSTRUMENT_EFFECT = 'ADD_INSTRUMENT_EFFECT';
 export const REMOVE_INSTRUMENT_EFFECT = 'REMOVE_INSTRUMENT_EFFECT';
 export const TOGGLE_MUTE_INSTRUMENT_EFFECT = 'TOGGLE_MUTE_INSTRUMENT_EFFECT';
@@ -69,6 +73,13 @@ export default function instrumentsEffectsReducer(state = INIT, action){
 
                 return effect;
             });
+
+            return clone;
+
+        case REMOVE_INSTRUMENT:
+            var {name} = action.payload;
+            var clone = {...state};
+            delete clone[name];
 
             return clone;
 
