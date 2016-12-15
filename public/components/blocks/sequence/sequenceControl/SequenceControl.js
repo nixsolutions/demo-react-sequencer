@@ -119,12 +119,6 @@ SequenceControl.propTypes = {
     toggleInstrument: PropTypes.func,
     removeInstrument: PropTypes.func,
     updateInstrumentVolume: PropTypes.func,
-
-    addInstrumentEffect: PropTypes.func,
-    removeInstrumentEffect: PropTypes.func,
-    toggleMuteInstrumentEffect: PropTypes.func,
-    changeWetInstrumentEffect: PropTypes.func,
-    changeSettingInstrumentEffect: PropTypes.func,
 };
 
 export default CSSModules(SequenceControl, styles, { allowMultiple: true });
