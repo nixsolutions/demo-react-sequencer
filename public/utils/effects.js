@@ -1,5 +1,7 @@
 import Tone from 'tone';
 
+import {mapObject} from 'utils/helper';
+
 export const REVERBERATOR = 'REVERBERATOR';
 export const PING_PONG_DELAY = 'PING_PONG_DELAY';
 export const FEEDBACK_DELAY = 'FEEDBACK_DELAY';
@@ -173,4 +175,22 @@ export let createEffect = (effectOptions) => {
 
     effectInstance.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
     return effectInstance;
+}
+
+export let applySettingsToEffect = (effectOptions, effect) => {
+    let {settings} = effectOptions;
+
+    mapObject(settings, (settingName, settingOptions) => {
+        let value = getSettingValue(settingOptions);
+
+        if(effect[settingName].value !== undefined){
+            effect[settingName].value = value;
+        }else{
+            effect[settingName] = value ;
+        }
+        
+    });
+
+    effect.wet.value = effectOptions.active ? (effectOptions.wet / 100) : 0;
+    return effect;
 }
