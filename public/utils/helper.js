@@ -3,3 +3,5 @@ export let mapObject = (obj, fn) => {
         fn(key, obj[key]);
     }
 }
+
+export let copyDeepObject = (obj) => JSON.parse(JSON.stringify(obj));

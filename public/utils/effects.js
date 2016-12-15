@@ -1,6 +1,6 @@
 import Tone from 'tone';
 
-import {mapObject} from 'utils/helper';
+import {mapObject, copyDeepObject} from 'utils/helper';
 
 export const REVERBERATOR = 'REVERBERATOR';
 export const PING_PONG_DELAY = 'PING_PONG_DELAY';
@@ -102,7 +102,7 @@ export let getEffect = (effectType) => {
 
     effects.forEach(effect => {
         if(effect.type === effectType){
-            result = effect;
+            result = copyDeepObject(effect);
         }
     })
     result.id = Date.now();
