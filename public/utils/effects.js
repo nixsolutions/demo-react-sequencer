@@ -139,12 +139,6 @@ export let getSettingValue = (setting, type) => {
 export let createEffect = (effectOptions) => {
     let {settings} = effectOptions;
     let effectInstance;
-    let delayTime;
-    let feedback;
-    let roomSize;
-    let frequency;
-    let depth;
-    let width;
 
     switch(effectOptions.type){
         case REVERBERATOR:
