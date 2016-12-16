@@ -6,6 +6,7 @@ class Indicator extends Component {
     static defaultProps = {
         size: 50,
         zeroAngle: 90,
+        startAngle: 40,
         minAngle: 40,
         maxAngle: 320,
         lineWidth: 1,
@@ -52,13 +53,13 @@ class Indicator extends Component {
     }
 
     processDegrees(degrees){
-        return this.degreesToRadians(this.props.zeroAngle + this.props.minAngle + degrees);
+        return this.degreesToRadians(this.props.zeroAngle + this.props.startAngle + degrees);
     }
 
     calculateDegrees(value){
-        let fullAngle = this.props.maxAngle - this.props.minAngle;
-        let percentWeight = fullAngle / 100;
-debugger
+        let fullAngle = value >= 0 ? this.props.maxAngle - this.props.startAngle : this.props.minAngle - this.props.startAngle;
+        let percentWeight = Math.abs(fullAngle / 100);
+
         return percentWeight * value;
     }
 }
@@ -68,6 +69,7 @@ Indicator.propTypes = {
     size: PropTypes.number,
     lineWidth: PropTypes.number,
     color: PropTypes.string,
+    startAngle: PropTypes.number,
     minAngle: PropTypes.number,
     maxAngle: PropTypes.number,
     zeroAngle: PropTypes.number,
