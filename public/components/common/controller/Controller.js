@@ -8,14 +8,14 @@ class Controller extends Component {
 
     static defaultProps = { 
         value: 0,
-        startAngle: 40,
-        endAngle: 320,
+        minAngle: 40,
+        maxAngle: 320,
         zeroAngle: 90,
         size: 40,
     };
 
     componentWillMount() {
-        this.fullDegs = this.props.endAngle - this.props.startAngle;
+        this.fullDegs = this.props.maxAngle - this.props.minAngle;
         this.degValue = this.fullDegs / 100;
         this.center = this.props.size / 2;
 
@@ -45,8 +45,8 @@ class Controller extends Component {
             <div styleName="controller-block">
                 <div styleName="indicator-holder">
                     <Indicator value={this.props.value}
-                            startAngle={this.props.startAngle}
-                            endAngle={this.props.endAngle}
+                            minAngle={this.props.minAngle}
+                            maxAngle={this.props.maxAngle}
                             zeroAngle={this.props.zeroAngle}
                             size={indicatorSize}/>
                 </div>
@@ -85,7 +85,7 @@ class Controller extends Component {
             deg += 270;
         }
 
-        let finalDeg = Math.min(Math.max(this.props.startAngle, deg), this.props.endAngle);
+        let finalDeg = Math.min(Math.max(this.props.minAngle, deg), this.props.maxAngle);
         return finalDeg;
     }
 
@@ -120,12 +120,12 @@ class Controller extends Component {
     }
 
     getValue(deg) {
-        return Math.round((deg - this.props.startAngle) / this.degValue);
+        return Math.round((deg - this.props.minAngle) / this.degValue);
     }
 
     setValue(value) {
         let processedValue = Math.max(0, Math.min(value || 0, 100));
-        let deg = Math.round(this.degValue * processedValue) + this.props.startAngle;
+        let deg = Math.round(this.degValue * processedValue) + this.props.minAngle;
 
         this.setState({deg, value: processedValue});
     }
@@ -149,8 +149,8 @@ Controller.propTypes = {
         }
     },
     size: PropTypes.string,
-    startAngle: PropTypes.number,
-    endAngle: PropTypes.number,
+    minAngle: PropTypes.number,
+    maxAngle: PropTypes.number,
     zeroAngle: PropTypes.number,
     onChange: PropTypes.func
 };

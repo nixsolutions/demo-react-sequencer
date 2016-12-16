@@ -6,7 +6,6 @@ class Indicator extends Component {
     static defaultProps = {
         size: 50,
         zeroAngle: 90,
-        startAngle: 90,
         minAngle: 40,
         maxAngle: 320,
         lineWidth: 1,
