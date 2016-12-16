@@ -8,6 +8,7 @@ class Controller extends Component {
 
     static defaultProps = { 
         value: 0,
+        startAngle: 140,
         minAngle: 40,
         maxAngle: 320,
         zeroAngle: 90,
@@ -45,6 +46,7 @@ class Controller extends Component {
             <div styleName="controller-block">
                 <div styleName="indicator-holder">
                     <Indicator value={this.props.value}
+                            startAngle={this.props.startAngle}
                             minAngle={this.props.minAngle}
                             maxAngle={this.props.maxAngle}
                             zeroAngle={this.props.zeroAngle}
@@ -120,14 +122,23 @@ class Controller extends Component {
     }
 
     getValue(deg) {
-        return Math.round((deg - this.props.minAngle) / this.degValue);
+        let diff = deg - this.props.startAngle;
+        let degValue = this.getDegValue(diff);
+
+        return Math.round(diff / Math.abs(degValue));
     }
 
     setValue(value) {
-        let processedValue = Math.max(0, Math.min(value || 0, 100));
-        let deg = Math.round(this.degValue * processedValue) + this.props.minAngle;
+        let degValue = this.getDegValue(value);
+        let deg = Math.round(Math.abs(degValue) * value) + this.props.startAngle;
 
-        this.setState({deg, value: processedValue});
+        this.setState({deg, value});
+    }
+
+    getDegValue(diff){
+        let isPositive = diff >= 0;
+        return isPositive ? (this.props.maxAngle - this.props.startAngle) / 100 :
+                            (this.props.minAngle - this.props.startAngle) / 100;
     }
 
     updateValue(deg) {
@@ -141,7 +152,7 @@ class Controller extends Component {
 Controller.propTypes = {
     value: function (props, propName, componentName) {
         let value = props[propName];
-        if (value < 0 || value > 100) {
+        if (value < -100 || value > 100) {
             return new Error(
                 'Invalid prop `' + propName + '` supplied to' +
                 ' `' + componentName + '`. Validation failed.'
@@ -149,6 +160,7 @@ Controller.propTypes = {
         }
     },
     size: PropTypes.string,
+    startAngle: PropTypes.number,
     minAngle: PropTypes.number,
     maxAngle: PropTypes.number,
     zeroAngle: PropTypes.number,
