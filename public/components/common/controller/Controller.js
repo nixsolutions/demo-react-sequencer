@@ -1,25 +1,24 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, { Component, PropTypes } from 'react';
+import Indicator from './indicator/Indicator';
 
 class Controller extends Component {
-    static defaultProps = { value: 0 };
+    state = {};
 
-    constructor(props, state) {
-        super(props, state);
-        this.state = {};
-        this.center = 40;
-        this.startAngle = 40;
-        this.endAngle = 320;
-
-        this.fullDegs = this.endAngle - this.startAngle;
-        this.degValue = this.fullDegs / 100;
-        this.size = this.props.size || 40;
-
-        this.center = this.size / 2;
-    }
+    static defaultProps = { 
+        value: 0,
+        startAngle: 40,
+        endAngle: 320,
+        zeroAngle: 90,
+        size: 40,
+    };
 
     componentWillMount() {
+        this.fullDegs = this.props.endAngle - this.props.startAngle;
+        this.degValue = this.fullDegs / 100;
+        this.center = this.props.size / 2;
+
         this.setValue(this.props.value);
     }
 
@@ -30,10 +29,12 @@ class Controller extends Component {
     }
 
     render() {
+        let indicatorSize = parseInt(this.props.size) + 6;
+
         let commonStyles = {
-            width: this.size,
-            height: this.size,
-            borderRadius: this.size
+            width: this.props.size,
+            height: this.props.size,
+            borderRadius: this.props.size
         };
 
         let styles = { 
@@ -41,15 +42,24 @@ class Controller extends Component {
         };
 
         return (
-            <div styleName="controller-wrapper"
-                onMouseDown={this.onMouseDown.bind(this)}
-                onMouseMove={this.onMouseMove.bind(this)}
-                onMouseUp={this.onMouseUp.bind(this)}
-                onMouseLeave={this.onMouseUp.bind(this)}
-                style={commonStyles}>
-                <div styleName="controller-holder">
-                    <div styleName="controller"
-                        style={styles}></div>
+            <div styleName="controller-block">
+                <div styleName="indicator-holder">
+                    <Indicator value={this.props.value}
+                            startAngle={this.props.startAngle}
+                            endAngle={this.props.endAngle}
+                            zeroAngle={this.props.zeroAngle}
+                            size={indicatorSize}/>
+                </div>
+                <div styleName="controller-wrapper"
+                    onMouseDown={this.onMouseDown.bind(this)}
+                    onMouseMove={this.onMouseMove.bind(this)}
+                    onMouseUp={this.onMouseUp.bind(this)}
+                    onMouseLeave={this.onMouseUp.bind(this)}
+                    style={commonStyles}>
+                    <div styleName="controller-holder">
+                        <div styleName="controller"
+                            style={styles}></div>
+                    </div>
                 </div>
             </div>
         );
@@ -75,7 +85,7 @@ class Controller extends Component {
             deg += 270;
         }
 
-        let finalDeg = Math.min(Math.max(this.startAngle, deg), this.endAngle);
+        let finalDeg = Math.min(Math.max(this.props.startAngle, deg), this.props.endAngle);
         return finalDeg;
     }
 
@@ -110,16 +120,12 @@ class Controller extends Component {
     }
 
     getValue(deg) {
-        return Math.round((deg - this.startAngle) / this.degValue);
+        return Math.round((deg - this.props.startAngle) / this.degValue);
     }
 
     setValue(value) {
-        let processedValue = value || 0;
-
-        if(processedValue < 0) { processedValue = 0; }
-        if(processedValue > 100) { processedValue = 100; }
-
-        let deg = Math.round(this.degValue * processedValue) + this.startAngle;
+        let processedValue = Math.max(0, Math.min(value || 0, 100));
+        let deg = Math.round(this.degValue * processedValue) + this.props.startAngle;
 
         this.setState({deg, value: processedValue});
     }
@@ -143,6 +149,9 @@ Controller.propTypes = {
         }
     },
     size: PropTypes.string,
+    startAngle: PropTypes.number,
+    endAngle: PropTypes.number,
+    zeroAngle: PropTypes.number,
     onChange: PropTypes.func
 };
 
