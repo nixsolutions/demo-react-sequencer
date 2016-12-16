@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import PlayControls from 'components/blocks/playControls/PlayControls';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
-import Slider from 'components/common/slider/Slider';
+import VolumeController from 'components/blocks/volumeController/VolumeController';
 import Analyser from 'components/blocks/analyser/Analyser';
 import {updatePlay} from 'modules/play';
 import {updateBPM} from 'modules/bpm';
@@ -21,7 +21,8 @@ class PanelControls extends Component {
                     <PlayControls updatePlay={this.props.updatePlay} 
                                 playState={this.props.play} 
                                 bindToKey={this.props.bindToKey}/>
-                    <Slider value={this.props.volume} onChange={this.props.updateVolume}/>
+                    <VolumeController value={this.props.volume} 
+                                    onChange={this.props.updateVolume}/>
                     <Analyser analyser={this.props.analyser}/>
                     <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                  </div>
