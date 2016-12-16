@@ -10,7 +10,8 @@ class Indicator extends Component {
         minAngle: 40,
         maxAngle: 320,
         lineWidth: 1,
-        color: '#83cec3',
+        indicationColor: '#83cec3',
+        unfillerColor: '#000',
     }
 
     componentDidMount(){
@@ -29,18 +30,38 @@ class Indicator extends Component {
     }
 
     draw(){
-        let center = (this.props.size / 2);
-        let radius = (this.props.size - this.props.lineWidth) / 2;
         let valueDegrees = this.calculateDegrees(this.props.value);
-        let counterClockwise = valueDegrees < 0;
 
         this.clear();
 
         this.context.beginPath();
-        this.context.lineWidth = this.props.lineWidth;
+        
+        this.drawUnfilled();
+        this.drawIndication(valueDegrees);
+    }
 
-        this.context.strokeStyle = this.props.color;
-        this.context.arc(center, center, radius, this.processDegrees(0), this.processDegrees(valueDegrees), counterClockwise);
+    drawUnfilled(){
+        let center = (this.props.size / 2);
+        let radius = (this.props.size - this.props.lineWidth) / 2;
+
+        this.context.lineWidth = this.props.lineWidth;
+        this.context.strokeStyle = this.props.unfillerColor;
+
+        this.context.beginPath();
+        this.context.arc(center, center, radius, this.processDegrees(this.props.minAngle), this.processDegrees(this.props.maxAngle));
+        this.context.stroke();
+    }
+
+    drawIndication(valueDegrees){
+        let center = (this.props.size / 2);
+        let radius = (this.props.size - this.props.lineWidth) / 2;
+        let counterClockwise = valueDegrees < 0;
+
+        this.context.lineWidth = this.props.lineWidth;
+        this.context.strokeStyle = this.props.indicationColor;
+
+        this.context.beginPath();
+        this.context.arc(center, center, radius, this.processDegrees(this.props.startAngle), this.processDegrees(valueDegrees), counterClockwise);
         this.context.stroke();
     }
 
@@ -53,14 +74,14 @@ class Indicator extends Component {
     }
 
     processDegrees(degrees){
-        return this.degreesToRadians(this.props.zeroAngle + this.props.startAngle + degrees);
+        return this.degreesToRadians(this.props.zeroAngle + degrees);
     }
 
     calculateDegrees(value){
         let fullAngle = value >= 0 ? this.props.maxAngle - this.props.startAngle : this.props.minAngle - this.props.startAngle;
         let percentWeight = Math.abs(fullAngle / 100);
 
-        return percentWeight * value;
+        return percentWeight * value + this.props.startAngle;
     }
 }
 

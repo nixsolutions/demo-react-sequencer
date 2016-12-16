@@ -8,7 +8,7 @@ class Controller extends Component {
 
     static defaultProps = { 
         value: 0,
-        startAngle: 140,
+        startAngle: 40,
         minAngle: 40,
         maxAngle: 320,
         zeroAngle: 90,
