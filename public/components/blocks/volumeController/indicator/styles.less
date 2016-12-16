@@ -1,0 +1,22 @@
+.indicator{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    li{
+        width: 3px;
+        border-radius: 1px;
+        background-color: #252525;
+        border-style: solid;
+        border-width: 1px;
+        border-image-source: linear-gradient(264deg, #000000, #818181);
+        border-image-slice: 1;
+
+        &.active{
+            background: #87b1ab;
+        }
+    }
+}
