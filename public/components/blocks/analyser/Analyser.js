@@ -7,6 +7,7 @@ class Analyser extends Component {
         width: 200,
         height: 130,
         segmentsInStack: 40,
+        gridColor: '#f26522',
     };
 
     componentWillReceiveProps(props){
@@ -40,6 +41,7 @@ class Analyser extends Component {
     draw(values){
         this.clear();
         this.drawSegments(values);
+        this.drawGrid();
     }
 
     clear(){
@@ -65,6 +67,29 @@ class Analyser extends Component {
         this.analyserContext.fillRect(x, y, this.segmentWidth, this.segmentHeight);
     }
 
+    drawGrid(){
+        this.drawVerticalGridLines();
+        this.drawHorizontalGridLines();
+    }
+
+    drawVerticalGridLines(){
+        for(let i = 0; props.analyser.size > i; i++){
+            
+        }
+    }
+
+    drawHorizontalGridLines(){
+        
+    }
+
+    drawGridLine(fromX, fromY, toX, toY){
+        this.analyserContext.strokeStyle = this.props.gridColor;
+        this.analyserContext.beginPath();
+        this.analyserContext.moveTo(fromX, fromY);
+        this.analyserContext.lineTo(toX, toY);
+        this.analyserContext.stroke();
+    }
+
     loop(){
         requestAnimationFrame(this.loop.bind(this));
 
@@ -79,7 +104,8 @@ Analyser.propTypes = {
     analyser: PropTypes.object,
     segmentsInStack: PropTypes.number,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    gridColor: PropTypes.string,
 };
 
 export default CSSModules(Analyser, styles, {allowMultiple: true});
