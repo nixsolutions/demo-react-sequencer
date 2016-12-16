@@ -19,7 +19,9 @@ class Slider extends Component {
 
         return <div style={style}>
                     <ReactSlider  styleName="slider" {...this.props}>
-                        <div styleName="handler" style={handlerStyle}></div>
+                        <div styleName="handler-holder" style={handlerStyle}>
+                            <div styleName="handler"></div>
+                        </div>
                     </ReactSlider>
                 </div>
     }
