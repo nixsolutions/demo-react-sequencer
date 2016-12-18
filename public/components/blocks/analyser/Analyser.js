@@ -4,15 +4,15 @@ import React, {Component, PropTypes} from 'react';
 
 class Analyser extends Component {
     static defaultProps = {
-        width: 200,
+        width: 300,
         height: 130,
-        segmentsInStack: 40,
+        segmentsInStack: 20,
         gridColor: '#f26522',
     };
 
     componentWillReceiveProps(props){
         if(props.analyser && !this.analyserContext){
-            this.padding = 1;
+            this.padding = 2;
             this.startChanalValue = 150;
             this.colorIncreaseStep = 10;
             this.segmentWeight = 255 / this.props.segmentsInStack;
@@ -29,7 +29,7 @@ class Analyser extends Component {
         let style = {
             width: this.props.width,
             height: this.props.height
-        }
+        };
 
         return <div styleName="analyser" style={style}>
                     <canvas width={this.props.width}
@@ -73,13 +73,23 @@ class Analyser extends Component {
     }
 
     drawVerticalGridLines(){
-        for(let i = 0; props.analyser.size > i; i++){
-            
+        for(let i = 0; this.props.analyser.size > i; i++){
+            let segmentCellXFrom = (this.segmentWidth + this.padding) * i + 0.5;
+            let segmentCellXTo = segmentCellXFrom + this.segmentWidth;
+
+            this.drawGridLine(segmentCellXFrom, 0, segmentCellXFrom, this.props.height);
+            this.drawGridLine(segmentCellXTo, 0, segmentCellXTo, this.props.height);
         }
     }
 
     drawHorizontalGridLines(){
-        
+        for(let i = 0; this.props.segmentsInStack > i; i++){
+            let segmentCellYFrom = this.props.height - ((this.segmentHeight + this.padding) * i) + 0.5;
+            let segmentCellYTo = segmentCellYFrom + this.segmentHeight;
+
+            this.drawGridLine(0, segmentCellYFrom, this.props.width, segmentCellYFrom);
+            this.drawGridLine(0, segmentCellYTo, this.props.width, segmentCellYTo);
+        }
     }
 
     drawGridLine(fromX, fromY, toX, toY){
