@@ -19,8 +19,8 @@ class Indicator extends Component {
         this.draw();
     }
 
-    componentWillReceiveProps(){
-        this.draw();
+    componentWillReceiveProps(props){
+        this.draw(props.value);
     }
 
     render() {
@@ -29,8 +29,8 @@ class Indicator extends Component {
                         ref="canvas"></canvas>;
     }
 
-    draw(){
-        let valueDegrees = this.calculateDegrees(this.props.value);
+    draw(value){
+        let valueDegrees = this.calculateDegrees(value);
 
         this.clear();
 
