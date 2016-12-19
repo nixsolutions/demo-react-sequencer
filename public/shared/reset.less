@@ -1,9 +1,18 @@
+@import '~shared/mixins.less';
+
 body {
     margin:0;
     color:#000;
     font:12px/16px Arial, Verdana, Helvetica, sans-serif;
     background: url(/images/bg-main.png);
+    background-size: 10px;
     min-width:1000px;
+
+    &:before{
+        content: '';
+        .fit();
+        background: radial-gradient(rgba(255,253,250,0.15), #171717)
+    }
 }
 img {
     border-style:none;
