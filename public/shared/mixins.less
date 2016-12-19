@@ -51,29 +51,35 @@
 }
 
 .button-1(@content, @activeContent){
-    width: @size-3;
-    height: @size-1;
-    padding: 0;
-    border: 1px solid @color-6;
-    border-radius: @radius-2;
-    background: @color-11;
+    position: relative;
+    width: 77px;
+    height: 43px;
     text-align: center;
     display: flex;
     align-items: center;
     cursor: pointer;
-    box-shadow: @shadow-1;
+    border-radius: 10px;
+    background: url('/images/button-1.png');
+    border: 0;
 
-    &:before{
+    &:after{
         content: '';
         display: block;
         margin: 0 auto;
         @content();
     }
 
+    &:hover{
+        &:after{
+            @activeContent();
+        }
+    }
+
     .active{
         border-color: @color-4;
-        box-shadow:inset @shadow-1;
-        &:before{
+        box-shadow:0 0 5px 1px #83cec3;
+
+        &:after{
             @activeContent();
         }
     }
