@@ -3,21 +3,12 @@
 .dashboard {
     position: relative;
     padding: @padding-4;
-    box-shadow: @shadow-2;
-    background: @background-1;
+    border-radius: 5px;
+    background-image: linear-gradient(to top, #878787, #9f9f9f 3%, #a1a1a1 11%, #c8c8c8 47%, #a4a4a4 63%, #b4b4b4 97%, #868686), linear-gradient(310deg, #242d3c, #24150a), linear-gradient(#b7b7b7, #b7b7b7);
+    background-blend-mode: normal, multiply, normal;
+    box-shadow: 0px 14px 54px 0 rgba(0, 0, 0, 0.71);
+    border: solid 20px #b7b7b7;
     width: @dashboard-size;
-
-
-    &:before {
-        @offset: @padding-2;
-        border: 1px solid @color-6;
-        content: "";
-        position: absolute;
-        top: @offset;
-        bottom: @offset;
-        left: @offset;
-        right: @offset;
-    }
 
     &> *{
         margin-bottom: @padding-2;

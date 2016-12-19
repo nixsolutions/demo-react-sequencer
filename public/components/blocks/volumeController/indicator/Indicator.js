@@ -6,8 +6,8 @@ class Indicator extends Component {
     static defaultProps = {
         value: 0,
         amount: 10,
-        initItemHeight: 5,
-        increaseValue: 3
+        initItemHeight: 2,
+        increaseValue: 2
     }
 
     render() {

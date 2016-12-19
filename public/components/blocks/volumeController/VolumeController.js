@@ -12,7 +12,7 @@ class VolumeConroller extends Component {
 
     render() {
         return <div styleName="volume-controller">
-                    <div><Indicator value={this.props.value}/></div>
+                    <div styleName="indicator"><Indicator value={this.props.value}/></div>
                     <div><Slider value={this.props.value} onChange={this.props.onChange}/></div>
                 </div>;
     }
