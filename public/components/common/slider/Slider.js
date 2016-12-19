@@ -18,7 +18,9 @@ class Slider extends Component {
         let handlerStyle = {height: this.props.height};
 
         return <div style={style}>
-                    <ReactSlider  styleName="slider" {...this.props}>
+                    <ReactSlider  styleName="slider" {...this.props} 
+                                withBars={true} 
+                                barClassName={this.props.styles.bar}>
                         <div styleName="handler-holder" style={handlerStyle}>
                             <div styleName="handler"></div>
                         </div>
