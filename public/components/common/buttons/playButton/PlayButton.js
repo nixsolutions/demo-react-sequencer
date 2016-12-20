@@ -1,6 +1,6 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class PlayButton extends Component {
     static defaultProps = { active: false };
@@ -8,17 +8,22 @@ class PlayButton extends Component {
     render() {
         let activeClass = this.props.active ? 'active' : '';
         let styleName = ['play-button', activeClass].join(' ');
-
-        return <button {...this.props} 
-                        styleName={styleName}
-                        onClick={this.onClick.bind(this)}
-                        disabled={this.props.disabled}>{this.props.children}</button>
+        let buttonProps = {
+            ...this.props,
+            styleName,
+            onClick: this.onClick.bind(this),
+                disabled: this.props.disabled
     }
 
-    onClick(){
-        let value = this.props.active ? 'pause' : 'play';
-        this.props.onClick && this.props.onClick(value);
+    return <div styleName={`button-wrapper ${activeClass}` }>
+            <button {...buttonProps} />
+        </div >
     }
+
+onClick(){
+    let value = this.props.active ? 'pause' : 'play';
+    this.props.onClick && this.props.onClick(value);
+}
 }
 
 PlayButton.propTypes = {
@@ -28,4 +33,4 @@ PlayButton.propTypes = {
     onClick: PropTypes.func,
 };
 
-export default CSSModules(PlayButton, styles, {allowMultiple: true});
+export default CSSModules(PlayButton, styles, { allowMultiple: true });

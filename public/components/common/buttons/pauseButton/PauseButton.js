@@ -1,6 +1,6 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class PauseButton extends Component {
     static defaultProps = { active: false };
@@ -8,17 +8,22 @@ class PauseButton extends Component {
     render() {
         let activeClass = this.props.active ? 'active' : '';
         let styleName = ['pause-button', activeClass].join(' ');
-
-        return <button {...this.props} 
-                        styleName={styleName}
-                        onClick={this.onClick.bind(this)}
-                        disabled={this.props.disabled}>{this.props.children}</button>
+        let buttonProps = {
+            ...this.props,
+            styleName,
+            onClick: this.onClick.bind(this),
+            disabled: this.props.disabled
+        }
+        
+        return <div styleName={`button-wrapper ${activeClass}`}>
+                <button {...buttonProps} />
+            </div >
     }
 
-    onClick(){
-        let value = this.props.active ? 'play' : 'pause';
-        this.props.onClick && this.props.onClick(value);
-    }
+onClick(){
+    let value = this.props.active ? 'play' : 'pause';
+    this.props.onClick && this.props.onClick(value);
+}
 }
 
 PauseButton.propTypes = {
@@ -28,4 +33,4 @@ PauseButton.propTypes = {
     onClick: PropTypes.func,
 };
 
-export default CSSModules(PauseButton, styles, {allowMultiple: true});
+export default CSSModules(PauseButton, styles, { allowMultiple: true });
