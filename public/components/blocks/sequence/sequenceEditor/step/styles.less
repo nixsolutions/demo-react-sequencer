@@ -2,48 +2,21 @@
 @import "~shared/mixins.less";
 
 .step{
-    position: relative;
-    width: @step-width;
-    height: @step-height;
-    border-radius: @radius-1;
-    background: @step-color-1;
+    width: 46px;
+    height: 50px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: @shadow-1;
+    background: url('/images/step-1.png') no-repeat;
 
-    &:before{
-        @width: @step-width / 2;
-        content: ' ';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        height: 4px;
-        width: @width;
-        margin: 2px 0 0 -(@width / 2);
-        background: @color-1;
-        opacity: @opacity-2;
-        border-radius: @radius-1;
+    &.even{
+        background-image: url('/images/step-2.png');
     }
 
     &.active{
-        box-shadow: inset @shadow-1;
-        background: @step-color-1-active;
-    }
+        background-image: url('/images/step-1-active.png');
 
-    &.even{
-        background: @step-color-2;
-
-        &.active{
-            background: @step-color-2-active;
-        }
-    }
-
-    &.highlight{
-        &:after{
-            .fit();
-            content: ' ';
-            background: @color-1;
-            opacity: @opacity-1;
+        &.even{
+            background-image: url('/images/step-2-active.png');
         }
     }
 }
