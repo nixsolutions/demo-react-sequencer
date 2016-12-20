@@ -4,15 +4,21 @@ import React, {Component, PropTypes} from 'react';
 
 class BpmEditor extends Component {
     render() {
+        let inputProps = {
+            type: "text",
+            onChange: this.onChange.bind(this), 
+            onKeyDown: this.onKeyDown,
+            value: this.props.value,
+            maxLength: "3",
+            ref: "bpmInput"
+        };
+
         return (
             <div styleName="bpm-editor">
-                <span styleName="title">BPM </span>
-                <input type="text" 
-                        onChange={this.onChange.bind(this)} 
-                        onKeyDown={this.onKeyDown} 
-                        value={this.props.value}
-                        maxLength="3"
-                        ref="bpmInput"/>
+                <span styleName="title">BPM</span>
+                <div styleName="input-holder">
+                    <input {...inputProps}/>
+                </div>
             </div>
         );
     }
