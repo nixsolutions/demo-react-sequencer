@@ -14,7 +14,7 @@ class Analyser extends Component {
             this.padding = 1;
             this.startChanalValue = 150;
             this.colorIncreaseStep = 10;
-            this.segmentWidth =7;
+            this.segmentWidth = 9;
             this.segmentHeight = 2;
             this.segmentWeight = 255 / this.props.segmentsInStack;
             this.segmentFullWidth = this.segmentWidth + this.padding;
@@ -34,14 +34,16 @@ class Analyser extends Component {
             height: this.height
         };
 
-        return <div styleName="analyser" style={style}>
-                    <canvas width={this.width}
-                        height={this.height}
-                        ref="grid"></canvas>
-                    <canvas width={this.width}
-                        height={this.height}
-                        ref="segments"></canvas>
-                </div>;
+        return <div styleName="analyser">
+            <div styleName="analyser-holder" style={style}>
+                <canvas width={this.width}
+                    height={this.height}
+                    ref="grid"></canvas>
+                <canvas width={this.width}
+                    height={this.height}
+                    ref="segments"></canvas>
+            </div>
+        </div>;
     }
 
     draw(values) {
