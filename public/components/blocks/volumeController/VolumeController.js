@@ -12,8 +12,12 @@ class VolumeConroller extends Component {
 
     render() {
         return <div styleName="volume-controller">
-                    <div styleName="indicator"><Indicator value={this.props.value}/></div>
-                    <div><Slider value={this.props.value} onChange={this.props.onChange}/></div>
+                    <span styleName="mute-icon"></span>
+                    <div styleName="holder">
+                        <div styleName="indicator"><Indicator value={this.props.value}/></div>
+                        <div><Slider value={this.props.value} onChange={this.props.onChange}/></div>
+                    </div>
+                    <span styleName="loud-icon"></span>
                 </div>;
     }
 }

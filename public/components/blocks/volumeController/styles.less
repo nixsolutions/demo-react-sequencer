@@ -2,8 +2,31 @@
 
 .volume-controller{
     margin: 0;
+    display: flex;
+    align-items: flex-end;
 
     .indicator{
         margin: 0 0 10px;
+    }
+
+    .volume-icon{
+        display: block;
+        width: 33px;
+        height: 29px;
+    }
+
+    .mute-icon{
+        .volume-icon();
+        background: url('/images/mute.png') no-repeat 50% 50%;
+    }
+
+    .loud-icon{
+        .volume-icon();
+        background: url('/images/loud.png') no-repeat 50% 50%;
+    }
+
+    .holder{
+        padding: 0 10px 5px;
+        width: 300px;
     }
 }
