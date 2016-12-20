@@ -21,24 +21,41 @@ import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
 class SequencesManager extends Component {
     render(){
+        let dropdownProps = {
+            items: this.props.dropdownItems, 
+            onSelect: this.props.addInstrument,
+            title: "Add instrument"
+        };
+
+        let playControllsProps = {
+            updatePlay: this.props.updatePlay,
+            playState: this.props.play,
+            bindToKey: this.props.bindToKey
+        };
+
+        let bpmEditorProps = {
+            onChange: this.props.updateBPM,
+            value: this.props.bpm
+        };
+
+        let sequencesProps = {
+            instruments: this.props.instruments,
+            playedStep: this.props.playedStep,
+            toggleInstrument: this.props.toggleInstrument,
+            removeInstrument: this.props.removeInstrument,
+            updateInstrumentVolume: this.props.updateInstrumentVolume,
+            onToggleStep: this.props.toggleStep
+        };
+
         return (
             <div>
                 <div styleName="block-holder">
-                    <Dropdown items={this.props.dropdownItems} 
-                        onSelect={this.props.addInstrument} 
-                        title="Add instrument"/>
-                    <PlayControls updatePlay={this.props.updatePlay} 
-                                playState={this.props.play} 
-                                bindToKey={this.props.bindToKey}/>
-                    <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
+                    <Dropdown {...dropdownProps}/>
+                    <PlayControls {...playControllsProps}/>
+                    <BpmEditor {...bpmEditorProps}/>
                 </div>
                 <ScrollableBlock>
-                    <Sequences instruments={this.props.instruments}
-                                playedStep={this.props.playedStep}
-                                toggleInstrument={this.props.toggleInstrument}
-                                removeInstrument={this.props.removeInstrument}
-                                updateInstrumentVolume={this.props.updateInstrumentVolume}
-                                onToggleStep={this.props.toggleStep}/>
+                    <Sequences {...sequencesProps}/>
                 </ScrollableBlock>
             </div>
         ); 
