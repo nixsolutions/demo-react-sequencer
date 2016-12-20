@@ -3,6 +3,7 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'components/common/dropdown/Dropdown';
+import PlayControls from 'components/blocks/playControls/PlayControls';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {updatePlay} from 'modules/play';
 import {
@@ -14,12 +15,22 @@ import {
 } from 'modules/instruments';
 import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
+import {bindToKey} from 'modules/bindings';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
 class SequencesManager extends Component {
     render(){
         return (
-            <div> 
+            <div>
+                <div styleName="block-holder">
+                    <Dropdown items={this.props.dropdownItems} 
+                        onSelect={this.props.addInstrument} 
+                        title="Add instrument"/>
+                    <PlayControls updatePlay={this.props.updatePlay} 
+                                playState={this.props.play} 
+                                bindToKey={this.props.bindToKey}/>
+                    
+                </div>
                 <ScrollableBlock>
                     <Sequences instruments={this.props.instruments}
                                 playedStep={this.props.playedStep}
@@ -28,11 +39,6 @@ class SequencesManager extends Component {
                                 updateInstrumentVolume={this.props.updateInstrumentVolume}
                                 onToggleStep={this.props.toggleStep}/>
                 </ScrollableBlock>
-                <div styleName="add-holder">
-                    <Dropdown items={this.props.dropdownItems} 
-                        onSelect={this.props.addInstrument} 
-                        title="Add instrument"/>
-                </div>
             </div>
         ); 
     }
@@ -66,6 +72,7 @@ SequencesManager.propTypes = {
     toggleInstrument: PropTypes.func,
     removeInstrument: PropTypes.func,
     updateInstrumentVolume: PropTypes.func,
+    bindToKey: PropTypes.func,
 };
 
 export default connect(mapStateToProps, {
@@ -74,7 +81,8 @@ export default connect(mapStateToProps, {
     toggleInstrument,
     removeInstrument,
     updateInstrumentVolume,
-    addInstrument
+    addInstrument,
+    bindToKey
 })(CSSModules(SequencesManager, styles));
 
 function mapStateToProps(state){
