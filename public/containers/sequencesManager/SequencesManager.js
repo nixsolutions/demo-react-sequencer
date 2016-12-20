@@ -4,6 +4,7 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import PlayControls from 'components/blocks/playControls/PlayControls';
+import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {updatePlay} from 'modules/play';
 import {
@@ -29,7 +30,7 @@ class SequencesManager extends Component {
                     <PlayControls updatePlay={this.props.updatePlay} 
                                 playState={this.props.play} 
                                 bindToKey={this.props.bindToKey}/>
-                    
+                    <BpmEditor onChange={this.props.updateBPM} value={this.props.bpm}/>
                 </div>
                 <ScrollableBlock>
                     <Sequences instruments={this.props.instruments}
@@ -82,7 +83,8 @@ export default connect(mapStateToProps, {
     removeInstrument,
     updateInstrumentVolume,
     addInstrument,
-    bindToKey
+    bindToKey,
+    updateBPM
 })(CSSModules(SequencesManager, styles));
 
 function mapStateToProps(state){
