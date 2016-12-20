@@ -164,3 +164,20 @@
     border-image-slice: 1;
     padding: 1px;
 }
+
+.box-3{
+    height: 35px;
+    line-height: 35px;
+    position: relative;
+    border-radius: 8px;
+    background: #5f5d5d;
+    box-shadow: inset 0 0px 8px #464545;
+    border: 3px solid #464545;
+
+    &:before{
+        content: '';
+        .fit();
+        box-shadow: 0 -2px 2px #787777;
+        border-radius: 8px;
+    }
+}
