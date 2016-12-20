@@ -2,43 +2,44 @@
 @import "~shared/mixins.less";
 
 .dropdown{
-    text-align: center;
-    font-size: @font-size-1;
-    line-height: @size-2;
-    color: @color-1;
+    .box-3();
+    width: 206px;
+    height: auto;
+    font: 18px/35px 'SFUIDisplay';
+    color: #fff;
     position: relative;
     z-index: 100;
-    border-radius: @radius-1;
-    box-shadow: @shadow-1;
 
-    .common{
-        border-radius: @radius-2;
-        background: @color-4;
-        border: 1px solid @color-6;
+    &-wrapper{
+        padding: 3px;
     }
 
-    .holder{
-        .common();
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 0;
-        margin: 0 0 0 -9999px;
-        width: 100%;
-        overflow: hidden;
-        border-radius: 0 0 @radius-2 @radius-2;
-        background: @color-7;
-        box-sizing: border-box;
+    &-holder{
+        height: 47px;
+        position: relative;
+        z-index: 200;
+
+        &.style1 .dropdown-wrapper{
+            .box-5();
+        }
+    }
+
+    .border{
+        border-top: 1px solid #575555;
+        box-shadow: inset 0 1px 0 #6b6a6a;
     }
 
     &-list{
         padding: 0;
         margin: 0;
         list-style: none;
+        font: 14px/30px 'SFUIDisplay';
+        text-transform: capitalize;
 
         &>li{
-            border-top: 1px solid @color-6;
+            .border();
             cursor: pointer;
+            padding: 0 18px;
 
             &:hover{
                 background: @color-2;
@@ -46,30 +47,45 @@
 
             &:first-child{
                 border-top: 0;
+                box-shadow: none;
             }
         }
 
     }
 
     &-trigger-area{
-        .box-3();
+        position: relative;
         color: @color-1;
+        padding: 0 18px;
         display: block;
         text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        &:hover{
-            background: @color-7;
+        .arrow{
+            @size: 10px;
+            width: @size;
+            height: @size;
+            border: 2px solid #fff;
+            border-top: 0;
+            border-left: 0;
+            transform: rotate(45deg);
+            margin: -3px 0 0;
         }
+    }
+
+    .holder{
+        margin: 0 0 0 -9999px;
+        position: absolute;
+        width: 100%;
+        .border();
     }
 
     &.active{
         .holder{
             margin: 0;
-        }
-
-        .dropdown-trigger-area{
-            background: @color-7;
-            border-radius: @radius-2 @radius-2 0 0;
+            position: relative;
         }
     }
 }
