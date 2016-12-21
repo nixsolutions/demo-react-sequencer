@@ -11,23 +11,24 @@
     align-items: center;
 
     .instrument-block{
-        .gradient-1();
-        box-shadow: @shadow-1;
         height: 100%;
         display: flex;
         align-items: center;
-    }
 
-    .segment{
-        display: flex;
-        align-items: center;
-        height: 100%;
-        padding: 0 @padding-1;
-        border-left: 1px solid @color-6;
+        &>*{
+            margin-left: 10px;
+        }
+
+        &:first-child{
+             margin-left: 0;
+        }
     }
 
     .name{
-        padding: 0 @padding-2;
+        font-size: 20px;
+        line-height: 20px;
+        color: #83cec3;
+        text-shadow: 0 0 2px #83cec3;
         width: @size-5;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -39,7 +40,6 @@
     }
 
     .remove{
-        .segment();
         .remove-button();
     }
 
@@ -47,9 +47,5 @@
         text-transform: uppercase;
         cursor: pointer;
         font-weight: bold;
-    }
-
-    .controller{
-        .segment();
     }
 }

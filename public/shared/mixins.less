@@ -120,16 +120,13 @@
 }
 
 .mute-button{
-    .gradient-3();
-    width: @size-1 / 2;
-    height: @size-1 / 2;
-    border-radius: @size-1 / 2;
+    width: 22px;
+    height: 22px;
     cursor: pointer;
-    margin: 0 @padding-1 0 0;
-    box-shadow: @shadow-1;
+    background: url('/images/mute-button.png') no-repeat;
 
     &.active{
-        .gradient-2();
+        background-image: url('/images/mute-button-active.png');
     }
 }
 

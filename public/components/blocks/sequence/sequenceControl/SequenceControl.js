@@ -62,12 +62,8 @@ class SequenceControl extends Component {
                 <div {...muteProps}></div>
                 <div styleName="instrument-block">
                     <div styleName="name" title={instrument.name}>{instrument.name}</div>
-                    <div styleName="controller">
-                        <Controller {...volumeControllerProps} />
-                    </div>
-                    <div styleName="controller">
-                        <span {...fxButtonProps}>FX</span>
-                    </div>
+                    <Controller {...volumeControllerProps} />
+                    <span {...fxButtonProps}>FX</span>
                     <div {...removeButtonProps}>X</div>
                 </div>
                 <Modal {...confirmationModalProps}>
