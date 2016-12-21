@@ -17,36 +17,63 @@ class SequenceControl extends Component {
         let muteClass = ['mute', instrument.active ? 'active' : ''].join(' ');
         let muteText = instrument.active ? 'disable instrument' : 'enable instrument';
 
+        let confirmationModalProps = {
+            title: 'Are you sure ?',
+            isOpen: this.state.isConfirmationRemoveActive,
+            onRequestClose: this.closeRemoveConfirmation.bind(this),
+            contentLabel: "modal",
+            buttons: [
+                { title: 'Yes', click: this.removeInstrument.bind(this)},
+                { title: 'No', click: this.closeRemoveConfirmation.bind(this)}
+            ]
+        };
+
+        let effectsModalProps = {
+            title: `${instrument.name}'s effects`,
+            isOpen: this.state.isEffectsModalActive,
+            contentLabel: 'modal',
+            onRequestClose: this.closeEffectsModal.bind(this)
+        };
+
+        let muteProps = {
+            styleName: muteClass,
+            title: muteText,
+            onClick: this.props.toggleInstrument.bind(this, instrument)
+        };
+
+        let removeButtonProps = {
+            styleName: "remove",
+            onClick: this.onRemoveClick.bind(this, instrument)
+        };
+
+        let fxButtonProps = {
+            onClick: this.onFxClick.bind(this, instrument),
+            styleName: "fx-button"
+        };
+
+        let volumeControllerProps = {
+            size: "40",
+            value: instrument.volume,
+            onChange: this.updateInstrumentVolume.bind(this, instrument)
+        };
+    
         return (
             <div styleName="sequence-control" ref="sequence-control">
-                <div styleName={muteClass}
-                    title={muteText}
-                    onClick={this.props.toggleInstrument.bind(this, instrument)}></div>
+                <div {...muteProps}></div>
                 <div styleName="instrument-block">
                     <div styleName="name" title={instrument.name}>{instrument.name}</div>
                     <div styleName="controller">
-                        <Controller size="25" value={instrument.volume} onChange={this.updateInstrumentVolume.bind(this, instrument)} />
+                        <Controller {...volumeControllerProps} />
                     </div>
                     <div styleName="controller">
-                        <span onClick={this.onFxClick.bind(this, instrument)} styleName="fx-button">FX</span>
+                        <span {...fxButtonProps}>FX</span>
                     </div>
-                    <div styleName="remove"
-                        onClick={this.onRemoveClick.bind(this, instrument)}>X</div>
+                    <div {...removeButtonProps}>X</div>
                 </div>
-                <Modal title='Are you sure ?'
-                        isOpen={this.state.isConfirmationRemoveActive}
-                        onRequestClose={this.closeRemoveConfirmation.bind(this)}
-                        contentLabel="modal"
-                        buttons={[
-                            { title: 'Yes', click: this.removeInstrument.bind(this)},
-                            { title: 'No', click: this.closeRemoveConfirmation.bind(this)}
-                        ]}>
+                <Modal {...confirmationModalProps}>
                     <div>"You want to delete an instrument ?"</div>
                 </Modal>
-                <Modal title={`${instrument.name}'s effects`}
-                        isOpen={this.state.isEffectsModalActive}
-                        contentLabel="modal"
-                        onRequestClose={this.closeEffectsModal.bind(this)}>
+                <Modal {...effectsModalProps}>
                     <InstrumentEffects instrumentName={instrument.name}/>
                 </Modal>
             </div>
