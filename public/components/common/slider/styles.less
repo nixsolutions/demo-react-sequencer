@@ -1,10 +1,10 @@
 @import "~shared/variables.less";
 @import "~shared/mixins.less";
 
-.slider{
+.slider-mixin(@range-height, @backgroundPadding){
     @handler-width: 11px;
     @handler-height: 20px;
-    @range-height: 4px;
+
     width: 100%;
     height: @handler-height;
     position: relative;
@@ -17,15 +17,15 @@
         left: 0;
         right: 0;
         height: @range-height;
-        margin: -2px 0 0;
-        border-radius: 2px;
+        margin: -(@range-height / 2) 0 0;
+        border-radius: @range-height / 2;
         border-top: 1px solid #000;
         box-shadow: inset 0px 2px 5px 0 rgba(50, 50, 50, 0.6),
                     inset 0px -1px 1px rgba(255, 255, 255, 0.3);
     }
 
     &:after{
-        @padding: 3px;
+        @padding: @backgroundPadding;
         content: '';
         position: absolute;
         top: 50%;
@@ -35,7 +35,7 @@
         height: @range-height;
         border-radius: (@range-height / 2) + @padding;
         margin: -(((@range-height / 2) - 1) + @padding) -(@padding + 2) 0;
-        box-shadow: inset 0px 2px 5px 0 rgba(50, 50, 50, 0.9), 
+        box-shadow: inset 0px 2px 5px 0 rgba(0, 0, 0, 0.4), 
                     inset 0px -1px 1px rgba(255, 255, 255, 0.1);
     }
 
@@ -76,9 +76,17 @@
             top: 50%;
             left: 0;
             height: @range-height;
-            margin: -2px 0 0;
-            border-radius: 2px;
+            margin: -(@range-height / 2) 0 0;
+            border-radius: @range-height / 2;
             background: #83cec3;
         }
     }
+}
+
+.slider.medium{
+    .slider-mixin(4px, 3px);
+}
+
+.slider.large{
+    .slider-mixin(6px, 5px);
 }

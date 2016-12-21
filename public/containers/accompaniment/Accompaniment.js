@@ -28,7 +28,8 @@ class Accompaniment extends Component {
         return <Tabs>
             <div styleName="section-holder" label="piano">
                 <div styleName="controls-panel">
-                    <Dropdown title={this.props.accompanimentInstrument.name || 'Select instrument'}
+                    <Dropdown styleMode="style2"
+                            title={this.props.accompanimentInstrument.name || 'Select instrument'}
                             onSelect={this.props.updateAccompanimentInstrument} 
                             items={this.props.dropdownItems}/>
                     <div styleName="piano-volume">

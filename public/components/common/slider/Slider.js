@@ -6,19 +6,14 @@ import ReactSlider from 'react-slider';
 class Slider extends Component {
     static defaultProps = {
         width: 100,
-        height: 20
+        height: 20,
+        styleMode: 'medium',
     };
 
     render() {
-        let style = {
-            width: this.props.width,
-            height: this.props.height
-        };
-
-        let handlerStyle = {height: this.props.height};
-
+        let cssClass = ['slider', this.props.styleMode].join(' ');
         return <div>
-                    <ReactSlider  styleName="slider" {...this.props} 
+                    <ReactSlider  styleName={cssClass} {...this.props} 
                                 withBars={true} 
                                 barClassName={this.props.styles.bar}>
                         <div styleName="handler-holder">
@@ -31,7 +26,8 @@ class Slider extends Component {
 
 Slider.propTypes = {
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    styleMode: PropTypes.string,
 };
 
 export default CSSModules(Slider, styles, {allowMultiple: true});
