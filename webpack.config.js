@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var SpritesmithPlugin = require('webpack-spritesmith');
 
 module.exports = {
   devtool: 'source-map',
@@ -13,7 +14,20 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new SpritesmithPlugin({
+            src: {
+                cwd: path.resolve(__dirname, 'public/images'),
+                glob: '*.png'
+            },
+            target: {
+                image: path.resolve(__dirname, 'public/images/sprite.png'),
+                css: path.resolve(__dirname, 'public/shared/sprite.less')
+            },
+            apiOptions: {
+                cssImageRef: "~sprite.png"
+            }
+        })
   ],
   module: {
     loaders: [

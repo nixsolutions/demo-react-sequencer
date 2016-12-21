@@ -54,6 +54,7 @@
     "react-tabs": "^0.8.2",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "tone": "^0.8.0"
+    "tone": "^0.8.0",
+    "webpack-spritesmith": "^0.3.1"
   }
 }
