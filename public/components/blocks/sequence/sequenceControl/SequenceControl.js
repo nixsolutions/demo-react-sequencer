@@ -7,26 +7,12 @@ import Effects from 'components/blocks/effects/Effects';
 import InstrumentEffects from 'containers/instrumentEffects/InstrumentEffects';
 
 class SequenceControl extends Component {
-    state = {
-        isConfirmationRemoveActive: false,
-        isEffectsModalActive: false
-    };
+    state = {isEffectsModalActive: false};
 
     render() {
         let {instrument} = this.props;
         let muteClass = ['mute', instrument.active ? 'active' : ''].join(' ');
         let muteText = instrument.active ? 'disable instrument' : 'enable instrument';
-
-        let confirmationModalProps = {
-            title: 'Are you sure ?',
-            isOpen: this.state.isConfirmationRemoveActive,
-            onRequestClose: this.closeRemoveConfirmation.bind(this),
-            contentLabel: "modal",
-            buttons: [
-                { title: 'Yes', click: this.removeInstrument.bind(this)},
-                { title: 'No', click: this.closeRemoveConfirmation.bind(this)}
-            ]
-        };
 
         let effectsModalProps = {
             title: `${instrument.name}'s effects`,
@@ -39,11 +25,6 @@ class SequenceControl extends Component {
             styleName: muteClass,
             title: muteText,
             onClick: this.props.toggleInstrument.bind(this, instrument)
-        };
-
-        let removeButtonProps = {
-            styleName: "remove",
-            onClick: this.onRemoveClick.bind(this, instrument)
         };
 
         let fxButtonProps = {
@@ -64,28 +45,12 @@ class SequenceControl extends Component {
                     <div styleName="name" title={instrument.name}>{instrument.name}</div>
                     <Controller {...volumeControllerProps} />
                     <span {...fxButtonProps}></span>
-                    <div {...removeButtonProps}>X</div>
                 </div>
-                <Modal {...confirmationModalProps}>
-                    <div>"You want to delete an instrument ?"</div>
-                </Modal>
                 <Modal {...effectsModalProps}>
                     <InstrumentEffects instrumentName={instrument.name}/>
                 </Modal>
             </div>
         );
-    }
-
-    removeInstrument(){
-        this.props.removeInstrument(this.props.instrument);
-    }
-
-    openRemoveConfirmation(){
-        this.setState({isConfirmationRemoveActive: true});
-    }
-
-    closeRemoveConfirmation(){
-        this.setState({isConfirmationRemoveActive: false});
     }
 
     openEffectsModal(){
@@ -94,10 +59,6 @@ class SequenceControl extends Component {
 
     closeEffectsModal(){
         this.setState({isEffectsModalActive: false});
-    }
-
-    onRemoveClick(instrument) {
-        this.openRemoveConfirmation();
     }
 
     onFxClick(instrument) {
@@ -140,7 +101,6 @@ SequenceControl.propTypes = {
         notes: PropTypes.array
     }),
     toggleInstrument: PropTypes.func,
-    removeInstrument: PropTypes.func,
     updateInstrumentVolume: PropTypes.func,
 };
 

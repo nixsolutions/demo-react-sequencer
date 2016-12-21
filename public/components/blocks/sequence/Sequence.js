@@ -3,23 +3,71 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import SequenceEditor from './sequenceEditor/SequenceEditor';
 import SequenceControl from './sequenceControl/SequenceControl';
+import Modal from 'components/common/modal/Modal';
 
 class Sequence extends Component {
+    state = {isConfirmationRemoveActive: false};
+
     render() {
         let {instrument, playedStep, toggleStep} = this.props;
+
+        let removeButtonProps = {
+            styleName: "remove",
+            onClick: this.onRemoveClick.bind(this, instrument)
+        };
+
+        let confirmationModalProps = {
+            title: 'Are you sure ?',
+            isOpen: this.state.isConfirmationRemoveActive,
+            onRequestClose: this.closeRemoveConfirmation.bind(this),
+            contentLabel: "modal",
+            buttons: [
+                { title: 'Yes', click: this.removeInstrument.bind(this)},
+                { title: 'No', click: this.closeRemoveConfirmation.bind(this)}
+            ]
+        };
+
+        let sequenceControlProps = {
+            instrument,
+            toggleInstrument: this.props.toggleInstrument,
+            updateInstrumentVolume: this.props.updateInstrumentVolume
+        }
+
+        let sequenceEditorProps = {
+            instrument,
+            playedStep,
+            onToggleStep: toggleStep
+        }
+
+
         return <div styleName="sequence">
             <div styleName="control-holder">
-                <SequenceControl instrument={instrument} 
-                            toggleInstrument={this.props.toggleInstrument}
-                            updateInstrumentVolume={this.props.updateInstrumentVolume}
-                            removeInstrument={this.props.removeInstrument}/>
+                <SequenceControl {...sequenceControlProps}/>
             </div>
             <div>
-                <SequenceEditor instrument={instrument}
-                    playedStep={playedStep}
-                    onToggleStep={toggleStep}/>
+                <SequenceEditor {...sequenceEditorProps}/>
             </div>
+            <div {...removeButtonProps}>X</div>
+            <Modal {...confirmationModalProps}>
+                <div>"You want to delete an instrument ?"</div>
+            </Modal>
         </div>;
+    }
+
+    removeInstrument(){
+        this.props.removeInstrument(this.props.instrument);
+    }
+
+    openRemoveConfirmation(){
+        this.setState({isConfirmationRemoveActive: true});
+    }
+
+    closeRemoveConfirmation(){
+        this.setState({isConfirmationRemoveActive: false});
+    }
+
+    onRemoveClick(instrument) {
+        this.openRemoveConfirmation();
     }
 }
 

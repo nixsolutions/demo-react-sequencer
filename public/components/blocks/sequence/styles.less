@@ -1,9 +1,14 @@
 @import '~shared/variables.less';
+@import '~shared/mixins.less';
 
 .sequence{
     display: flex;
 
     .control-holder{
         padding-right: @padding-4;
+    }
+
+    .remove{
+        .remove-button();
     }
 }
