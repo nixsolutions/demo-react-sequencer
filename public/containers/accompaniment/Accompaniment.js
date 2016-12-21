@@ -4,7 +4,7 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Piano from 'components/blocks/piano/Piano';
 import Effects from 'components/blocks/effects/Effects';
-import Controller from 'components/common/controller/Controller';
+import Slider from 'components/common/slider/Slider';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import Tabs from 'components/common/tabs/Tabs';
 import PianoManager from './PianoManager';
@@ -31,9 +31,10 @@ class Accompaniment extends Component {
                     <Dropdown title={this.props.accompanimentInstrument.name || 'Select instrument'}
                             onSelect={this.props.updateAccompanimentInstrument} 
                             items={this.props.dropdownItems}/>
-                    <Controller size="30" 
-                                onChange={this.props.updatePianoVolume}
+                    <div styleName="piano-volume">
+                        <Slider onChange={this.props.updatePianoVolume}
                                 value={this.props.pianoVolume}/>
+                    </div>
                 </div>
                 <div styleName="instrument-holder">
                     <Piano onKeyDown={this.props.addPlayedNote}  
