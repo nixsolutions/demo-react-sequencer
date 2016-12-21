@@ -21,6 +21,10 @@ import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 import StepIndicator from 'components/blocks/stepIndicator/StepIndicator';
 
 class SequencesManager extends Component {
+    componentWillMount(){
+        this.addInitialInstruments(3);
+    }
+
     render(){
         let dropdownProps = {
             items: this.props.dropdownItems, 
@@ -65,6 +69,14 @@ class SequencesManager extends Component {
                 </div>
             </div>
         ); 
+    }
+
+    addInitialInstruments(instrumentsAmount){
+        let samples = this.props.samples.slice(0, instrumentsAmount);
+
+        samples.forEach(sample => {
+            this.props.addInstrument(sample);
+        });
     }
 }
 
