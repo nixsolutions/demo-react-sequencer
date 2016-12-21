@@ -114,9 +114,18 @@
 }
 
 .remove-button{
-    font-size: @font-size-1;
-    color: @color-13;
+    background: url('/images/close.png');
+    width: 26px;
+    height: 26px;
     cursor: pointer;
+
+    &:hover{
+        background: url('/images/close-hover.png');
+    }
+
+    &:active{
+        background: url('/images/close-active.png');
+    }
 }
 
 .mute-button{
