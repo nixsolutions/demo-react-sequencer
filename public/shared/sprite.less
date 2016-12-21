@@ -1,0 +1,286 @@
+/*
+LESS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: @icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+@icon-home: x y offset_x offset_y width height total_width total_height image_path name;
+
+At the bottom of this section, we provide information about the spritesheet itself
+@spritesheet: width height image @spritesheet-sprites;
+*/
+@bg-main-name: 'bg-main';
+@bg-main-x: 178px;
+@bg-main-y: 0px;
+@bg-main-offset-x: -178px;
+@bg-main-offset-y: 0px;
+@bg-main-width: 16px;
+@bg-main-height: 32px;
+@bg-main-total-width: 194px;
+@bg-main-total-height: 177px;
+@bg-main-image: '/shared/sprite.png';
+@bg-main: 178px 0px -178px 0px 16px 32px 194px 177px '/shared/sprite.png' 'bg-main';
+@bg05-name: 'bg05';
+@bg05-x: 50px;
+@bg05-y: 0px;
+@bg05-offset-x: -50px;
+@bg05-offset-y: 0px;
+@bg05-width: 50px;
+@bg05-height: 50px;
+@bg05-total-width: 194px;
+@bg05-total-height: 177px;
+@bg05-image: '/shared/sprite.png';
+@bg05: 50px 0px -50px 0px 50px 50px 194px 177px '/shared/sprite.png' 'bg05';
+@bg06-name: 'bg06';
+@bg06-x: 0px;
+@bg06-y: 0px;
+@bg06-offset-x: 0px;
+@bg06-offset-y: 0px;
+@bg06-width: 50px;
+@bg06-height: 50px;
+@bg06-total-width: 194px;
+@bg06-total-height: 177px;
+@bg06-image: '/shared/sprite.png';
+@bg06: 0px 0px 0px 0px 50px 50px 194px 177px '/shared/sprite.png' 'bg06';
+@close-active-name: 'close-active';
+@close-active-x: 95px;
+@close-active-y: 100px;
+@close-active-offset-x: -95px;
+@close-active-offset-y: -100px;
+@close-active-width: 26px;
+@close-active-height: 26px;
+@close-active-total-width: 194px;
+@close-active-total-height: 177px;
+@close-active-image: '/shared/sprite.png';
+@close-active: 95px 100px -95px -100px 26px 26px 194px 177px '/shared/sprite.png' 'close-active';
+@close-hover-name: 'close-hover';
+@close-hover-x: 69px;
+@close-hover-y: 100px;
+@close-hover-offset-x: -69px;
+@close-hover-offset-y: -100px;
+@close-hover-width: 26px;
+@close-hover-height: 26px;
+@close-hover-total-width: 194px;
+@close-hover-total-height: 177px;
+@close-hover-image: '/shared/sprite.png';
+@close-hover: 69px 100px -69px -100px 26px 26px 194px 177px '/shared/sprite.png' 'close-hover';
+@close-name: 'close';
+@close-x: 146px;
+@close-y: 96px;
+@close-offset-x: -146px;
+@close-offset-y: -96px;
+@close-width: 26px;
+@close-height: 26px;
+@close-total-width: 194px;
+@close-total-height: 177px;
+@close-image: '/shared/sprite.png';
+@close: 146px 96px -146px -96px 26px 26px 194px 177px '/shared/sprite.png' 'close';
+@fx-active-name: 'fx-active';
+@fx-active-x: 146px;
+@fx-active-y: 64px;
+@fx-active-offset-x: -146px;
+@fx-active-offset-y: -64px;
+@fx-active-width: 32px;
+@fx-active-height: 32px;
+@fx-active-total-width: 194px;
+@fx-active-total-height: 177px;
+@fx-active-image: '/shared/sprite.png';
+@fx-active: 146px 64px -146px -64px 32px 32px 194px 177px '/shared/sprite.png' 'fx-active';
+@fx-hover-name: 'fx-hover';
+@fx-hover-x: 146px;
+@fx-hover-y: 32px;
+@fx-hover-offset-x: -146px;
+@fx-hover-offset-y: -32px;
+@fx-hover-width: 32px;
+@fx-hover-height: 32px;
+@fx-hover-total-width: 194px;
+@fx-hover-total-height: 177px;
+@fx-hover-image: '/shared/sprite.png';
+@fx-hover: 146px 32px -146px -32px 32px 32px 194px 177px '/shared/sprite.png' 'fx-hover';
+@fx-name: 'fx';
+@fx-x: 146px;
+@fx-y: 0px;
+@fx-offset-x: -146px;
+@fx-offset-y: 0px;
+@fx-width: 32px;
+@fx-height: 32px;
+@fx-total-width: 194px;
+@fx-total-height: 177px;
+@fx-image: '/shared/sprite.png';
+@fx: 146px 0px -146px 0px 32px 32px 194px 177px '/shared/sprite.png' 'fx';
+@loud-name: 'loud';
+@loud-x: 34px;
+@loud-y: 100px;
+@loud-offset-x: -34px;
+@loud-offset-y: -100px;
+@loud-width: 35px;
+@loud-height: 31px;
+@loud-total-width: 194px;
+@loud-total-height: 177px;
+@loud-image: '/shared/sprite.png';
+@loud: 34px 100px -34px -100px 35px 31px 194px 177px '/shared/sprite.png' 'loud';
+@mute-button-active-name: 'mute-button-active';
+@mute-button-active-x: 121px;
+@mute-button-active-y: 100px;
+@mute-button-active-offset-x: -121px;
+@mute-button-active-offset-y: -100px;
+@mute-button-active-width: 22px;
+@mute-button-active-height: 22px;
+@mute-button-active-total-width: 194px;
+@mute-button-active-total-height: 177px;
+@mute-button-active-image: '/shared/sprite.png';
+@mute-button-active: 121px 100px -121px -100px 22px 22px 194px 177px '/shared/sprite.png' 'mute-button-active';
+@mute-button-name: 'mute-button';
+@mute-button-x: 0px;
+@mute-button-y: 155px;
+@mute-button-offset-x: 0px;
+@mute-button-offset-y: -155px;
+@mute-button-width: 22px;
+@mute-button-height: 22px;
+@mute-button-total-width: 194px;
+@mute-button-total-height: 177px;
+@mute-button-image: '/shared/sprite.png';
+@mute-button: 0px 155px 0px -155px 22px 22px 194px 177px '/shared/sprite.png' 'mute-button';
+@mute-name: 'mute';
+@mute-x: 0px;
+@mute-y: 134px;
+@mute-offset-x: 0px;
+@mute-offset-y: -134px;
+@mute-width: 28px;
+@mute-height: 21px;
+@mute-total-width: 194px;
+@mute-total-height: 177px;
+@mute-image: '/shared/sprite.png';
+@mute: 0px 134px 0px -134px 28px 21px 194px 177px '/shared/sprite.png' 'mute';
+@step-1-active-name: 'step-1-active';
+@step-1-active-x: 100px;
+@step-1-active-y: 50px;
+@step-1-active-offset-x: -100px;
+@step-1-active-offset-y: -50px;
+@step-1-active-width: 46px;
+@step-1-active-height: 50px;
+@step-1-active-total-width: 194px;
+@step-1-active-total-height: 177px;
+@step-1-active-image: '/shared/sprite.png';
+@step-1-active: 100px 50px -100px -50px 46px 50px 194px 177px '/shared/sprite.png' 'step-1-active';
+@step-1-name: 'step-1';
+@step-1-x: 100px;
+@step-1-y: 0px;
+@step-1-offset-x: -100px;
+@step-1-offset-y: 0px;
+@step-1-width: 46px;
+@step-1-height: 50px;
+@step-1-total-width: 194px;
+@step-1-total-height: 177px;
+@step-1-image: '/shared/sprite.png';
+@step-1: 100px 0px -100px 0px 46px 50px 194px 177px '/shared/sprite.png' 'step-1';
+@step-2-active-name: 'step-2-active';
+@step-2-active-x: 46px;
+@step-2-active-y: 50px;
+@step-2-active-offset-x: -46px;
+@step-2-active-offset-y: -50px;
+@step-2-active-width: 46px;
+@step-2-active-height: 50px;
+@step-2-active-total-width: 194px;
+@step-2-active-total-height: 177px;
+@step-2-active-image: '/shared/sprite.png';
+@step-2-active: 46px 50px -46px -50px 46px 50px 194px 177px '/shared/sprite.png' 'step-2-active';
+@step-2-name: 'step-2';
+@step-2-x: 0px;
+@step-2-y: 50px;
+@step-2-offset-x: 0px;
+@step-2-offset-y: -50px;
+@step-2-width: 46px;
+@step-2-height: 50px;
+@step-2-total-width: 194px;
+@step-2-total-height: 177px;
+@step-2-image: '/shared/sprite.png';
+@step-2: 0px 50px 0px -50px 46px 50px 194px 177px '/shared/sprite.png' 'step-2';
+@volume-name: 'volume';
+@volume-x: 0px;
+@volume-y: 100px;
+@volume-offset-x: 0px;
+@volume-offset-y: -100px;
+@volume-width: 34px;
+@volume-height: 34px;
+@volume-total-width: 194px;
+@volume-total-height: 177px;
+@volume-image: '/shared/sprite.png';
+@volume: 0px 100px 0px -100px 34px 34px 194px 177px '/shared/sprite.png' 'volume';
+@spritesheet-width: 194px;
+@spritesheet-height: 177px;
+@spritesheet-image: '/shared/sprite.png';
+@spritesheet-sprites: @bg-main @bg05 @bg06 @close-active @close-hover @close @fx-active @fx-hover @fx @loud @mute-button-active @mute-button @mute @step-1-active @step-1 @step-2-active @step-2 @volume;
+@spritesheet: 194px 177px '/shared/sprite.png' @spritesheet-sprites;
+
+/*
+The provided classes are intended to be used with the array-like variables
+
+.icon-home {
+  .sprite-width(@icon-home);
+}
+.icon-email {
+  .sprite(@icon-email);
+}
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+.sprite-width(@sprite) {
+  width: extract(@sprite, 5);
+}
+
+.sprite-height(@sprite) {
+  height: extract(@sprite, 6);
+}
+
+.sprite-position(@sprite) {
+  @sprite-offset-x: extract(@sprite, 3);
+  @sprite-offset-y: extract(@sprite, 4);
+  background-position: @sprite-offset-x @sprite-offset-y;
+}
+
+.sprite-image(@sprite) {
+  @sprite-image: extract(@sprite, 9);
+  @sprite-image-bare: ~`"@{sprite-image}".slice(1, -1)`;
+  background-image: url(@sprite-image-bare);
+}
+
+.sprite(@sprite) {
+  .sprite-image(@sprite);
+  .sprite-position(@sprite);
+  .sprite-width(@sprite);
+  .sprite-height(@sprite);
+}
+
+/*
+The `.sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of LESS
+
+This must be run when you have at least 2 sprites.
+  If run with a single sprite, then there will be reference errors.
+
+.sprites(@spritesheet-sprites);
+*/
+.sprites(@sprites, @i: 1) when (@i <= length(@sprites)) {
+  @sprite: extract(@sprites, @i);
+  @sprite-name: e(extract(@sprite, 10));
+  .@{sprite-name} {
+    .sprite(@sprite);
+  }
+  .sprites(@sprites, @i + 1);
+}

@@ -21,11 +21,11 @@ module.exports = {
                 glob: '*.png'
             },
             target: {
-                image: path.resolve(__dirname, 'public/images/sprite.png'),
+                image: path.resolve(__dirname, 'public/shared/sprite.png'),
                 css: path.resolve(__dirname, 'public/shared/sprite.less')
             },
             apiOptions: {
-                cssImageRef: "~sprite.png"
+                cssImageRef: "/shared/sprite.png"
             }
         })
   ],

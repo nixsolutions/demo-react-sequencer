@@ -1,5 +1,6 @@
 @import "~shared/variables.less";
 @import "~shared/mixins.less";
+@import "~shared/sprite.less";
 
 .sequence-control{
     height: @step-height;
@@ -40,18 +41,18 @@
     }
 
     .fx-button{
+        .sprite(@fx);
         display: block;
-        background: url('/images/fx.png');
         width: 32px;
         height: 32px;
         cursor: pointer;
 
         &:hover{
-            background-image: url('/images/fx-hover.png');
+            .sprite(@fx-hover);
         }
 
         &.active{
-            background-image: url('/images/fx-active.png');
+            .sprite(@fx-active);
         }
     }
 }
