@@ -18,6 +18,7 @@ import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
 import {bindToKey} from 'modules/bindings';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
+import StepIndicator from 'components/blocks/stepIndicator/StepIndicator';
 
 class SequencesManager extends Component {
     render(){
@@ -56,8 +57,11 @@ class SequencesManager extends Component {
                 </div>
                 <div styleName="sequences-holder">
                     <ScrollableBlock autoHeightMax={180}>
-                    <Sequences {...sequencesProps}/>
+                        <Sequences {...sequencesProps}/>
                     </ScrollableBlock>
+                </div>
+                <div styleName="step-indicator-holder">
+                    <StepIndicator activeIndex={this.props.playedStep}/>
                 </div>
             </div>
         ); 

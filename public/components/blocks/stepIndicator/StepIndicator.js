@@ -13,7 +13,7 @@ class StepIndicator extends Component {
 
         for(let i = 0; this.props.stepsAmount > i; i++){
             let className = (i === this.props.activeIndex) ? 'active' : '';
-            let item = <li styleName={className}></li>;
+            let item = <li key={i} styleName={className}></li>;
 
             items.push(item);
         }
