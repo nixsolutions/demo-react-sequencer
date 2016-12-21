@@ -44,8 +44,18 @@
     }
 
     .fx-button{
-        text-transform: uppercase;
+        display: block;
+        background: url('/images/fx.png');
+        width: 32px;
+        height: 32px;
         cursor: pointer;
-        font-weight: bold;
+
+        &:hover{
+            background-image: url('/images/fx-hover.png');
+        }
+
+        &.active{
+            background-image: url('/images/fx-active.png');
+        }
     }
 }
