@@ -27,7 +27,9 @@ class TabsComponent extends Component {
         });
 
         return (<div  styleName="tabs" selectedIndex={0}>
-                    <ul styleName="tab-controls">{tabsList}</ul>
+                    <div styleName="controls-holder">
+                        <ul styleName="tab-controls">{tabsList}</ul>
+                    </div>
                     <div styleName="tab-content">{content}</div>
                 </div>);
     }

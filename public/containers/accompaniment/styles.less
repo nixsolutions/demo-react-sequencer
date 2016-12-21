@@ -1,23 +1,15 @@
 @import '~shared/variables.less';
+@import '~shared/mixins.less';
 
 .section-holder{
     position: relative;
-    display: flex;
-    height: @size-11;
-
-    .controls-holder{
-        width: @size-2;
-    }
 
     .instrument-holder{
+        height: @size-11;
         flex: 1;
     }
+}
 
-    .selection-holder{
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: @size-10;
-        margin: @padding-2
-    }
+.controls-panel{
+    .block-holder();
 }

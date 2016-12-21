@@ -7,7 +7,6 @@ import Effects from 'components/blocks/effects/Effects';
 import Controller from 'components/common/controller/Controller';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import Tabs from 'components/common/tabs/Tabs';
-import VerticalControls, {VerticalItem} from 'components/common/verticalControls/VerticalControls';
 import PianoManager from './PianoManager';
 import MasterEffectsManager from './MasterEffectsManager';
 import Tone from 'tone';
@@ -28,14 +27,13 @@ class Accompaniment extends Component {
     render(){ 
         return <Tabs>
             <div styleName="section-holder" label="piano">
-                <div styleName="controls-holder">
-                    <VerticalControls>
-                        <VerticalItem label="volume"> 
-                            <Controller size="30" 
+                <div styleName="controls-panel">
+                    <Dropdown title={this.props.accompanimentInstrument.name || 'Select instrument'}
+                            onSelect={this.props.updateAccompanimentInstrument} 
+                            items={this.props.dropdownItems}/>
+                    <Controller size="30" 
                                 onChange={this.props.updatePianoVolume}
                                 value={this.props.pianoVolume}/>
-                        </VerticalItem>
-                    </VerticalControls>
                 </div>
                 <div styleName="instrument-holder">
                     <Piano onKeyDown={this.props.addPlayedNote}  
@@ -43,13 +41,13 @@ class Accompaniment extends Component {
                         bindToKey={this.props.bindToKey}/>
                     <PianoManager/>
                 </div>
-                <div styleName="selection-holder">
-                    <Dropdown title={this.props.accompanimentInstrument.name || 'Select instrument'}
-                            onSelect={this.props.updateAccompanimentInstrument} 
-                            items={this.props.dropdownItems}/>
-                </div>
             </div>
             <div styleName="section-holder"  label="effects">
+                <div styleName="controls-panel">
+                    <Dropdown title='Add effect'
+                            onSelect={this.props.addMasterEffect} 
+                            items={getEffectsList()}/>
+                </div>
                 <div styleName="instrument-holder">
                     <Effects effects={this.props.masterEffects}
                             remove={this.props.removeMasterEffect}
@@ -57,11 +55,6 @@ class Accompaniment extends Component {
                             changeWet={this.props.changeWetMasterEffect}
                             changeSetting={this.props.changeSettingMasterEffect}/>
                     <MasterEffectsManager/>
-                </div>
-                <div styleName="selection-holder">
-                    <Dropdown title='Add effect'
-                            onSelect={this.props.addMasterEffect} 
-                            items={getEffectsList()}/>
                 </div>
             </div>
         </Tabs> 
