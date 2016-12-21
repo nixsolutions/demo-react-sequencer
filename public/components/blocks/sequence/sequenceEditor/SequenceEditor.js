@@ -14,11 +14,20 @@ class SequenceEditor extends Component {
         return notes.map((note, i) => {
             let isEven = Math.floor(i / 4) % 2 !== 0;
             let isHighlighted = this.props.playedStep === i;
+            let liProps = {
+                key: i, 
+                onClick: this.onStepClick.bind(this, note, i, this.props.instrument)
+            }
+
+            let stepProps = {
+                active: (note !== undefined),
+                isHighlighted,
+                isEven
+            }
+
             return (
-                <li key={i} onClick={this.onStepClick.bind(this, note, i, this.props.instrument)}>
-                    <Step active={note !== undefined} 
-                        isHighlighted={isHighlighted}
-                        isEven={isEven}/>
+                <li {...liProps}>
+                    <Step {...stepProps}/>
                 </li>
             );
         })
