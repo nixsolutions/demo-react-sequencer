@@ -1,3 +1,5 @@
+@import "~shared/variables.less";
+
 .sequence-editor{
     padding: 0;
     margin: 0;
@@ -5,7 +7,7 @@
     display: flex;
     
     &>li{
-        margin: 0 0 0 5px;
+        margin: 0 0 0 @step-padding;
 
         &:first-child{
             margin: 0;

@@ -1,0 +1,39 @@
+@import '~shared/variables.less';
+@import '~shared/mixins.less';
+
+.step-indicator{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li{
+        display: flex;
+        width: @step-width;
+        margin-left: @step-padding;
+
+        &:first-child{
+            margin-left: 0;
+        }
+
+        &:before{
+            content: '';
+            display: block;
+            width: 12px;
+            height: 6px;
+            margin: 0 auto;
+            border-radius: 3px;
+            background-image: linear-gradient(to bottom, #000000, #9a9a9a), 
+                              linear-gradient(#292829, #292829);
+            border: solid 1px #000;
+        }
+
+        &.active{
+           &:before{
+               box-shadow: 0 0 10px #f26522;
+               object-fit: contain;
+               background: radial-gradient(#ffd44a, #f26522);
+           } 
+        }
+    }
+}
