@@ -54,9 +54,11 @@ class SequencesManager extends Component {
                     <PlayControls {...playControllsProps}/>
                     <BpmEditor {...bpmEditorProps}/>
                 </div>
-                <ScrollableBlock>
+                <div styleName="sequences-holder">
+                    <ScrollableBlock autoHeightMax={180}>
                     <Sequences {...sequencesProps}/>
-                </ScrollableBlock>
+                    </ScrollableBlock>
+                </div>
             </div>
         ); 
     }
