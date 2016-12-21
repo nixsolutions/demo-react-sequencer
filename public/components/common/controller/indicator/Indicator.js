@@ -9,14 +9,14 @@ class Indicator extends Component {
         startAngle: 40,
         minAngle: 40,
         maxAngle: 320,
-        lineWidth: 1,
+        lineWidth: 2,
         indicationColor: '#83cec3',
         unfillerColor: '#000',
     }
 
     componentDidMount(){
         this.context = this.refs.canvas.getContext("2d");
-        this.draw();
+        this.draw(this.props.value);
     }
 
     componentWillReceiveProps(props){
