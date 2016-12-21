@@ -55,6 +55,7 @@ class Sequence extends Component {
     }
 
     removeInstrument(){
+        this.closeRemoveConfirmation();
         this.props.removeInstrument(this.props.instrument);
     }
 
