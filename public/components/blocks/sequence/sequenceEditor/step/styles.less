@@ -1,22 +1,23 @@
 @import "~shared/variables.less";
 @import "~shared/mixins.less";
+@import "~shared/sprite.less";
 
 .step{
     width: @step-width;
     height: @step-height;
     overflow: hidden;
     cursor: pointer;
-    background: url('/images/step-1.png') no-repeat;
+    .sprite(@step-1);
 
     &.even{
-        background-image: url('/images/step-2.png');
+        .sprite(@step-2);
     }
 
     &.active{
-        background-image: url('/images/step-1-active.png');
+        .sprite(@step-1-active);
 
         &.even{
-            background-image: url('/images/step-2-active.png');
+            .sprite(@step-2-active);
         }
     }
 }

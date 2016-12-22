@@ -1,4 +1,5 @@
 @import "~shared/variables.less";
+@import "~shared/sprite.less";
 
 .fit{
     position: absolute;
@@ -114,28 +115,24 @@
 }
 
 .remove-button{
-    background: url('/images/close.png');
-    width: 26px;
-    height: 26px;
+    .sprite(@close);
     cursor: pointer;
 
     &:hover{
-        background: url('/images/close-hover.png');
+        .sprite(@close-hover);
     }
 
     &:active{
-        background: url('/images/close-active.png');
+        .sprite(@close-active);
     }
 }
 
 .mute-button{
-    width: 22px;
-    height: 22px;
+    .sprite(@mute-button);
     cursor: pointer;
-    background: url('/images/mute-button.png') no-repeat;
 
     &.active{
-        background-image: url('/images/mute-button-active.png');
+        .sprite(@mute-button-active);
     }
 }
 
