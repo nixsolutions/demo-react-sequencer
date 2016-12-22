@@ -2,30 +2,40 @@
 @import "~shared/mixins.less";
 
 .modal{
+    @border-radius: 5px;
+    @inner-padding: 15px 10px;
+
+    .box-4();
     position: relative;
-    background: @color-11;
     margin: 0 auto;
-    border: 1px solid @color-1;
+    border-radius: @border-radius;
+
+    &-holder{
+        border-radius: @border-radius;
+        background: @background-3;
+    }
 
     .head{
-        background: @color-15;
-        border-bottom: 1px solid @color-1;
-        padding: @padding-1;
+        .block-holder();
+        padding: @inner-padding;
+        margin: 0;
+        height: auto;
         display: flex;
         justify-content: space-between;
 
         .title{
-            color: @color-1;
+            font-size: 19px;
+            color: #b7b6b4;
+            text-transform: capitalize;
         }
 
         .close{
-            .remove-button();
+            .close-button();
         }
     }
 
     .content{
-        text-align: center;
-        padding: @padding-1;
+        padding: @inner-padding;;
     }
 
     .buttons{

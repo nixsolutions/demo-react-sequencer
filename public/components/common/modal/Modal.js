@@ -17,7 +17,7 @@ class ModalComponent extends Component {
     render() {
         let head = <div styleName="head">
             <span styleName="title">{this.props.title}</span>
-            <span styleName="close" onClick={this.props.onRequestClose}>x</span>
+            <span styleName="close" onClick={this.props.onRequestClose}></span>
         </div>;
 
         let buttons = (this.props.buttons || []).map((button, i) => {
@@ -49,9 +49,11 @@ class ModalComponent extends Component {
 
         return <Modal {...this.props} style={customStyles}>
             <div styleName="modal">
-                {head}
-                <div styleName='content'>{this.props.children}</div>
-                {buttonsBlock}
+                <div styleName="modal-holder">
+                    {head}
+                    <div styleName='content'>{this.props.children}</div>
+                    {buttonsBlock}
+                </div>
             </div>
         </Modal>
     }
