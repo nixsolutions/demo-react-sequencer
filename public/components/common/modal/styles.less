@@ -1,6 +1,17 @@
 @import "~shared/variables.less";
 @import "~shared/mixins.less";
 
+.overlay{
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    z-index: 999;
+}
 .modal{
     @border-radius: 5px;
     @inner-padding: 15px 10px;

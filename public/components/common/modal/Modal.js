@@ -29,37 +29,23 @@ class ModalComponent extends Component {
         });
 
         let buttonsBlock = buttons.length ? <div styleName="buttons-holder"><div styleName="buttons">{buttons}</div></div> : '';
-
-        const customStyles = {
-            overlay: Object.assign({
-                background: 'rgba(0, 0, 0, 0.5)',
-                zIndex: 999
-            }, this.props.style && this.props.style.overlay),
-            content: Object.assign({
-                top: '50%',
-                left: '50%',
-                right: 'auto',
-                bottom: 'auto',
-                marginRight: '-50%',
-                transform: 'translate(-50%, -50%)',
-                zIndex: 999,
-                background: 'none',
-                border: 0,
-                padding: 0
-            }, this.props.style && this.props.style.content)
+        let modalProps = {
+            className: this.props.styles.modal,
+            overlayClassName: this.props.styles.overlay,
+            ...this.props
         };
 
-        return <Modal {...this.props} style={customStyles}>
-            <div styleName="modal">
-                <div styleName="modal-holder">
-                    {head}
-                    <div styleName={`content ${this.props.mode}`}>
-                        {this.props.children}
-                        {buttonsBlock}
+        return <Modal {...modalProps}>
+                <div styleName="modal">
+                    <div styleName="modal-holder">
+                        {head}
+                        <div styleName={`content ${this.props.mode}`}>
+                            {this.props.children}
+                            {buttonsBlock}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Modal>
+            </Modal>
     }
 }
 
