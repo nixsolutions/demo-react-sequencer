@@ -11,25 +11,36 @@ class Effect extends Component {
 
         let settings = settingsTypes.map((type, i) => {
             let item = effect.settings[type];
+            let controllerProps = {
+                value: item.value,
+                onChange: this.changeSetting.bind(this, type)
+            }
 
             return <div key={i} styleName="block">
                     <span styleName="label">{item.label}</span>
-                    <Controller value={item.value} 
-                        onChange={this.changeSetting.bind(this, type)}/>
+                    <Controller {...controllerProps}/>
                 </div>
         })
+
+        let muteProps = {
+            styleName: `mute ${effect.active ? 'active' : ''}`,
+            onClick: this.toggleMute.bind(this)
+        };
+
+        let dryWetProps = {
+            value: effect.wet, 
+            onChange: this.changeWet.bind(this)
+        }
+
         return <div styleName="effect">
             <div styleName="head">
                 <span styleName="name">{effect.label}</span>
-                <span styleName="remove" onClick={this.remove.bind(this)}>x</span>
             </div>
             <div styleName="content">
-                <span styleName={`mute ${effect.active ? 'active' : ''}`} 
-                    onClick={this.toggleMute.bind(this)}></span>
+                <span {...muteProps}></span>
                 <div styleName="block">
                     <span styleName="label">Dry / Wet</span>
-                    <Controller value={effect.wet} 
-                            onChange={this.changeWet.bind(this)}/>
+                    <Controller {...dryWetProps}/>
                 </div>
                 <span styleName="separator"></span>
                 {settings}
