@@ -102,9 +102,9 @@ export let effects = [
 export let getEffectsSet = () => {
     return [
         getEffect(REVERBERATOR),
+        getEffect(CHORUS),
         getEffect(PING_PONG_DELAY),
-        getEffect(FEEDBACK_DELAY),
-        getEffect(CHORUS)
+        getEffect(FEEDBACK_DELAY)
     ];
 }
 
