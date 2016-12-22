@@ -24,6 +24,7 @@ class Effect extends Component {
 
         let muteProps = {
             styleName: `mute ${effect.active ? 'active' : ''}`,
+            title: `${effect.active ? 'mute' : 'activate'}`,
             onClick: this.toggleMute.bind(this)
         };
 
