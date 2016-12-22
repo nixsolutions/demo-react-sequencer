@@ -10,8 +10,10 @@ export const CHORUS = 'CHORUS';
 export const RANGE_SETTING_TYPE = 'RANGE';
 export const FREQUENCY_SETTING_TYPE = 'FREQUENCY_SETTING_TYPE';
 
+let generateId = () => Math.random();
+
 let getReverberatorDefaults = () => ({
-    id: Date.now(),
+    id: generateId(),
     type: REVERBERATOR,
     label: 'reverberator',
     wet: 50,
@@ -26,7 +28,7 @@ let getReverberatorDefaults = () => ({
 });
 
 let getPingPongDelayDefaults = () => ({
-    id: Date.now(),
+    id: generateId(),
     type: PING_PONG_DELAY,
     label: 'ping-pong delay',
     wet: 50,
@@ -46,7 +48,7 @@ let getPingPongDelayDefaults = () => ({
 });
 
 let getFeedbackDelayDefaults = () => ({
-    id: Date.now(),
+    id: generateId(),
     type: FEEDBACK_DELAY,
     label: 'feedback delay',
     wet: 50,
@@ -66,7 +68,7 @@ let getFeedbackDelayDefaults = () => ({
 });
 
 let getChorusDefaults = () => ({
-    id: Date.now(),
+    id: generateId(),
     type: CHORUS,
     label: 'chorus',
     wet: 50,
@@ -97,6 +99,15 @@ export let effects = [
     getChorusDefaults()
 ]
 
+export let getEffectsSet = () => {
+    return [
+        getEffect(REVERBERATOR),
+        getEffect(PING_PONG_DELAY),
+        getEffect(FEEDBACK_DELAY),
+        getEffect(CHORUS)
+    ];
+}
+
 export let getEffect = (effectType) => {
     let result;
 
@@ -105,13 +116,13 @@ export let getEffect = (effectType) => {
             result = copyDeepObject(effect);
         }
     })
-    result.id = Date.now();
+    result.id = generateId();
 
     return result;
 }
 
 export let getEffectsList = () => {
-    return effects.map(effect => ({title: effect.label, value: effect.type}));
+    return getEffectsSet().map(effect => ({title: effect.label, value: effect.type}));
 };
 
 export let getSettingValue = (setting, type) => {
