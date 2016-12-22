@@ -1,4 +1,5 @@
 import {
+    ADD_INSTRUMENT,
     REMOVE_INSTRUMENT
 } from './instruments';
 
@@ -11,7 +12,7 @@ export const CHANGE_SETTING_INSTRUMENT_EFFECT = 'CHANGE_SETTING_INSTRUMENT_EFFEC
 const INIT = {};
 
 export default function instrumentsEffectsReducer(state = INIT, action){
-    let {getEffect} = require('utils/effects');
+    let {getEffect, getEffectsSet} = require('utils/effects');
 
     switch(action.type){
         case ADD_INSTRUMENT_EFFECT:
@@ -73,6 +74,13 @@ export default function instrumentsEffectsReducer(state = INIT, action){
 
                 return effect;
             });
+
+            return clone;
+
+        case ADD_INSTRUMENT:
+            var {name} = action.payload;
+            var clone = {...state};
+            clone[name] = getEffectsSet();
 
             return clone;
 
