@@ -2,9 +2,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Dropdown from 'components/common/dropdown/Dropdown';
 import Effects from 'components/blocks/effects/Effects';
-import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 import {getEffectsList} from 'utils/effects';
 import {
     addInstrumentEffect,
@@ -17,21 +15,15 @@ import {
 class InstrumentEffects extends Component {
     render() {
         let effects = this.props.instrumentsEffects[this.props.instrumentName];
+        let effectsProps = {
+            effects,
+            remove: this.removeEffect.bind(this),
+            toggleMute: this.toggleMute.bind(this),
+            changeWet: this.changeWet.bind(this),
+            changeSetting: this.changeSetting.bind(this)
+        }
 
-        return (
-            <div styleName="instrument-effects">
-                <ScrollableBlock>
-                    <Dropdown title='Add effect'
-                                onSelect={this.addInstrumentEffect.bind(this)} 
-                                items={getEffectsList()}/>
-                    <Effects effects={effects}
-                        remove={this.removeEffect.bind(this)}
-                        toggleMute={this.toggleMute.bind(this)}
-                        changeWet={this.changeWet.bind(this)}
-                        changeSetting={this.changeSetting.bind(this)}/>
-                </ScrollableBlock>
-            </div>
-        );
+        return <div styleName="instrument-effects"><Effects {...effectsProps}/></div>;
     }
 
     addInstrumentEffect(effectType){
