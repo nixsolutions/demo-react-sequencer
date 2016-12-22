@@ -2,39 +2,25 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import Effect from './effect/Effect';
-import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
-
-import Modal from 'components/common/modal/Modal';
 
 class Effects extends Component {
     state = {isModalOpen: false};
 
     render() {
         let effects = (this.props.effects || []).map((effect, i) => {
-            return <div key={effect.id}>
-                        <Effect
-                        effect={effect}
-                        remove={this.showModal.bind(this)}
-                        toggleMute={this.props.toggleMute}
-                        changeWet={this.props.changeWet}
-                        changeSetting={this.props.changeSetting}/>
-                        <Modal
-                            onRequestClose={this.closeModal.bind(this)}
-                            contentLabel="Modal"
-                            title='Are you sure ?'
-                            isOpen={this.state.isModalOpen}
-                            buttons={[
-                                { title: 'Yes', click: this.removeEffect.bind(this, effect) },
-                                { title: 'No', click: this.closeModal.bind(this) }
-                            ]}>
-                            <div>"You want to delete an effect ?"</div>
-                        </Modal>
-                    </div>
+            let effectProps = {
+                key: effect.id,
+                effect,
+                remove: this.showModal.bind(this),
+                toggleMute: this.props.toggleMute,
+                changeWet: this.props.changeWet,
+                changeSetting: this.props.changeSetting
+            }
+
+            return <Effect {...effectProps}/>
         });
 
-        return <ScrollableBlock>
-                    <div styleName="effects">{effects}</div>
-                </ScrollableBlock>
+        return <div styleName="effects">{effects}</div>
     }
 
     toggleMute(){
