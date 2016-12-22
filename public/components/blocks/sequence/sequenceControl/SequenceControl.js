@@ -29,7 +29,7 @@ class SequenceControl extends Component {
 
         let fxButtonProps = {
             onClick: this.onFxClick.bind(this, instrument),
-            styleName: "fx-button"
+            styleName: ["fx-button", this.state.isEffectsModalActive ? 'active' : ''].join(' ')
         };
 
         let volumeControllerProps = {
