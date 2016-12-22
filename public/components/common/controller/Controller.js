@@ -159,7 +159,7 @@ Controller.propTypes = {
             );
         }
     },
-    size: PropTypes.string,
+    size: PropTypes.number,
     startAngle: PropTypes.number,
     minAngle: PropTypes.number,
     maxAngle: PropTypes.number,

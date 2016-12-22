@@ -33,7 +33,7 @@ class SequenceControl extends Component {
         };
 
         let volumeControllerProps = {
-            size: "34",
+            size: 34,
             value: instrument.volume,
             onChange: this.updateInstrumentVolume.bind(this, instrument)
         };
