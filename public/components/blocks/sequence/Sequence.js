@@ -17,7 +17,8 @@ class Sequence extends Component {
         };
 
         let confirmationModalProps = {
-            title: 'Are you sure ?',
+            title: 'Confirm',
+            mode: 'confirmation',
             isOpen: this.state.isConfirmationRemoveActive,
             onRequestClose: this.closeRemoveConfirmation.bind(this),
             contentLabel: "modal",
@@ -49,7 +50,7 @@ class Sequence extends Component {
             </div>
             <div {...removeButtonProps}></div>
             <Modal {...confirmationModalProps}>
-                <div>"You want to delete an instrument ?"</div>
+                <div>Do you want to delete this instrument ?</div>
             </Modal>
         </div>;
     }

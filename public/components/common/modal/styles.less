@@ -35,15 +35,50 @@
     }
 
     .content{
-        padding: @inner-padding;;
+        font-size: 19px;
+        padding: @inner-padding;
+        color: #fef9f6;
+
+        &.confirmation{
+            width: 200px;
+            text-align: center;
+        }
     }
 
     .buttons{
-        text-align: center;
-        padding: @padding-1;
+        .box-1();
+        margin: 0 auto;
+
+        &-holder{
+            display: flex;
+            padding: 20px 0 0;
+        }
+
         .button{
-            .button-2();
-            margin: @padding-1;
+            .box-4();
+            text-align: center;
+            font-size: 16px;
+            color: #c8c8c8;
+            margin: 0 @padding-1;
+            border: 0;
+            width: 75px;
+            cursor: pointer;
+
+            &:hover{
+                color: #83cec3;
+                text-shadow: 0 0 5px #83cec3;
+            }
+
+            &:active{
+                color: #83cec3;
+                text-shadow: 0 0 5px #83cec3;
+                box-shadow:0 0 5px 1px #83cec3;
+            }
+
+            &-holder{
+                .box-3();
+                display: block;
+            }
         }
     }
 }

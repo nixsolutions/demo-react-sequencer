@@ -4,6 +4,8 @@ import React, { Component, PropTypes } from 'react';
 import Modal from 'react-modal';
 
 class ModalComponent extends Component {
+    static defaultProps = {mode: ''};
+
     static show(options, noQueue) {
         if (noQueue) {
             return this.register(options);
@@ -23,10 +25,10 @@ class ModalComponent extends Component {
         let buttons = (this.props.buttons || []).map((button, i) => {
             return <button key={i}
                 onClick={button.click.bind(this)}
-                styleName="button">{button.title}</button>;
+                styleName="button"><span styleName="button-holder">{button.title}</span></button>;
         });
 
-        let buttonsBlock = buttons.length ? <div styleName="buttons">{buttons}</div> : '';
+        let buttonsBlock = buttons.length ? <div styleName="buttons-holder"><div styleName="buttons">{buttons}</div></div> : '';
 
         const customStyles = {
             overlay: Object.assign({
@@ -51,8 +53,10 @@ class ModalComponent extends Component {
             <div styleName="modal">
                 <div styleName="modal-holder">
                     {head}
-                    <div styleName='content'>{this.props.children}</div>
-                    {buttonsBlock}
+                    <div styleName={`content ${this.props.mode}`}>
+                        {this.props.children}
+                        {buttonsBlock}
+                    </div>
                 </div>
             </div>
         </Modal>
@@ -63,6 +67,7 @@ ModalComponent.propTypes = {
     title: PropTypes.string,
     buttons: PropTypes.array,
     children: PropTypes.node,
+    mode: PropTypes.string,
 };
 
 export default CSSModules(ModalComponent, styles, { allowMultiple: true });
