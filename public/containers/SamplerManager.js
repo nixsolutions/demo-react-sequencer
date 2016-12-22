@@ -24,6 +24,8 @@ class SamplerManager extends Component {
         this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
         this.updateBPM(this.props.bpm);
+        this.updateMatrix(this.props.instruments);
+        this.updateSequence();
     }
 
     componentWillReceiveProps(nextProps) {
