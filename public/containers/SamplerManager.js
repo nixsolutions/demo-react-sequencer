@@ -26,6 +26,8 @@ class SamplerManager extends Component {
         this.updateBPM(this.props.bpm);
         this.updateMatrix(this.props.instruments);
         this.updateSequence();
+
+        this.initializeInstruments();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -207,6 +209,16 @@ class SamplerManager extends Component {
         this.matrix.forEach((item, i) => {
             this.sequencer.add(i, item);
         });
+    }
+
+    initializeInstruments(){
+        let onLoad = () => {
+            this.updateSamples(this.props.instruments);
+            this.updateInstrumentsEffects(this.props.instrumentsEffects);
+            Tone.Buffer.off('load', onLoad);
+        }
+
+        Tone.Buffer.on('load', onLoad);
     }
 }
 

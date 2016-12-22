@@ -17,7 +17,7 @@ let getReverberatorDefaults = () => ({
     type: REVERBERATOR,
     label: 'reverberator',
     wet: 50,
-    active: true,
+    active: false,
     settings: {
         roomSize: {
             label: 'room size', 
@@ -32,7 +32,7 @@ let getPingPongDelayDefaults = () => ({
     type: PING_PONG_DELAY,
     label: 'ping-pong delay',
     wet: 50,
-    active: true,
+    active: false,
     settings: {
         delayTime: {
             label: 'Delay Time', 
@@ -52,7 +52,7 @@ let getFeedbackDelayDefaults = () => ({
     type: FEEDBACK_DELAY,
     label: 'feedback delay',
     wet: 50,
-    active: true,
+    active: false,
     settings: {
         delayTime: {
             label: 'Delay Time', 
@@ -72,7 +72,7 @@ let getChorusDefaults = () => ({
     type: CHORUS,
     label: 'chorus',
     wet: 50,
-    active: true,
+    active: false,
     settings: {
         frequency: {
             label: 'frequency', 
