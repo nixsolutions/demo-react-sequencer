@@ -48,7 +48,7 @@ class Sequence extends Component {
             <div>
                 <SequenceEditor {...sequenceEditorProps}/>
             </div>
-            <div {...removeButtonProps}></div>
+            <div styleName="remove-button"><div {...removeButtonProps}></div></div>
             <Modal {...confirmationModalProps}>
                 <div>Do you want to delete this instrument ?</div>
             </Modal>

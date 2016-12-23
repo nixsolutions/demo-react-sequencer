@@ -60,9 +60,11 @@ class SequencesManager extends Component {
                     <BpmEditor {...bpmEditorProps}/>
                 </div>
                 <div styleName="sequences-holder">
-                    <ScrollableBlock autoHeightMax={180}>
-                        <Sequences {...sequencesProps}/>
-                    </ScrollableBlock>
+                    <div styleName="sequences-wrapper">
+                        <ScrollableBlock autoHeightMax={180}>
+                            <Sequences {...sequencesProps}/>
+                        </ScrollableBlock>
+                    </div>
                 </div>
                 <div styleName="step-indicator-holder">
                     <StepIndicator activeIndex={this.props.playedStep}/>
