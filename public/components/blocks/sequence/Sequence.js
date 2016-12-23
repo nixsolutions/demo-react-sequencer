@@ -12,7 +12,7 @@ class Sequence extends Component {
         let {instrument, playedStep, toggleStep} = this.props;
 
         let removeButtonProps = {
-            styleName: "remove",
+            styleName: "remove-button",
             onClick: this.onRemoveClick.bind(this, instrument)
         };
 
@@ -48,7 +48,7 @@ class Sequence extends Component {
             <div>
                 <SequenceEditor {...sequenceEditorProps}/>
             </div>
-            <div styleName="remove-button"><div {...removeButtonProps}></div></div>
+            <div {...removeButtonProps}><div styleName="remove"></div></div>
             <Modal {...confirmationModalProps}>
                 <div>Do you want to delete this instrument ?</div>
             </Modal>
