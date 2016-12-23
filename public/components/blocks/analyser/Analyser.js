@@ -14,7 +14,7 @@ class Analyser extends Component {
             this.padding = 1;
             this.startChanalValue = 150;
             this.colorIncreaseStep = 10;
-            this.segmentWidth = 9;
+            this.segmentWidth = 10;
             this.segmentHeight = 2;
             this.segmentWeight = 255 / this.props.segmentsInStack;
             this.segmentFullWidth = this.segmentWidth + this.padding;

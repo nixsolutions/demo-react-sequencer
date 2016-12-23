@@ -3,13 +3,15 @@
 
 .dropdown{
     .box-3();
-    width: 206px;
+    width: 201px;
     height: auto;
     font-size: 18px;
 
     color: #fff;
     position: relative;
     z-index: 100;
+
+    @inner-padding: 14px;
 
     &-wrapper{
         padding: 3px;
@@ -45,7 +47,7 @@
         &>li{
             .border();
             cursor: pointer;
-            padding: 0 18px;
+            padding: 0 @inner-padding;
 
             &:hover{
                 background: @color-2;
@@ -62,7 +64,7 @@
     &-trigger-area{
         position: relative;
         color: @color-1;
-        padding: 0 18px;
+        padding: 0 @inner-padding;
         display: block;
         text-decoration: none;
         display: flex;
