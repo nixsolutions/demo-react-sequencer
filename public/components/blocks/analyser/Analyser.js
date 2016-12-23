@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 
 class Analyser extends Component {
     static defaultProps = {
-        segmentsInStack: 20,
+        segmentsInStack: 17,
         gridColor: 'rgba(241, 101, 34, 0.2)',
     };
 

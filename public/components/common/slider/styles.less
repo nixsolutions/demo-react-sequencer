@@ -19,7 +19,7 @@
         height: @range-height;
         margin: -(@range-height / 2) 0 0;
         border-radius: @range-height / 2;
-        border-top: 1px solid #000;
+        border-top: 1px solid rgba(0, 0, 0, 0.4);
         box-shadow: inset 0px 2px 5px 0 rgba(50, 50, 50, 0.6),
                     inset 0px -1px 1px rgba(255, 255, 255, 0.3);
     }
@@ -35,7 +35,7 @@
         height: @range-height;
         border-radius: (@range-height / 2) + @padding;
         margin: -(((@range-height / 2) - 1) + @padding) -(@padding + 2) 0;
-        box-shadow: inset 0px 2px 5px 0 rgba(0, 0, 0, 0.4), 
+        box-shadow: inset 0px 2px 5px 0 rgba(0, 0, 0, 0.2), 
                     inset 0px -1px 1px rgba(255, 255, 255, 0.1);
     }
 
@@ -88,5 +88,5 @@
 }
 
 .slider.large{
-    .slider-mixin(6px, 5px);
+    .slider-mixin(4px, 3px);
 }
