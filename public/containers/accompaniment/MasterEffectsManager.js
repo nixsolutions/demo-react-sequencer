@@ -5,11 +5,11 @@ import { noteToPitch, volumeToDecibels} from 'utils/notes';
 import { createEffect } from 'utils/effects';
 
 class MasterEffectsManager extends Component {
-    constructor(props, state){
-        super(props, state);
+    static propTypes = {
+        masterEffects: PropTypes.array
+    };
 
-        this.effects = {};
-    }
+    effects = {};
 
     componentWillMount(){
         this.updateEffects(this.props.masterEffects);
@@ -59,13 +59,7 @@ class MasterEffectsManager extends Component {
     }
 }
 
-MasterEffectsManager.propTypes = {
-    masterEffects: PropTypes.array
-};
-
-export default connect(mapStateToProps, {
-
-})(MasterEffectsManager);
+export default connect(mapStateToProps, {})(MasterEffectsManager);
 
 function mapStateToProps(state){
      return {
