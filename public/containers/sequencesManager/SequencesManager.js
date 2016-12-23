@@ -61,7 +61,7 @@ class SequencesManager extends Component {
                 </div>
                 <div styleName="sequences-holder">
                     <div styleName="sequences-wrapper">
-                        <ScrollableBlock autoHeightMax={180}>
+                        <ScrollableBlock autoHeightMax={170}>
                             <Sequences {...sequencesProps}/>
                         </ScrollableBlock>
                     </div>
