@@ -51,8 +51,8 @@
         color: #fef9f6;
 
         &.confirmation{
-            width: 200px;
             text-align: center;
+            padding-bottom: 40px;
         }
     }
 
@@ -70,10 +70,14 @@
             text-align: center;
             font-size: 16px;
             color: #c8c8c8;
-            margin: 0 @padding-1;
+            margin: 0 0 0 26px;
             border: 0;
             width: 75px;
             cursor: pointer;
+
+            &:first-child{
+                margin: 0;
+            }
 
             &:hover{
                 color: #83cec3;

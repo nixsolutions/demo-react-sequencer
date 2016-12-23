@@ -36,13 +36,11 @@ class ModalComponent extends Component {
         };
 
         return <Modal {...modalProps}>
-                <div styleName="modal">
-                    <div styleName="modal-holder">
-                        {head}
-                        <div styleName={`content ${this.props.mode}`}>
-                            {this.props.children}
-                            {buttonsBlock}
-                        </div>
+                <div styleName="modal-holder">
+                    {head}
+                    <div styleName={`content ${this.props.mode}`}>
+                        {this.props.children}
+                        {buttonsBlock}
                     </div>
                 </div>
             </Modal>

@@ -6,14 +6,15 @@
     top: 0;
     bottom: 0;
     right: 0;
-    z-index: 100;
+    z-index: 999;
     background: @color-1;
-    opacity: @opacity-2;
+    opacity: 0;
     display: none;
     align-items: center;
 
     &.active{
-       display: flex; 
+       display: flex;
+       animation: fadeInFromNone 0.5s ease-out;
     }
 
     &:before{
@@ -24,5 +25,15 @@
         margin: 0 auto;
         background: @spinner-background;
         background-size: cover
+    }
+}
+
+@-webkit-keyframes fadeInFromNone {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0.5;
     }
 }
