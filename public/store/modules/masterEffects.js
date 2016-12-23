@@ -4,7 +4,9 @@ export const CHANGE_WET_MASTER_EFFECT = 'CHANGE_WET_MASTER_EFFECT';
 export const CHANGE_SETTING_MASTER_EFFECT = 'CHANGE_SETTING_MASTER_EFFECT';
 export const TOGGLE_MUTE_MASTER_EFFECT = 'TOGGLE_MUTE_MASTER_EFFECT';
 
-const INIT = [];
+import {getEffectsSet} from 'utils/effects';
+
+const INIT = getEffectsSet();
 
 export default function masterEffectsReducer(state = INIT, action){
     let {payload} = action;
