@@ -14,11 +14,12 @@ class Octave extends Component {
         this.activeClass = this.props.styles['active'];
 
         let noteValues = this.getNoteValues();
+        let additionalClasses = ['', 'left', '', 'right', '', '', 'left', '', 'center', '', 'right', '', ''];
 
         let keys = noteValues.map((noteValue, i) => {
             let isSemitone = noteValue.indexOf('#') !== -1;
             let semitoneClass = isSemitone ? 'semitone' : '';
-            let cssClass = ['note', semitoneClass].join(' ');
+            let cssClass = ['note', semitoneClass, additionalClasses[i]].join(' ');
             let {onMouseDown, onMouseUp} = this.getHandlers(noteValue);
 
             return <li key={noteValue} 

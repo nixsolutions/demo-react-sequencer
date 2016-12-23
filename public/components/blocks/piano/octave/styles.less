@@ -1,5 +1,6 @@
 @import '~shared/variables.less';
 @import '~shared/mixins.less';
+@import '~shared/sprite.less';
 
 .octave{
     position: relative;
@@ -11,44 +12,60 @@
     height: 100%;
 
     .note{
+        position: relative;
+        margin: 0 0 0 1px;
         background: @color-1;
         flex: 1;
-        box-shadow: inset @shadow-3;
+        background-image: linear-gradient(to bottom, #c0c4c4, #f2f2f0);
+        border-radius: 0 0 5px 5px;
+        border: 2px solid #bdbfbe;
+        border-top-color:#d1d4d4;
         cursor: pointer;
 
-        &:not(.semitone).active{
+        &:not(.semitone).active:before{
+            content: '';
+            .fit();
+            margin: -3px;
+            border-radius: 0 0 5px 5px;
             box-shadow: inset @shadow-4;
         }
 
         &.semitone{
             flex: 0;
-            height: 70%;
-            position: relative;
-
-            @width: @size-1 / 2;
+            border: 0;
+            z-index: 10;
+            margin: 0;
             
             &:before{
-                @border-width: @padding-1;
-                @border: @border-width solid @color-6;
-                @full-width: @width + (@border-width * 2);
-
                 content: '';
                 position: absolute;
-                width: @width;
-                margin: 0 0 0 -(@full-width / 2);
                 height: 100%;
-                .gradient-6();
-                display: block;
-                border-left: @border;
-                border-right: @border;
-                border-bottom: @padding-2 solid @color-14;
+                width: 26px;
+                height: 125px;
+                background: url('/images/key-left.png') no-repeat 0 -3px;
+            }
+
+            &.left:before{
+                margin: 0 0 0 -16px;
+                background-image: url('/images/key-left.png');
+            }
+
+            &.center:before{
+                margin: 0 0 0 -12px;
+                background: url('/images/key-center.png') 0 -5px;
+            }
+
+            &.right:before{
+                margin: 0 0 0 -9px;
+                background-image: url('/images/key-right.png');
             }
 
             &.active{
                 &:before{
-                    padding-top: @padding-1;
-                    border-bottom-width: @padding-1;
-                    .gradient-7();
+                    background-position: 0 0;
+                }
+                &.center:before{
+                    background-position: 0 -2px;
                 }
             }
         }
