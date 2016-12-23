@@ -45,11 +45,7 @@ class Accompaniment extends Component {
                 </div>
             </div>
             <div styleName="section-holder"  label="effects">
-                <div styleName="controls-panel">
-                    <Dropdown title='Add effect'
-                            onSelect={this.props.addMasterEffect} 
-                            items={getEffectsList()}/>
-                </div>
+                <div styleName="controls-panel"></div>
                 <div styleName="instrument-holder">
                     <Effects effects={this.props.masterEffects}
                             remove={this.props.removeMasterEffect}
