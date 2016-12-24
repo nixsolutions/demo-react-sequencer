@@ -1,9 +1,22 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 class StopButton extends Component {
-    static defaultProps = { active: false };
+    static propTypes = {
+        children: PropTypes.node,
+        active: PropTypes.bool,
+        disabled: PropTypes.bool,
+        onClick: PropTypes.func,
+    };
+
+    static defaultProps = {active: false};
+
+    constructor(props) {
+        super(props);
+
+        this.onClick = this.onClick.bind(this);
+    }
 
     render() {
         let activeClass = this.props.active ? 'active' : '';
@@ -11,25 +24,20 @@ class StopButton extends Component {
         let buttonProps = {
             ...this.props,
             styleName,
-            onClick: this.onClick.bind(this),
-                disabled: this.props.disabled
+            onClick: this.onClick,
+            disabled: this.props.disabled
+        };
+
+        return (
+            <div styleName={`button-wrapper ${activeClass}`}>
+                <button {...buttonProps } />
+            </div>
+        );
     }
 
-        return <div styleName={`button-wrapper ${activeClass}`}>
-                    <button {...buttonProps } />
-                </div>;
-    }
-
-    onClick(){
+    onClick() {
         this.props.onClick && this.props.onClick('stop');
     }
 }
 
-StopButton.propTypes = {
-    children: PropTypes.node,
-    active: PropTypes.bool,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-};
-
-export default CSSModules(StopButton, styles, { allowMultiple: true });
+export default CSSModules(StopButton, styles, {allowMultiple: true});
