@@ -4,9 +4,25 @@ import React, { Component, PropTypes } from 'react';
 import Indicator from './indicator/Indicator';
 
 class Controller extends Component {
-    state = {};
+    static propTypes = {
+        value: function (props, propName, componentName) {
+            let value = props[propName];
+            if (value < -100 || value > 100) {
+                return new Error(
+                    'Invalid prop `' + propName + '` supplied to' +
+                    ' `' + componentName + '`. Validation failed.'
+                );
+            }
+        },
+        size: PropTypes.number,
+        startAngle: PropTypes.number,
+        minAngle: PropTypes.number,
+        maxAngle: PropTypes.number,
+        zeroAngle: PropTypes.number,
+        onChange: PropTypes.func
+    };
 
-    static defaultProps = { 
+    static defaultProps = {
         value: 0,
         startAngle: 40,
         minAngle: 40,
@@ -15,9 +31,17 @@ class Controller extends Component {
         size: 40,
     };
 
+    constructor(props){
+        super(props);
+
+        this.onMouseDown = this.onMouseDown.bind(this);
+        this.onMouseMove = this.onMouseMove.bind(this);
+        this.onMouseUp = this.onMouseUp.bind(this);
+    }
+
+    state = {};
+
     componentWillMount() {
-        this.fullDegs = this.props.maxAngle - this.props.minAngle;
-        this.degValue = this.fullDegs / 100;
         this.center = this.props.size / 2;
 
         this.setValue(this.props.value);
@@ -53,10 +77,10 @@ class Controller extends Component {
                             size={indicatorSize}/>
                 </div>
                 <div styleName="controller-wrapper"
-                    onMouseDown={this.onMouseDown.bind(this)}
-                    onMouseMove={this.onMouseMove.bind(this)}
-                    onMouseUp={this.onMouseUp.bind(this)}
-                    onMouseLeave={this.onMouseUp.bind(this)}
+                    onMouseDown={this.onMouseDown}
+                    onMouseMove={this.onMouseMove}
+                    onMouseUp={this.onMouseUp}
+                    onMouseLeave={this.onMouseUp}
                     style={commonStyles}>
                     <div styleName="controller-holder">
                         <div styleName="controller"
@@ -148,23 +172,5 @@ class Controller extends Component {
         this.props.onChange && this.props.onChange(value);
     }
 }
-
-Controller.propTypes = {
-    value: function (props, propName, componentName) {
-        let value = props[propName];
-        if (value < -100 || value > 100) {
-            return new Error(
-                'Invalid prop `' + propName + '` supplied to' +
-                ' `' + componentName + '`. Validation failed.'
-            );
-        }
-    },
-    size: PropTypes.number,
-    startAngle: PropTypes.number,
-    minAngle: PropTypes.number,
-    maxAngle: PropTypes.number,
-    zeroAngle: PropTypes.number,
-    onChange: PropTypes.func
-};
 
 export default CSSModules(Controller, styles, { allowMultiple: true });
