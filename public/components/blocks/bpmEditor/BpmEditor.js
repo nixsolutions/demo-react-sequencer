@@ -3,10 +3,16 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 
 class BpmEditor extends Component {
+    constructor(props) {
+        super(props);
+
+        this.onChange = this.onChange.bind(this);
+    }
+
     render() {
         let inputProps = {
             type: "text",
-            onChange: this.onChange.bind(this), 
+            onChange: this.onChange,
             onKeyDown: this.onKeyDown,
             value: this.props.value,
             maxLength: "3",

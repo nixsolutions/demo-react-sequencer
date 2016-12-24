@@ -8,6 +8,12 @@ class Analyser extends Component {
         gridColor: 'rgba(241, 101, 34, 0.2)',
     };
 
+    constructor(props) {
+        super(props);
+
+        this.bindedLoop = this.loop.bind(this);
+    };
+
     componentWillReceiveProps(props) {
         if (props.analyser && !this.analyserContext) {
             this.analyserContext = this.refs.segments.getContext("2d");
@@ -109,7 +115,7 @@ class Analyser extends Component {
     }
 
     loop() {
-        requestAnimationFrame(this.loop.bind(this));
+        requestAnimationFrame(this.bindedLoop);
 
         if (this.props.analyser) {
             var analyserValues = this.props.analyser.analyse();

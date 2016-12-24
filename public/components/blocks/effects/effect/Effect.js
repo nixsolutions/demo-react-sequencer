@@ -1,7 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import Controller from 'components/common/controller/Controller';
+import EffectController from './effectController/EffectController';
 
 
 class Effect extends Component {
@@ -18,52 +19,66 @@ class Effect extends Component {
         changeSetting: PropTypes.func,
     };
 
+    constructor(props) {
+        super(props);
+
+        this.toggleMute = this.toggleMute.bind(this);
+        this.changeWet = this.changeWet.bind(this);
+        this.changeSetting = this.changeSetting.bind(this);
+    };
+
     render() {
         let {effect} = this.props;
         let settingsTypes = Object.keys(effect.settings);
 
         let settings = settingsTypes.map((type, i) => {
             let item = effect.settings[type];
-            let controllerProps = {
-                value: item.value,
-                onChange: this.changeSetting.bind(this, type)
-            }
+            let {label, value} = item;
+            let effectControllerProps = {
+                type,
+                label,
+                value,
+                onChange: this.changeSetting
+            };
 
-            return <div key={i} styleName="block">
-                <span styleName="label">{item.label}</span>
-                <Controller {...controllerProps} />
-            </div>
-        })
+            return (
+                <div key={i} styleName="block">
+                    <EffectController {...effectControllerProps}/>
+                </div>
+            );
+        });
 
         let muteProps = {
             styleName: `mute ${effect.active ? 'active' : ''}`,
             title: `${effect.active ? 'mute' : 'activate'}`,
-            onClick: this.toggleMute.bind(this)
+            onClick: this.toggleMute
         };
 
         let dryWetProps = {
+            label: 'Dry / Wet',
             value: effect.wet,
-            onChange: this.changeWet.bind(this)
-        }
+            onChange: this.changeWet
+        };
 
-        return <div styleName="effect-holder">
-            <div styleName={`effect ${effect.active ? 'active' : ''}`}>
-                <div styleName="head">
-                    <span styleName="separator"></span>
-                    <span styleName="name">{effect.label}</span>
-                    <span styleName="separator"></span>
-                </div>
-                <div styleName="content">
-                    <span {...muteProps}></span>
-                    <div styleName="block">
-                        <span styleName="label">Dry / Wet</span>
-                        <Controller {...dryWetProps} />
+        return (
+            <div styleName="effect-holder">
+                <div styleName={`effect ${effect.active ? 'active' : ''}`}>
+                    <div styleName="head">
+                        <span styleName="separator"></span>
+                        <span styleName="name">{effect.label}</span>
+                        <span styleName="separator"></span>
                     </div>
-                    <span styleName="separator"></span>
-                    {settings}
+                    <div styleName="content">
+                        <span {...muteProps}></span>
+                        <div styleName="block">
+                            <EffectController {...dryWetProps}/>
+                        </div>
+                        <span styleName="separator"></span>
+                        {settings}
+                    </div>
                 </div>
             </div>
-        </div>
+        );
     }
 
     toggleMute() {
@@ -74,9 +89,10 @@ class Effect extends Component {
         this.props.changeWet(percents, this.props.effect.id);
     }
 
-    changeSetting(setting, percents) {
-        this.props.changeSetting(setting, percents, this.props.effect.id);
+    changeSetting(percents, settingType) {
+        this.props.changeSetting(settingType, percents, this.props.effect.id);
     }
-};
+}
+;
 
-export default CSSModules(Effect, styles, { allowMultiple: true });
+export default CSSModules(Effect, styles, {allowMultiple: true});
