@@ -55,7 +55,7 @@ class PianoManager extends Component {
         this.playedNotes[note] = sample;
 
         sample.volume.value = volumeToDecibels(this.props.pianoVolume);
-        sample.triggerAttack(pitch);
+        sample.triggerAttackRelease(pitch);
     }
 
     releaseNote(note){
