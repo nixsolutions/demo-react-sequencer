@@ -6,6 +6,30 @@ import SequenceControl from './sequenceControl/SequenceControl';
 import Modal from 'components/common/modal/Modal';
 
 class Sequence extends Component {
+    static propTypes = {
+        instruments: PropTypes.arrayOf(PropTypes.shape({
+                name: PropTypes.string,
+                volume: PropTypes.number,
+                path: PropTypes.string,
+                active: PropTypes.bool,
+                notes: PropTypes.array
+            })
+        ),
+        playedStep: PropTypes.number,
+        toggleStep: PropTypes.func,
+        toggleInstrument: PropTypes.func,
+        removeInstrument: PropTypes.func,
+        updateInstrumentVolume: PropTypes.func,
+    };
+
+    constructor(props){
+        super(props);
+
+        this.onRemoveClick = this.onRemoveClick.bind(this);
+        this.closeRemoveConfirmation = this.closeRemoveConfirmation.bind(this);
+        this.removeInstrument = this.removeInstrument.bind(this);
+    }
+
     state = {isConfirmationRemoveActive: false};
 
     render() {
@@ -13,18 +37,18 @@ class Sequence extends Component {
 
         let removeButtonProps = {
             styleName: "remove-button",
-            onClick: this.onRemoveClick.bind(this, instrument)
+            onClick: this.onRemoveClick
         };
 
         let confirmationModalProps = {
             title: 'Confirm',
             mode: 'confirmation',
             isOpen: this.state.isConfirmationRemoveActive,
-            onRequestClose: this.closeRemoveConfirmation.bind(this),
+            onRequestClose: this.closeRemoveConfirmation,
             contentLabel: "modal",
             buttons: [
-                { title: 'Yes', click: this.removeInstrument.bind(this)},
-                { title: 'No', click: this.closeRemoveConfirmation.bind(this)}
+                { title: 'Yes', click: this.removeInstrument},
+                { title: 'No', click: this.closeRemoveConfirmation}
             ]
         };
 
@@ -32,13 +56,13 @@ class Sequence extends Component {
             instrument,
             toggleInstrument: this.props.toggleInstrument,
             updateInstrumentVolume: this.props.updateInstrumentVolume
-        }
+        };
 
         let sequenceEditorProps = {
             instrument,
             playedStep,
             onToggleStep: toggleStep
-        }
+        };
 
 
         return <div styleName="sequence">
@@ -68,25 +92,9 @@ class Sequence extends Component {
         this.setState({isConfirmationRemoveActive: false});
     }
 
-    onRemoveClick(instrument) {
+    onRemoveClick() {
         this.openRemoveConfirmation();
     }
-}
-
-Sequence.propTypes = {
-    instruments: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string,
-            volume: PropTypes.number,
-            path: PropTypes.string,
-            active: PropTypes.bool,
-            notes: PropTypes.array
-        })
-    ),
-    playedStep: PropTypes.number,
-    toggleStep: PropTypes.func,
-    toggleInstrument: PropTypes.func,
-    removeInstrument: PropTypes.func,
-    updateInstrumentVolume: PropTypes.func,
 };
 
 export default CSSModules(Sequence, styles, {allowMultiple: true});

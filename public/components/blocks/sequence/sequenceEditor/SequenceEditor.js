@@ -4,6 +4,25 @@ import React, {Component, PropTypes} from 'react';
 import Step from './step/Step';
 
 class SequenceEditor extends Component {
+    static propTypes = {
+        playedStep: PropTypes.number,
+        instruments: PropTypes.arrayOf(PropTypes.shape({
+                name: PropTypes.string,
+                volume: PropTypes.number,
+                path: PropTypes.string,
+                active: PropTypes.bool,
+                notes: PropTypes.array
+            })
+        ),
+        onToggleStep: PropTypes.func
+    };
+
+    constructor(props){
+        super(props);
+
+        this.onStepClick = this.onStepClick.bind(this);
+    }
+
     render() {
         let {instrument} = this.props; 
         let items = this.createSteps(instrument.notes);
@@ -14,41 +33,27 @@ class SequenceEditor extends Component {
         return notes.map((note, i) => {
             let isEven = Math.floor(i / 4) % 2 !== 0;
             let isHighlighted = this.props.playedStep === i;
-            let liProps = {
-                key: i, 
-                onClick: this.onStepClick.bind(this, note, i, this.props.instrument)
-            }
-
             let stepProps = {
                 active: (note !== undefined),
                 isHighlighted,
-                isEven
-            }
+                isEven,
+                index: i,
+                note,
+                onStepClick: this.onStepClick
+            };
 
             return (
-                <li {...liProps}>
+                <li key={i}>
                     <Step {...stepProps}/>
                 </li>
             );
         })
     }
 
-    onStepClick(step, index, instrument){
-        this.props.onToggleStep && this.props.onToggleStep(step, index, instrument);
+    onStepClick(note, stepIndex){
+        this.props.onToggleStep &&
+        this.props.onToggleStep(note, stepIndex, this.props.instrument);
     }
 }
-
-SequenceEditor.propTypes = {
-    playedStep: PropTypes.number,
-    instruments: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string,
-            volume: PropTypes.number,
-            path: PropTypes.string,
-            active: PropTypes.bool,
-            notes: PropTypes.array
-        })
-    ),
-    onToggleStep: PropTypes.func
-};
 
 export default CSSModules(SequenceEditor, styles, {allowMultiple: true});
