@@ -4,6 +4,13 @@ import React, { Component, PropTypes } from 'react';
 import Modal from 'react-modal';
 
 class ModalComponent extends Component {
+    static propTypes = {
+        title: PropTypes.string,
+        buttons: PropTypes.array,
+        children: PropTypes.node,
+        mode: PropTypes.string,
+    };
+
     static defaultProps = {mode: ''};
 
     static show(options, noQueue) {
@@ -46,12 +53,5 @@ class ModalComponent extends Component {
             </Modal>
     }
 }
-
-ModalComponent.propTypes = {
-    title: PropTypes.string,
-    buttons: PropTypes.array,
-    children: PropTypes.node,
-    mode: PropTypes.string,
-};
 
 export default CSSModules(ModalComponent, styles, { allowMultiple: true });
