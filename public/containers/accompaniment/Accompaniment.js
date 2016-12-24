@@ -9,21 +9,29 @@ import Dropdown from 'components/common/dropdown/Dropdown';
 import Tabs from 'components/common/tabs/Tabs';
 import PianoManager from './PianoManager';
 import MasterEffectsManager from './MasterEffectsManager';
-import Tone from 'tone';
 import {addPlayedNote, removePlayedNote} from 'modules/playedNotes';
 import {updatePianoVolume} from 'modules/pianoVolume';
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 import {bindToKey} from 'modules/bindings';
 import {
-    addMasterEffect, 
-    removeMasterEffect, 
     changeWetMasterEffect,
     toggleMuteMasterEffect,
     changeSettingMasterEffect,
 } from 'modules/masterEffects';
-import {getEffectsList} from 'utils/effects';
 
 class Accompaniment extends Component {
+    static propTypes = {
+        addPlayedNote: PropTypes.func,
+        removePlayedNote: PropTypes.func,
+        bindToKey: PropTypes.func,
+        updatePianoVolume: PropTypes.func,
+        updateAccompanimentInstrument: PropTypes.func,
+        changeWetMasterEffect: PropTypes.func,
+        toggleMuteMasterEffect: PropTypes.func,
+        changeSettingMasterEffect: PropTypes.func,
+        masterEffects: PropTypes.array,
+    };
+
     render(){ 
         return <Tabs>
             <div styleName="section-holder" label="piano">
@@ -48,7 +56,6 @@ class Accompaniment extends Component {
                 <div styleName="controls-panel"></div>
                 <div styleName="instrument-holder">
                     <Effects effects={this.props.masterEffects}
-                            remove={this.props.removeMasterEffect}
                             toggleMute={this.props.toggleMuteMasterEffect}
                             changeWet={this.props.changeWetMasterEffect}
                             changeSetting={this.props.changeSettingMasterEffect}/>
@@ -59,28 +66,12 @@ class Accompaniment extends Component {
     }
 }
 
-Accompaniment.propTypes = {
-    addPlayedNote: PropTypes.func,
-    removePlayedNote: PropTypes.func,
-    bindToKey: PropTypes.func,
-    updatePianoVolume: PropTypes.func,
-    updateAccompanimentInstrument: PropTypes.func,
-    addMasterEffect: PropTypes.func,
-    removeMasterEffect: PropTypes.func,
-    changeWetMasterEffect: PropTypes.func,
-    toggleMuteMasterEffect: PropTypes.func,
-    changeSettingMasterEffect: PropTypes.func,
-    masterEffects: PropTypes.array,
-};
-
 export default connect(mapStateToProps, {
     addPlayedNote,
     removePlayedNote,
     bindToKey,
     updatePianoVolume,
     updateAccompanimentInstrument,
-    addMasterEffect,
-    removeMasterEffect,
     changeWetMasterEffect,
     toggleMuteMasterEffect,
     changeSettingMasterEffect,

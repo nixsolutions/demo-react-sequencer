@@ -1,5 +1,3 @@
-export const ADD_MASTER_EFFECT = 'ADD_MASTER_EFFECT';
-export const REMOVE_MASTER_EFFECT = 'REMOVE_MASTER_EFFECT';
 export const CHANGE_WET_MASTER_EFFECT = 'CHANGE_WET_MASTER_EFFECT';
 export const CHANGE_SETTING_MASTER_EFFECT = 'CHANGE_SETTING_MASTER_EFFECT';
 export const TOGGLE_MUTE_MASTER_EFFECT = 'TOGGLE_MUTE_MASTER_EFFECT';
@@ -8,57 +6,48 @@ import {getEffectsSet} from 'utils/effects';
 
 const INIT = getEffectsSet();
 
+let changeWet = (state, payload) => {
+    return state.map(effect => {
+        if(effect.id !== payload.id){ return effect; }
+
+        return {...effect, wet: payload.value};
+    });
+};
+
+let toggleMute = (state, payload) => {
+    return state.map(effect => {
+        if(effect.id !== payload.id){ return effect; }
+
+        return {...effect, active: !effect.active};
+    });
+};
+
+let changeSetting = (state, payload) => {
+    return state.map(effect => {
+        if(effect.id !== payload.id){ return effect; }
+
+        let settings = {...effect.settings};
+
+        settings[payload.type] = {...settings[payload.type], value: payload.value};
+        return {...effect, settings};
+    });
+};
+
 export default function masterEffectsReducer(state = INIT, action){
-    let {payload} = action;
-    let {getEffect} = require('utils/effects');
+    let {type, payload} = action;
 
-    switch(action.type){
-        case ADD_MASTER_EFFECT:
-            return [...state, getEffect(payload)];
-
-        case REMOVE_MASTER_EFFECT:
-            return state.filter(effect => effect.id !== payload);
-
+    switch(type){
         case CHANGE_WET_MASTER_EFFECT:
-            return state.map(effect => {
-                if(effect.id !== payload.id){ return effect; }
-
-                return {...effect, wet: payload.value};
-            });
+            return changeWet(state, payload);
 
         case TOGGLE_MUTE_MASTER_EFFECT:
-            return state.map(effect => {
-                if(effect.id !== payload.id){ return effect; }
-
-                return {...effect, active: !effect.active};
-            });
+            return toggleMute(state, payload);
 
         case CHANGE_SETTING_MASTER_EFFECT:
-            return state.map(effect => {
-                if(effect.id !== payload.id){ return effect; }
+            return changeSetting(state, payload);
 
-                let settings = {...effect.settings};
-
-                settings[payload.type] = {...settings[payload.type], value: payload.value}
-                return {...effect, settings};
-            });
-    
         default:
             return state;
-    }
-}
-
-export function addMasterEffect(value){
-    return {
-        type: ADD_MASTER_EFFECT,
-        payload: value
-    }
-}
-
-export function removeMasterEffect(value){
-    return {
-        type: REMOVE_MASTER_EFFECT,
-        payload: value
     }
 }
 

@@ -5,6 +5,19 @@ import Controller from 'components/common/controller/Controller';
 
 
 class Effect extends Component {
+    static propTypes = {
+        effect: PropTypes.shape({
+            id: PropTypes.number,
+            label: PropTypes.string,
+            wet: PropTypes.number,
+            active: PropTypes.bool,
+            settings: PropTypes.object,
+        }),
+        toggleMute: PropTypes.func,
+        changeWet: PropTypes.func,
+        changeSetting: PropTypes.func,
+    };
+
     render() {
         let {effect} = this.props;
         let settingsTypes = Object.keys(effect.settings);
@@ -57,10 +70,6 @@ class Effect extends Component {
         this.props.toggleMute(this.props.effect.id);
     }
 
-    remove() {
-        this.props.remove(this.props.effect.id);
-    }
-
     changeWet(percents) {
         this.props.changeWet(percents, this.props.effect.id);
     }
@@ -69,19 +78,5 @@ class Effect extends Component {
         this.props.changeSetting(setting, percents, this.props.effect.id);
     }
 };
-
-Effect.propTypes = {
-    effect: PropTypes.shape({
-        id: PropTypes.number,
-        label: PropTypes.string,
-        wet: PropTypes.number,
-        active: PropTypes.bool,
-        settings: PropTypes.object,
-    }),
-    remove: PropTypes.func,
-    toggleMute: PropTypes.func,
-    changeWet: PropTypes.func,
-    changeSetting: PropTypes.func,
-}
 
 export default CSSModules(Effect, styles, { allowMultiple: true });
