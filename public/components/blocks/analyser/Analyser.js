@@ -96,7 +96,6 @@ class Analyser extends Component {
             let segmentCellYFrom = this.height - ((this.segmentFullHeight * i) + this.padding) - 0.5;
             let segmentCellYTo = segmentCellYFrom + this.segmentHeight;
 
-            // this.drawGridLine(0, segmentCellYFrom, this.width, segmentCellYFrom);
             this.drawGridLine(0, segmentCellYTo, this.width, segmentCellYTo);
         }
     }
