@@ -4,6 +4,10 @@ import {updatePlayedStep} from 'modules/playedStep';
 import * as midi from 'utils/midi';
 
 class KeyboardNavigation extends Component {
+    static propTypes = {
+        children: PropTypes.node
+    };
+
     constructor(props, state){
         super(props, state);
 
@@ -43,10 +47,6 @@ class KeyboardNavigation extends Component {
 
 
 }
-
-KeyboardNavigation.propTypes = {
-   children: PropTypes.node
-};
 
 export default connect(mapStateToProps)(KeyboardNavigation);
 
