@@ -9,8 +9,7 @@ import SequencesManager from 'containers/sequencesManager/SequencesManager';
 import PanelControls from 'containers/panelControls/PanelControls';
 import KeyboardNavigation from 'containers/KeyboardNavigation';
 import Master from 'containers/Master';
-import Spinner from 'components/common/spinner/Spinner';
-import {connect} from 'react-redux';
+import Spinner from './Spinner';
 
 class App extends Component {
   render() {
@@ -30,10 +29,10 @@ class App extends Component {
         <Master/>
         <SamplerManager/>
         <KeyboardNavigation/>
-        <Spinner active={this.props.loadingState}/>
+        <Spinner/>
       </div>
     );
   }
 }
 
-export default connect(state => ({loadingState: state.loadingState}))(App);
+export default App;
