@@ -1,15 +1,16 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component} from 'react';
-import MasterEffects from './MasterEffects';
 
 import Tabs from 'components/common/tabs/Tabs';
-import MasterEffectsManager from './MasterEffectsManager';
 
-import Piano from './Piano';
-import PianoVolume from './PianoVolume';
-import PianoManager from './PianoManager';
-import PianoInstrumentDropdown from './PianoInstrumentDropdown';
+import MasterEffects from 'containers/MasterEffects';
+import MasterEffectsManager from 'containers/MasterEffectsManager';
+
+import Piano from 'containers/Piano';
+import PianoVolume from 'containers/PianoVolume';
+import PianoManager from 'containers/PianoManager';
+import PianoInstrumentDropdown from 'containers/PianoInstrumentDropdown';
 
 class Accompaniment extends Component {
     render() {

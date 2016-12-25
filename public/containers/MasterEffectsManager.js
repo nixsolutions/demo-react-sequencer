@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
-import { noteToPitch, volumeToDecibels} from 'utils/notes';
 import { createEffect } from 'utils/effects';
 
 class MasterEffectsManager extends Component {
