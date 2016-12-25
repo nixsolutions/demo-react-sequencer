@@ -1,7 +1,6 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
 
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
@@ -11,13 +10,7 @@ import SequencesDropdown from './SequencesDropdown';
 import SequencesPlayControlls from './SequencesPlayControlls';
 import SequencesStepIndicator from './SequencesStepIndicator';
 
-import {addInstrument} from 'modules/instruments';
-
 class SequencesManager extends Component {
-    componentWillMount() {
-        this.addInitialInstruments(3);
-    }
-
     render() {
         return (
             <div>
@@ -39,22 +32,6 @@ class SequencesManager extends Component {
             </div>
         );
     }
-
-    addInitialInstruments(instrumentsAmount) {
-        let samples = this.props.samples.slice(0, instrumentsAmount);
-
-        samples.forEach(sample => {
-            this.props.addInstrument(sample);
-        });
-    }
 }
 
-export default connect(mapStateToProps, {
-    addInstrument,
-})(CSSModules(SequencesManager, styles));
-
-function mapStateToProps(state) {
-    return {
-        samples: state.samples,
-    };
-}
+export default CSSModules(SequencesManager, styles);
