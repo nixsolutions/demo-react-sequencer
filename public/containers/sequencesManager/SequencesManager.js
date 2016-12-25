@@ -3,10 +3,9 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import SequencesDropdown from './SequencesDropdown';
-import PlayControls from 'components/blocks/playControls/PlayControls';
+import SequencesPlayControlls from './SequencesPlayControlls';
 import Bpm from './Bpm';
 import Sequences from 'components/blocks/sequences/Sequences';
-import {updatePlay} from 'modules/play';
 import {
     toggleStep, 
     toggleInstrument, 
@@ -15,13 +14,11 @@ import {
     updateInstrumentVolume
 } from 'modules/instruments';
 import {updateVolume} from 'modules/volume';
-import {bindToKey} from 'modules/bindings';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 import StepIndicator from 'components/blocks/stepIndicator/StepIndicator';
 
 class SequencesManager extends Component {
     static propTypes = {
-        play: PropTypes.string,
         playedStep: PropTypes.number,
         instruments: PropTypes.arrayOf(PropTypes.shape({
                 name: PropTypes.string,
@@ -31,12 +28,10 @@ class SequencesManager extends Component {
                 notes: PropTypes.array
             })
         ),
-        updatePlay: PropTypes.func,
         toggleStep: PropTypes.func,
         toggleInstrument: PropTypes.func,
         removeInstrument: PropTypes.func,
         updateInstrumentVolume: PropTypes.func,
-        bindToKey: PropTypes.func,
     };
 
     componentWillMount(){
@@ -44,12 +39,6 @@ class SequencesManager extends Component {
     }
 
     render(){
-        let playControllsProps = {
-            updatePlay: this.props.updatePlay,
-            playState: this.props.play,
-            bindToKey: this.props.bindToKey
-        };
-
         let sequencesProps = {
             instruments: this.props.instruments,
             playedStep: this.props.playedStep,
@@ -63,7 +52,7 @@ class SequencesManager extends Component {
             <div>
                 <div styleName="block-holder">
                     <SequencesDropdown />
-                    <PlayControls {...playControllsProps}/>
+                    <SequencesPlayControlls />
                     <Bpm />
                 </div>
                 <div styleName="sequences-holder">
@@ -90,21 +79,17 @@ class SequencesManager extends Component {
 }
 
 export default connect(mapStateToProps, {
-    updatePlay,
     toggleStep,
     toggleInstrument,
     removeInstrument,
     updateInstrumentVolume,
     addInstrument,
-    bindToKey,
 })(CSSModules(SequencesManager, styles));
 
 function mapStateToProps(state){
     return {
         instruments: state.instruments,
         samples: state.samples,
-        play: state.play,
-        bpm: state.bpm,
         playedStep: state.playedStep,
     };
 }
