@@ -2,7 +2,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
-import Dropdown from 'components/common/dropdown/Dropdown';
+import SequencesDropdown from './SequencesDropdown';
 import PlayControls from 'components/blocks/playControls/PlayControls';
 import Bpm from './Bpm';
 import Sequences from 'components/blocks/sequences/Sequences';
@@ -22,17 +22,6 @@ import StepIndicator from 'components/blocks/stepIndicator/StepIndicator';
 class SequencesManager extends Component {
     static propTypes = {
         play: PropTypes.string,
-        bpm: function(props, propName, componentName) {
-            let isNumber = typeof props[propName] === 'number';
-            let isEmptyString = props[propName] === '';
-
-            if (!isNumber && !isEmptyString)  {
-                return new Error(
-                    'Invalid prop `' + propName + '` supplied to' +
-                    ' `' + componentName + '`. Validation failed.'
-                );
-            }
-        },
         playedStep: PropTypes.number,
         instruments: PropTypes.arrayOf(PropTypes.shape({
                 name: PropTypes.string,
@@ -55,12 +44,6 @@ class SequencesManager extends Component {
     }
 
     render(){
-        let dropdownProps = {
-            items: this.props.dropdownItems, 
-            onSelect: this.props.addInstrument,
-            title: "Add instrument"
-        };
-
         let playControllsProps = {
             updatePlay: this.props.updatePlay,
             playState: this.props.play,
@@ -79,7 +62,7 @@ class SequencesManager extends Component {
         return (
             <div>
                 <div styleName="block-holder">
-                    <Dropdown {...dropdownProps}/>
+                    <SequencesDropdown />
                     <PlayControls {...playControllsProps}/>
                     <Bpm />
                 </div>
@@ -120,13 +103,8 @@ function mapStateToProps(state){
     return {
         instruments: state.instruments,
         samples: state.samples,
-        dropdownItems: samplesToDropdownItems(state.samples),
         play: state.play,
         bpm: state.bpm,
         playedStep: state.playedStep,
     };
-}
-
-function samplesToDropdownItems(samples){
-    return samples.map(item => ({title: item.name, value: item}));
 }
