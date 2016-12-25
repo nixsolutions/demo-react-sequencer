@@ -2,17 +2,16 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import Piano from 'components/blocks/piano/Piano';
 import Effects from 'components/blocks/effects/Effects';
 import Slider from 'components/common/slider/Slider';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import Tabs from 'components/common/tabs/Tabs';
 import PianoManager from './PianoManager';
 import MasterEffectsManager from './MasterEffectsManager';
-import {addPlayedNote, removePlayedNote} from 'modules/playedNotes';
+import Piano from './Piano';
 import {updatePianoVolume} from 'modules/pianoVolume';
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
-import {bindToKey} from 'modules/bindings';
+
 import {
     changeWetMasterEffect,
     toggleMuteMasterEffect,
@@ -21,16 +20,12 @@ import {
 
 class Accompaniment extends Component {
     static propTypes = {
-        addPlayedNote: PropTypes.func,
-        removePlayedNote: PropTypes.func,
-        bindToKey: PropTypes.func,
         updatePianoVolume: PropTypes.func,
         updateAccompanimentInstrument: PropTypes.func,
         changeWetMasterEffect: PropTypes.func,
         toggleMuteMasterEffect: PropTypes.func,
         changeSettingMasterEffect: PropTypes.func,
         masterEffects: PropTypes.array,
-        playedNotes: PropTypes.array,
     };
 
     render() {
@@ -47,10 +42,7 @@ class Accompaniment extends Component {
                     </div>
                 </div>
                 <div styleName="instrument-holder">
-                    <Piano onKeyDown={this.props.addPlayedNote}
-                           onKeyUp={this.props.removePlayedNote}
-                           playedNotes={this.props.playedNotes}
-                           bindToKey={this.props.bindToKey}/>
+                    <Piano/>
                     <PianoManager/>
                 </div>
             </div>
@@ -69,9 +61,6 @@ class Accompaniment extends Component {
 }
 
 export default connect(mapStateToProps, {
-    addPlayedNote,
-    removePlayedNote,
-    bindToKey,
     updatePianoVolume,
     updateAccompanimentInstrument,
     changeWetMasterEffect,
@@ -81,7 +70,6 @@ export default connect(mapStateToProps, {
 
 function mapStateToProps(state) {
     return {
-        playedNotes: state.playedNotes,
         pianoVolume: state.pianoVolume,
         dropdownItems: samplesToDropdownItems(state.samples),
         accompanimentInstrument: state.accompanimentInstrument,
