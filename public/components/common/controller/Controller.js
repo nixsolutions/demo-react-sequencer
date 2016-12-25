@@ -1,11 +1,11 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import Indicator from './indicator/Indicator';
 
 class Controller extends Component {
     static propTypes = {
-        value: function (props, propName, componentName) {
+        value: function(props, propName, componentName) {
             let value = props[propName];
             if (value < -100 || value > 100) {
                 return new Error(
@@ -31,7 +31,7 @@ class Controller extends Component {
         size: 40,
     };
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.onMouseDown = this.onMouseDown.bind(this);
@@ -39,7 +39,7 @@ class Controller extends Component {
         this.onMouseUp = this.onMouseUp.bind(this);
     }
 
-    state = {};
+    state = {down: false};
 
     componentWillMount() {
         this.center = this.props.size / 2;
@@ -62,29 +62,39 @@ class Controller extends Component {
             borderRadius: this.props.size
         };
 
-        let styles = { 
+        let styles = {
             transform: `translate(-50%, -50%) rotate(${this.state.deg}deg)`
+        };
+
+        let {value, startAngle, minAngle, maxAngle, zeroAngle} = this.props;
+
+        let indicatorProps = {
+            value,
+            startAngle,
+            minAngle,
+            maxAngle,
+            zeroAngle,
+            size: indicatorSize
+        };
+
+        let controllerWrapperProps = {
+            styleName: 'controller-wrapper',
+            style: commonStyles,
+            onMouseDown: this.onMouseDown,
+            onMouseMove: this.onMouseMove,
+            onMouseUp: this.onMouseUp,
+            onMouseLeave: this.onMouseUp,
         };
 
         return (
             <div styleName="controller-block">
                 <div styleName="indicator-holder">
-                    <Indicator value={this.props.value}
-                            startAngle={this.props.startAngle}
-                            minAngle={this.props.minAngle}
-                            maxAngle={this.props.maxAngle}
-                            zeroAngle={this.props.zeroAngle}
-                            size={indicatorSize}/>
+                    <Indicator {...indicatorProps}/>
                 </div>
-                <div styleName="controller-wrapper"
-                    onMouseDown={this.onMouseDown}
-                    onMouseMove={this.onMouseMove}
-                    onMouseUp={this.onMouseUp}
-                    onMouseLeave={this.onMouseUp}
-                    style={commonStyles}>
+                <div {...controllerWrapperProps}>
                     <div styleName="controller-holder">
                         <div styleName="controller"
-                            style={styles}></div>
+                             style={styles}></div>
                     </div>
                 </div>
             </div>
@@ -97,7 +107,7 @@ class Controller extends Component {
         let x = offsetX || layerX;
         let y = offsetY || layerY;
 
-        return { x, y };
+        return {x, y};
     }
 
     getDeg(pointer) {
@@ -140,6 +150,10 @@ class Controller extends Component {
     onMouseUp(e) {
         e.preventDefault();
 
+        if (!this.state.down) {
+            return;
+        }
+
         this.setState({
             down: false
         });
@@ -159,18 +173,18 @@ class Controller extends Component {
         this.setState({deg, value});
     }
 
-    getDegValue(diff){
+    getDegValue(diff) {
         let isPositive = diff >= 0;
         return isPositive ? (this.props.maxAngle - this.props.startAngle) / 100 :
-                            (this.props.minAngle - this.props.startAngle) / 100;
+            (this.props.minAngle - this.props.startAngle) / 100;
     }
 
     updateValue(deg) {
         let value = this.getValue(deg);
-        this.setState({ deg, value });
+        this.setState({deg, value});
 
         this.props.onChange && this.props.onChange(value);
     }
 }
 
-export default CSSModules(Controller, styles, { allowMultiple: true });
+export default CSSModules(Controller, styles, {allowMultiple: true});
