@@ -1,22 +1,24 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
-import { connect } from 'react-redux';
-import SequencesDropdown from './SequencesDropdown';
-import SequencesPlayControlls from './SequencesPlayControlls';
+import {connect} from 'react-redux';
+
+import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
+
 import Bpm from './Bpm';
 import Sequences from './Sequences';
+import SequencesDropdown from './SequencesDropdown';
+import SequencesPlayControlls from './SequencesPlayControlls';
+import SequencesStepIndicator from './SequencesStepIndicator';
+
 import {addInstrument} from 'modules/instruments';
-import {updateVolume} from 'modules/volume';
-import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
-import StepIndicator from 'components/blocks/stepIndicator/StepIndicator';
 
 class SequencesManager extends Component {
-    componentWillMount(){
+    componentWillMount() {
         this.addInitialInstruments(3);
     }
 
-    render(){
+    render() {
         return (
             <div>
                 <div styleName="block-holder">
@@ -32,13 +34,13 @@ class SequencesManager extends Component {
                     </div>
                 </div>
                 <div styleName="step-indicator-holder">
-                    <StepIndicator activeIndex={this.props.playedStep}/>
+                    <SequencesStepIndicator />
                 </div>
             </div>
-        ); 
+        );
     }
 
-    addInitialInstruments(instrumentsAmount){
+    addInitialInstruments(instrumentsAmount) {
         let samples = this.props.samples.slice(0, instrumentsAmount);
 
         samples.forEach(sample => {
@@ -51,7 +53,7 @@ export default connect(mapStateToProps, {
     addInstrument,
 })(CSSModules(SequencesManager, styles));
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
         samples: state.samples,
     };
