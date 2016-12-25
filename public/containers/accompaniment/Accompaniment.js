@@ -2,7 +2,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import Effects from 'components/blocks/effects/Effects';
+import MasterEffects from './MasterEffects';
 import Slider from 'components/common/slider/Slider';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import Tabs from 'components/common/tabs/Tabs';
@@ -12,20 +12,10 @@ import Piano from './Piano';
 import {updatePianoVolume} from 'modules/pianoVolume';
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 
-import {
-    changeWetMasterEffect,
-    toggleMuteMasterEffect,
-    changeSettingMasterEffect,
-} from 'modules/masterEffects';
-
 class Accompaniment extends Component {
     static propTypes = {
         updatePianoVolume: PropTypes.func,
         updateAccompanimentInstrument: PropTypes.func,
-        changeWetMasterEffect: PropTypes.func,
-        toggleMuteMasterEffect: PropTypes.func,
-        changeSettingMasterEffect: PropTypes.func,
-        masterEffects: PropTypes.array,
     };
 
     render() {
@@ -49,10 +39,7 @@ class Accompaniment extends Component {
             <div styleName="section-holder" label="effects">
                 <div styleName="controls-panel"></div>
                 <div styleName="instrument-holder">
-                    <Effects effects={this.props.masterEffects}
-                             toggleMute={this.props.toggleMuteMasterEffect}
-                             changeWet={this.props.changeWetMasterEffect}
-                             changeSetting={this.props.changeSettingMasterEffect}/>
+                    <MasterEffects/>
                     <MasterEffectsManager/>
                 </div>
             </div>
@@ -63,9 +50,6 @@ class Accompaniment extends Component {
 export default connect(mapStateToProps, {
     updatePianoVolume,
     updateAccompanimentInstrument,
-    changeWetMasterEffect,
-    toggleMuteMasterEffect,
-    changeSettingMasterEffect,
 })(CSSModules(Accompaniment, styles));
 
 function mapStateToProps(state) {
@@ -73,7 +57,6 @@ function mapStateToProps(state) {
         pianoVolume: state.pianoVolume,
         dropdownItems: samplesToDropdownItems(state.samples),
         accompanimentInstrument: state.accompanimentInstrument,
-        masterEffects: state.masterEffects,
     };
 }
 
