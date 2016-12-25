@@ -21,6 +21,37 @@ import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 import StepIndicator from 'components/blocks/stepIndicator/StepIndicator';
 
 class SequencesManager extends Component {
+    static propTypes = {
+        play: PropTypes.string,
+        bpm: function(props, propName, componentName) {
+            let isNumber = typeof props[propName] === 'number';
+            let isEmptyString = props[propName] === '';
+
+            if (!isNumber && !isEmptyString)  {
+                return new Error(
+                    'Invalid prop `' + propName + '` supplied to' +
+                    ' `' + componentName + '`. Validation failed.'
+                );
+            }
+        },
+        playedStep: PropTypes.number,
+        instruments: PropTypes.arrayOf(PropTypes.shape({
+                name: PropTypes.string,
+                volume: PropTypes.number,
+                path: PropTypes.string,
+                active: PropTypes.bool,
+                notes: PropTypes.array
+            })
+        ),
+        updatePlay: PropTypes.func,
+        toggleStep: PropTypes.func,
+        updateBPM: PropTypes.func,
+        toggleInstrument: PropTypes.func,
+        removeInstrument: PropTypes.func,
+        updateInstrumentVolume: PropTypes.func,
+        bindToKey: PropTypes.func,
+    };
+
     componentWillMount(){
         this.addInitialInstruments(3);
     }
@@ -82,37 +113,6 @@ class SequencesManager extends Component {
     }
 }
 
-SequencesManager.propTypes = {
-    play: PropTypes.string,
-    bpm: function(props, propName, componentName) {
-        let isNumber = typeof props[propName] === 'number';
-        let isEmptyString = props[propName] === '';
-
-        if (!isNumber && !isEmptyString)  {
-            return new Error(
-                'Invalid prop `' + propName + '` supplied to' +
-                ' `' + componentName + '`. Validation failed.'
-            );
-        }
-    },
-    playedStep: PropTypes.number,
-    instruments: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string,
-            volume: PropTypes.number,
-            path: PropTypes.string,
-            active: PropTypes.bool,
-            notes: PropTypes.array
-        })
-    ),
-    updatePlay: PropTypes.func,
-    toggleStep: PropTypes.func,
-    updateBPM: PropTypes.func,
-    toggleInstrument: PropTypes.func,
-    removeInstrument: PropTypes.func,
-    updateInstrumentVolume: PropTypes.func,
-    bindToKey: PropTypes.func,
-};
-
 export default connect(mapStateToProps, {
     updatePlay,
     toggleStep,
@@ -132,8 +132,6 @@ function mapStateToProps(state){
         play: state.play,
         bpm: state.bpm,
         playedStep: state.playedStep,
-        volume: state.volume,
-        analyser: state.analyser
     };
 }
 
