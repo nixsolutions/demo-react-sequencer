@@ -6,6 +6,15 @@ import {
 } from 'utils/notes';
 
 class Octave extends Component {
+    static propTypes = {
+        number: PropTypes.number,
+        onKeyDown: PropTypes.func,
+        onKeyUp: PropTypes.func,
+        bindToKey: PropTypes.func,
+        keys: PropTypes.array,
+        playedNotes: PropTypes.array,
+    };
+
     componentWillMount(){
         this.bindKeys();
     }
@@ -75,21 +84,19 @@ class Octave extends Component {
         });
     }
 
-    onMouseDown(note, e){
-        this.props.onKeyDown && this.props.onKeyDown(note);
+    onMouseDown(note){
+        this.props.onKeyDown(note);
     }
 
-    onMouseUp(note, e){
-        this.props.onKeyUp && this.props.onKeyUp(note);
+    onMouseUp(note){
+        let isActivatedNote = (this.props.playedNotes.indexOf(note) === -1);
+
+        if(!isActivatedNote){
+            return;
+        }
+
+        this.props.onKeyUp(note);
     }
 };
-
-Octave.propTypes = {
-    number: PropTypes.number,
-    onKeyDown: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    bindToKey: PropTypes.func,
-    keys: PropTypes.array,
-}
 
 export default CSSModules(Octave, styles, {allowMultiple: true});
