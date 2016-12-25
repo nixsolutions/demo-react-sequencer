@@ -4,7 +4,7 @@ import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import PlayControls from 'components/blocks/playControls/PlayControls';
-import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
+import Bpm from './Bpm';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {updatePlay} from 'modules/play';
 import {
@@ -14,7 +14,6 @@ import {
     removeInstrument, 
     updateInstrumentVolume
 } from 'modules/instruments';
-import {updateBPM} from 'modules/bpm';
 import {updateVolume} from 'modules/volume';
 import {bindToKey} from 'modules/bindings';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
@@ -45,7 +44,6 @@ class SequencesManager extends Component {
         ),
         updatePlay: PropTypes.func,
         toggleStep: PropTypes.func,
-        updateBPM: PropTypes.func,
         toggleInstrument: PropTypes.func,
         removeInstrument: PropTypes.func,
         updateInstrumentVolume: PropTypes.func,
@@ -69,11 +67,6 @@ class SequencesManager extends Component {
             bindToKey: this.props.bindToKey
         };
 
-        let bpmEditorProps = {
-            onChange: this.props.updateBPM,
-            value: this.props.bpm
-        };
-
         let sequencesProps = {
             instruments: this.props.instruments,
             playedStep: this.props.playedStep,
@@ -88,7 +81,7 @@ class SequencesManager extends Component {
                 <div styleName="block-holder">
                     <Dropdown {...dropdownProps}/>
                     <PlayControls {...playControllsProps}/>
-                    <BpmEditor {...bpmEditorProps}/>
+                    <Bpm />
                 </div>
                 <div styleName="sequences-holder">
                     <div styleName="sequences-wrapper">
@@ -121,7 +114,6 @@ export default connect(mapStateToProps, {
     updateInstrumentVolume,
     addInstrument,
     bindToKey,
-    updateBPM
 })(CSSModules(SequencesManager, styles));
 
 function mapStateToProps(state){
