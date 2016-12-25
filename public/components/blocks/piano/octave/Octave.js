@@ -20,15 +20,15 @@ class Octave extends Component {
     }
 
     render() {
-        this.activeClass = this.props.styles['active'];
-
         let noteValues = this.getNoteValues();
         let additionalClasses = ['', 'left', '', 'right', '', '', 'left', '', 'center', '', 'right', '', ''];
 
         let keys = noteValues.map((noteValue, i) => {
             let isSemitone = noteValue.indexOf('#') !== -1;
+            let isActive = this.props.playedNotes.indexOf(noteValue) !== -1;
+            let activeClass = isActive ? 'active' : '';
             let semitoneClass = isSemitone ? 'semitone' : '';
-            let cssClass = ['note', semitoneClass, additionalClasses[i]].join(' ');
+            let cssClass = ['note', semitoneClass, additionalClasses[i], activeClass].join(' ');
             let {onMouseDown, onMouseUp} = this.getHandlers(noteValue);
 
             return <li key={noteValue} 
@@ -51,19 +51,8 @@ class Octave extends Component {
     }
 
     getHandlers(noteValue){
-        let onMouseDown = (e) => {
-            let el = this.refs[noteValue];
-            
-            el.classList.add(this.activeClass);
-            this.onMouseDown(noteValue, e);
-        };
-
-        let onMouseUp = (e) => {
-            let el = this.refs[noteValue];
-            
-            el.classList.remove(this.activeClass);
-            this.onMouseUp(noteValue, e);
-        };
+        let onMouseDown = (e) => this.onMouseDown(noteValue);
+        let onMouseUp = (e) => this.onMouseUp(noteValue);
 
         return {onMouseDown, onMouseUp};
     }
@@ -89,11 +78,9 @@ class Octave extends Component {
     }
 
     onMouseUp(note){
-        let isActivatedNote = (this.props.playedNotes.indexOf(note) === -1);
+        let isActivatedNote = (this.props.playedNotes.indexOf(note) !== -1);
 
-        if(!isActivatedNote){
-            return;
-        }
+        if(!isActivatedNote){ return; }
 
         this.props.onKeyUp(note);
     }
