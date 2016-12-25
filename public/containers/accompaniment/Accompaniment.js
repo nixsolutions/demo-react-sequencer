@@ -3,18 +3,18 @@ import styles from './styles.less';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import MasterEffects from './MasterEffects';
-import Slider from 'components/common/slider/Slider';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import Tabs from 'components/common/tabs/Tabs';
-import PianoManager from './PianoManager';
 import MasterEffectsManager from './MasterEffectsManager';
+
 import Piano from './Piano';
-import {updatePianoVolume} from 'modules/pianoVolume';
+import PianoVolume from './PianoVolume';
+import PianoManager from './PianoManager';
+
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 
 class Accompaniment extends Component {
     static propTypes = {
-        updatePianoVolume: PropTypes.func,
         updateAccompanimentInstrument: PropTypes.func,
     };
 
@@ -27,8 +27,7 @@ class Accompaniment extends Component {
                               onSelect={this.props.updateAccompanimentInstrument}
                               items={this.props.dropdownItems}/>
                     <div styleName="piano-volume">
-                        <Slider onChange={this.props.updatePianoVolume}
-                                value={this.props.pianoVolume}/>
+                        <PianoVolume />
                     </div>
                 </div>
                 <div styleName="instrument-holder">
@@ -48,13 +47,11 @@ class Accompaniment extends Component {
 }
 
 export default connect(mapStateToProps, {
-    updatePianoVolume,
     updateAccompanimentInstrument,
 })(CSSModules(Accompaniment, styles));
 
 function mapStateToProps(state) {
     return {
-        pianoVolume: state.pianoVolume,
         dropdownItems: samplesToDropdownItems(state.samples),
         accompanimentInstrument: state.accompanimentInstrument,
     };
