@@ -4,13 +4,13 @@ import React, {Component, PropTypes} from 'react';
 
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
-import Bpm from './Bpm';
-import Sequences from './Sequences';
-import SequencesDropdown from './SequencesDropdown';
-import SequencesPlayControlls from './SequencesPlayControlls';
-import SequencesStepIndicator from './SequencesStepIndicator';
+import Bpm from 'containers/Bpm';
+import Sequences from 'containers/Sequences';
+import SequencesDropdown from 'containers/SequencesDropdown';
+import SequencesPlayControlls from 'containers/SequencesPlayControlls';
+import SequencesStepIndicator from 'containers/SequencesStepIndicator';
 
-class SequencesManager extends Component {
+class SequencesDashboard extends Component {
     render() {
         return (
             <div>
@@ -34,4 +34,4 @@ class SequencesManager extends Component {
     }
 }
 
-export default CSSModules(SequencesManager, styles);
+export default CSSModules(SequencesDashboard, styles);
