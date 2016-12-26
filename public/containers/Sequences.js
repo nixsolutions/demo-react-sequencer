@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {connect} from 'react-redux';
-import {
-    addInstrument,
-    toggleStep,
-    toggleInstrument,
-    updateInstrumentVolume
-} from 'modules/instruments';
+import {addInstrument} from 'modules/instruments';
 
 class SequencesBlock extends Component {
     componentWillMount() {
@@ -28,15 +23,11 @@ class SequencesBlock extends Component {
 
 export default connect(mapStateToProps, {
     addInstrument,
-    toggleInstrument,
-    updateInstrumentVolume,
-    onToggleStep: toggleStep
 })(SequencesBlock);
 
 function mapStateToProps(state) {
     return {
         samples: state.samples,
         instrumentsIds: state.instruments.allIds,
-        playedStep: state.playedStep,
     };
 }
