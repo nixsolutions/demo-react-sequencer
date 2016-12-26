@@ -1,3 +1,4 @@
+import {combineReducers} from 'redux';
 import {generateId} from 'utils/helper';
 
 export const TOGGLE_INSTRUMENT = 'TOGGLE_INSTRUMENT';
@@ -7,7 +8,6 @@ export const UPDATE_INSTRUMENT_VOLUME = 'UPDATE_INSTRUMENT_VOLUME';
 export const ADD_INSTRUMENT = 'ADD_INSTRUMENT';
 
 const DEFAULT_INSTRUMENT_VOLUME = 70;
-const INIT = [];
 
 function toggleStepHandler(state, payload){
     return state.map(instrument => {
@@ -32,7 +32,10 @@ function addInstrumentHandler(state, payload){
         active: true,
         volume: DEFAULT_INSTRUMENT_VOLUME
     }
-    return [...state, newInstrument];
+    return {
+        ...state, 
+        [payload.id]: newInstrument
+    };
 }
 
 function toggleInstrumentHandler(state, payload){
@@ -56,10 +59,18 @@ function updateInstrumentVolumeHandler(state, payload){
 }
 
 function removeInstrumentHandler(state, payload){
-    return state.filter(instrument => instrument !== payload);
+    let copy = {...state};
+    delete copy[payload];
+
+    return copy;
 }
 
-export default function instrumentsReducer(state = INIT, action){
+export default combineReducers({
+    byId,
+    allIds
+})
+
+function byId(state = {}, action){
     let {payload} = action;
 
     switch(action.type){
@@ -83,6 +94,21 @@ export default function instrumentsReducer(state = INIT, action){
     }
 }
 
+function allIds(state = [], action){
+    let {payload} = action;
+
+    switch(action.type){
+        case ADD_INSTRUMENT:
+            return [...state, payload.id];
+
+        case REMOVE_INSTRUMENT:
+            return state.filter(id => id !== payload);
+
+        default:
+            return state;
+    }
+}
+
 function createDefaultSteps(stepsAmount){
     let steps = [];
     for(let i = 0; i < stepsAmount; i++, steps.push(undefined));
@@ -90,7 +116,8 @@ function createDefaultSteps(stepsAmount){
 }
 
 function checkIfInstrumentWithNameExists(instrumentName, instruments){
-    return instruments.some(instrument => instrument.name === instrumentName);
+    let keys = Object.keys(instruments);
+    return keys.some(key => instruments[key].name === instrumentName);
 }
 
 function modifyInstrumentName(instrumentName, index){
