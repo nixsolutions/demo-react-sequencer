@@ -39,13 +39,10 @@ function addInstrumentHandler(state, payload){
 }
 
 function toggleInstrumentHandler(state, payload){
-    return state.map(instrument => {
-        if(instrument === payload){
-            return {...instrument, active: !instrument.active};
-        }
+    let instrument = {...state[payload]};
+    instrument.active = !instrument.active;
 
-        return instrument;
-    });
+    return {...state, [payload]: instrument};
 }
 
 function updateInstrumentVolumeHandler(state, payload){
