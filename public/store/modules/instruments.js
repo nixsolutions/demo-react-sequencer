@@ -1,3 +1,5 @@
+import {generateId} from 'utils/helper';
+
 export const UPDATE_INSTRUMENTS = 'UPDATE_INSTRUMENTS';
 export const TOGGLE_INSTRUMENT = 'TOGGLE_INSTRUMENT';
 export const REMOVE_INSTRUMENT = 'REMOVE_INSTRUMENT';
@@ -28,6 +30,7 @@ export default function instrumentsReducer(state = INIT, action){
             });
         case ADD_INSTRUMENT:
             let newInstrument = {
+                id: payload.id,
                 name: payload.name,
                 path: payload.path,
                 notes: createDefaultSteps(payload.stepsAmount),
@@ -119,7 +122,12 @@ export function addInstrument(instrument){
 
         dispatch({
             type: ADD_INSTRUMENT,
-            payload: {...instrument, stepsAmount, name: defineInstrumentName(instrument.name, instruments)}
+            payload: {
+                ...instrument,
+                id: generateId(),
+                stepsAmount, 
+                name: defineInstrumentName(instrument.name, instruments)
+            }
         });
     }
 }
