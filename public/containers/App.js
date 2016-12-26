@@ -6,7 +6,7 @@ import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
 import SamplerManager from 'containers/SamplerManager';
 import Accompaniment from 'components/blocks/accompaniment/Accompaniment';
 import SequencesDashboard from 'components/blocks/sequencesDashboard/SequencesDashboard';
-import PanelControls from 'containers/panelControls/PanelControls';
+import PanelControls from 'components/blocks/panelControls/PanelControls';
 import KeyboardNavigation from 'containers/KeyboardNavigation';
 import Master from 'containers/Master';
 import Spinner from './Spinner';

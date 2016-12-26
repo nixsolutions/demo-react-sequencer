@@ -2,8 +2,8 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, { Component, PropTypes } from 'react';
 
-import MasterVolume from './MasterVolume';
-import Analyser from './Analyser';
+import MasterVolume from 'containers/MasterVolume';
+import Analyser from 'containers/Analyser';
 
 class PanelControls extends Component {
     render() {
