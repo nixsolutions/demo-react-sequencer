@@ -4,4 +4,5 @@ export let mapObject = (obj, fn) => {
     }
 }
 
-export let copyDeepObject = (obj) => JSON.parse(JSON.stringify(obj));
+export const copyDeepObject = (obj) => JSON.parse(JSON.stringify(obj));
+export const generateId = () => Date.now() + Math.random();

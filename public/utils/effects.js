@@ -1,6 +1,6 @@
 import Tone from 'tone';
 
-import {mapObject, copyDeepObject} from 'utils/helper';
+import {mapObject, copyDeepObject, generateId} from 'utils/helper';
 
 export const REVERBERATOR = 'REVERBERATOR';
 export const PING_PONG_DELAY = 'PING_PONG_DELAY';
@@ -9,8 +9,6 @@ export const CHORUS = 'CHORUS';
 
 export const RANGE_SETTING_TYPE = 'RANGE';
 export const FREQUENCY_SETTING_TYPE = 'FREQUENCY_SETTING_TYPE';
-
-let generateId = () => Math.random();
 
 let getReverberatorDefaults = () => ({
     id: generateId(),
