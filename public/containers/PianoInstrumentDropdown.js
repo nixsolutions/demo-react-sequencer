@@ -2,19 +2,18 @@ import React, {Component} from 'react';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import {connect} from 'react-redux';
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
+import {makeDropdownItems} from 'selectors';
 
 export default connect(mapStateToProps, {
     onSelect: updateAccompanimentInstrument
 })(Dropdown);
 
-function mapStateToProps(state) {
-    return {
-        styleMode: 'style2',
-        items: samplesToDropdownItems(state.samples),
-        title: state.accompanimentInstrument.name || 'Select instrument'
-    };
-}
+function mapStateToProps() {
+    const dropdownItems = makeDropdownItems();
 
-function samplesToDropdownItems(samples) {
-    return samples.map(item => ({title: item.name, value: item}));
+    return (state) => ({
+        styleMode: 'style2',
+        items: dropdownItems(state.samples),
+        title: state.accompanimentInstrument.name || 'Select instrument'
+    })
 }
