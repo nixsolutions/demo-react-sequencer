@@ -1,6 +1,5 @@
 import {generateId} from 'utils/helper';
 
-export const UPDATE_INSTRUMENTS = 'UPDATE_INSTRUMENTS';
 export const TOGGLE_INSTRUMENT = 'TOGGLE_INSTRUMENT';
 export const REMOVE_INSTRUMENT = 'REMOVE_INSTRUMENT';
 export const TOGGLE_STEP = 'TOGGLE_STEP';
@@ -10,52 +9,75 @@ export const ADD_INSTRUMENT = 'ADD_INSTRUMENT';
 const DEFAULT_INSTRUMENT_VOLUME = 70;
 const INIT = [];
 
+function toggleStepHandler(state, payload){
+    return state.map(instrument => {
+        if(instrument.name === payload.name){
+            let notes = [...instrument.notes];
+
+            notes[payload.noteIndex] = payload.noteValue;
+
+            return {...instrument, notes};
+        }
+
+        return instrument;
+    });
+}
+
+function addInstrumentHandler(state, payload){
+    let newInstrument = {
+        id: payload.id,
+        name: payload.name,
+        path: payload.path,
+        notes: createDefaultSteps(payload.stepsAmount),
+        active: true,
+        volume: DEFAULT_INSTRUMENT_VOLUME
+    }
+    return [...state, newInstrument];
+}
+
+function toggleInstrumentHandler(state, payload){
+    return state.map(instrument => {
+        if(instrument === payload){
+            return {...instrument, active: !instrument.active};
+        }
+
+        return instrument;
+    });
+}
+
+function updateInstrumentVolumeHandler(state, payload){
+    return state.map(instrument => {
+        if(instrument === payload.instrument){
+            return {...instrument, volume: payload.volume};
+        }
+
+        return instrument;
+    });
+}
+
+function removeInstrumentHandler(state, payload){
+    return state.filter(instrument => instrument !== payload);
+}
+
 export default function instrumentsReducer(state = INIT, action){
     let {payload} = action;
 
     switch(action.type){
-        case UPDATE_INSTRUMENTS:
-            return payload;
         case TOGGLE_STEP:
-            return state.map(instrument => {
-                if(instrument.name === payload.name){
-                    let notes = [...instrument.notes];
+            return toggleStepHandler(state, payload);
 
-                    notes[payload.noteIndex] = payload.noteValue;
-    
-                    return {...instrument, notes};
-                }
-
-                return instrument;
-            });
         case ADD_INSTRUMENT:
-            let newInstrument = {
-                id: payload.id,
-                name: payload.name,
-                path: payload.path,
-                notes: createDefaultSteps(payload.stepsAmount),
-                active: true,
-                volume: DEFAULT_INSTRUMENT_VOLUME
-            }
-            return [...state, newInstrument];
+            return addInstrumentHandler(state, payload);
+
         case TOGGLE_INSTRUMENT:
-            return state.map(instrument => {
-                if(instrument === payload){
-                    return {...instrument, active: !instrument.active};
-                }
+            return toggleInstrumentHandler(state, payload);
 
-                return instrument;
-            });
         case UPDATE_INSTRUMENT_VOLUME:
-            return state.map(instrument => {
-                if(instrument === payload.instrument){
-                    return {...instrument, volume: payload.volume};
-                }
+            return updateInstrumentVolumeHandler(state, payload);
 
-                return instrument;
-            });
         case REMOVE_INSTRUMENT:
-            return state.filter(instrument => instrument !== payload);
+            return removeInstrumentHandler(state, payload);
+
         default:
             return state;
     }
