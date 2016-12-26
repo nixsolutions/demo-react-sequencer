@@ -14,7 +14,7 @@ class Master extends Component {
 
     componentWillMount() {
         this.initAnalyser();
-        this.applyUpdates(this.props);
+        this.updateVolume(this.props.volume);
 
         Tone.Buffer.on('load', () => {
             this.props.updateLoadingState(false);
