@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import Controller from 'components/common/controller/Controller';
 import Modal from 'components/common/modal/Modal';
 import Effects from 'components/blocks/effects/Effects';
-import InstrumentEffects from 'containers/instrumentEffects/InstrumentEffects';
+import InstrumentEffects from 'containers/InstrumentEffects';
 
 class SequenceControl extends Component {
     static propTypes = {
@@ -67,7 +67,9 @@ class SequenceControl extends Component {
                     <span {...fxButtonProps}></span>
                 </div>
                 <Modal {...effectsModalProps}>
-                    <InstrumentEffects instrumentName={instrument.name}/>
+                    <div styleName="instrument-effects">
+                        <InstrumentEffects instrumentName={instrument.name} />
+                    </div>
                 </Modal>
             </div>
         );

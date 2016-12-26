@@ -1,5 +1,4 @@
 import CSSModules from 'react-css-modules';
-import styles from './styles.less';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Effects from 'components/blocks/effects/Effects';
@@ -59,7 +58,7 @@ export default connect(mapStateToProps, {
     toggleMuteInstrumentEffect,
     changeWetInstrumentEffect,
     changeSettingInstrumentEffect
-})(CSSModules(InstrumentEffects, styles, { allowMultiple: true }));
+})(InstrumentEffects);
 
 function mapStateToProps(state){
     return {
