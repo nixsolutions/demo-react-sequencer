@@ -66,6 +66,7 @@ module.exports = {
             modules: path.join(__dirname, '/public/store/modules'),
             shared: path.join(__dirname, '/public/shared'),
             utils: path.join(__dirname, '/public/utils'),
+            selectors: path.join(__dirname, '/public/selectors'),
         },
         extensions: ['', '.js', '.less']
     }
