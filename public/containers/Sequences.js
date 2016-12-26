@@ -5,7 +5,6 @@ import {
     addInstrument,
     toggleStep,
     toggleInstrument,
-    removeInstrument,
     updateInstrumentVolume
 } from 'modules/instruments';
 
@@ -30,7 +29,6 @@ class SequencesBlock extends Component {
 export default connect(mapStateToProps, {
     addInstrument,
     toggleInstrument,
-    removeInstrument,
     updateInstrumentVolume,
     onToggleStep: toggleStep
 })(SequencesBlock);
@@ -38,7 +36,7 @@ export default connect(mapStateToProps, {
 function mapStateToProps(state) {
     return {
         samples: state.samples,
-        instruments: state.instruments,
+        instrumentsIds: state.instruments.allIds,
         playedStep: state.playedStep,
     };
 }
