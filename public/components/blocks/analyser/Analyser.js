@@ -115,7 +115,8 @@ class Analyser extends Component {
     }
 
     loop() {
-        requestAnimationFrame(this.bindedLoop);
+        // requestAnimationFrame(this.bindedLoop);
+        setTimeout(this.bindedLoop, 50);
 
         if (this.props.analyser) {
             var analyserValues = this.props.analyser.analyse();
