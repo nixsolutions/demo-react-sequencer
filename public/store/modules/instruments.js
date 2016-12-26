@@ -49,13 +49,10 @@ function toggleInstrumentHandler(state, payload){
 }
 
 function updateInstrumentVolumeHandler(state, payload){
-    return state.map(instrument => {
-        if(instrument === payload.instrument){
-            return {...instrument, volume: payload.volume};
-        }
+    let {instrumentId, volume} = payload;
+    let instrument = {...state[instrumentId], volume};
 
-        return instrument;
-    });
+    return {...state, [instrumentId]: instrument};
 }
 
 function removeInstrumentHandler(state, payload){
@@ -181,11 +178,11 @@ export function addInstrument(instrument){
     }
 }
 
-export function updateInstrumentVolume(instrument, volumePercents){
+export function updateInstrumentVolume(instrumentId, volumePercents){
     return {
         type: UPDATE_INSTRUMENT_VOLUME,
         payload: {
-            instrument,
+            instrumentId,
             volume: volumePercents
         }
     }
