@@ -13,6 +13,7 @@ import pianoVolume from './pianoVolume';
 import accompanimentInstrument from './accompanimentInstrument';
 import masterEffects from './masterEffects';
 import instrumentsEffects from './instrumentsEffects';
+import instrumentsSteps from './instrumentsSteps';
 
 export default {
     bpm,
@@ -29,5 +30,6 @@ export default {
     pianoVolume,
     accompanimentInstrument,
     masterEffects,
-    instrumentsEffects
+    instrumentsEffects,
+    instrumentsSteps
 };

@@ -28,7 +28,6 @@ function addInstrumentHandler(state, payload){
         id: payload.id,
         name: payload.name,
         path: payload.path,
-        notes: createDefaultSteps(payload.stepsAmount),
         active: true,
         volume: DEFAULT_INSTRUMENT_VOLUME
     }
@@ -103,12 +102,6 @@ function allIds(state = [], action){
     }
 }
 
-function createDefaultSteps(stepsAmount){
-    let steps = [];
-    for(let i = 0; i < stepsAmount; i++, steps.push(undefined));
-    return steps;
-}
-
 function checkIfInstrumentWithNameExists(instrumentName, instruments){
     let keys = Object.keys(instruments);
     return keys.some(key => instruments[key].name === instrumentName);
@@ -132,17 +125,6 @@ function defineInstrumentName(initialInstrumentName, instruments){
     }
 
     return instrumentName;
-}
-
-export function toggleStep(note, noteIndex, instrument){
-    return {
-        type: TOGGLE_STEP,
-        payload: {
-            name: instrument.name,
-            noteValue: note === undefined ? 0 : undefined,
-            noteIndex
-        }
-    }
 }
 
 export function toggleInstrument(instrument){
