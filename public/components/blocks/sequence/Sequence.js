@@ -17,7 +17,6 @@ class Sequence extends Component {
             instrumentId,
         };
 
-
         return (
             <div styleName="sequence">
                 <div styleName="control-holder">
