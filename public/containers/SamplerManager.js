@@ -104,7 +104,8 @@ class SamplerManager extends Component {
     }
 
     stop(){
-        Tone.Transport.stop();
+        // Tone.Transport.stop();
+        this.sequencer.stop();
         this.props.updatePlayedStep(-1);
     }
 
