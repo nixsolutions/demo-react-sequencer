@@ -36,7 +36,6 @@ let TabsControlStyled = CSSModules(TabsControl, styles, { allowMultiple: true })
 class TabsComponent extends Component {
     static propTypes = {
         children: PropTypes.node,
-        selectedIndex: PropTypes.number,
     };
 
     constructor(props){
@@ -66,7 +65,7 @@ class TabsComponent extends Component {
             return <div styleName={tabClass}>{child}</div>;
         });
 
-        return (<div  styleName="tabs" selectedIndex={0}>
+        return (<div  styleName="tabs">
                     <div styleName="controls-holder">
                         <ul styleName="tab-controls">{tabsList}</ul>
                     </div>
