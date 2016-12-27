@@ -8,7 +8,7 @@ import EffectController from './effectController/EffectController';
 class Effect extends Component {
     static propTypes = {
         effect: PropTypes.shape({
-            id: PropTypes.number,
+            id: PropTypes.string,
             label: PropTypes.string,
             wet: PropTypes.number,
             active: PropTypes.bool,
