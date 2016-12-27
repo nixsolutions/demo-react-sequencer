@@ -22,7 +22,6 @@ class StopButton extends Component {
         let activeClass = this.props.active ? 'active' : '';
         let styleName = ['stop-button', activeClass].join(' ');
         let buttonProps = {
-            ...this.props,
             styleName,
             onClick: this.onClick,
             disabled: this.props.disabled
