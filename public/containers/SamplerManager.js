@@ -7,8 +7,27 @@ import {createEffect, applySettingsToEffect} from 'utils/effects';
 import {mapObject} from 'utils/helper';
 
 class SamplerManager extends Component {
-    constructor(props, context){
-        super(props, context);
+    static propTypes = {
+        instrumentsById: PropTypes.object,
+        stepsAmount: PropTypes.number,
+        play: PropTypes.string,
+        bpm: function(props, propName, componentName) {
+            let isNumber = typeof props[propName] === 'number';
+            let isEmptyString = props[propName] === '';
+
+            if (!isNumber && !isEmptyString)  {
+                return new Error(
+                    'Invalid prop `' + propName + '` supplied to' +
+                    ' `' + componentName + '`. Validation failed.'
+                );
+            }
+        },
+        updatePlayedStep: PropTypes.func,
+        updateLoadingState: PropTypes.func,
+    }
+
+    constructor(props){
+        super(props);
 
         this.sequencer = null;
         this.matrix = [];
@@ -24,7 +43,7 @@ class SamplerManager extends Component {
         this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
         this.updateBPM(this.props.bpm);
-        this.updateMatrix(this.props.instruments);
+        this.updateMatrix(this.props.instrumentsById, this.props.instrumentsSteps);
         this.updateSequence();
 
         this.initializeInstruments();
@@ -37,16 +56,19 @@ class SamplerManager extends Component {
     render(){ return <div></div> }
 
     applyUpdates(nextProps){
-        let {instruments, instrumentsEffects, play, bpm, volume} = nextProps;
+        let {instrumentsById, instrumentsEffects, play, bpm, volume, instrumentsSteps} = nextProps;
 
         if (bpm !== this.props.bpm) {
             this.updateBPM(bpm);
         }
 
-        if (instruments !== this.props.instruments) {
-            this.updateSamples(instruments);
-            this.updateMatrix(instruments);
+        if ((instrumentsById !== this.props.instrumentsById) || (instrumentsSteps !== this.props.instrumentsSteps)) {
+            this.updateMatrix(instrumentsById, instrumentsSteps);
             this.updateSequence();
+        }
+
+        if (instrumentsById !== this.props.instrumentsById) {
+            this.updateSamples(instrumentsById);
         }
 
         if (instrumentsEffects !== this.props.instrumentsEffects) {
@@ -54,14 +76,14 @@ class SamplerManager extends Component {
         }
 
         if (play !== this.props.play) {
-            this.togglePlay(instruments, play);
+            this.togglePlay(play);
         }
     }
 
-    togglePlay(instruments, state){
+    togglePlay(state){
         switch(state){
             case 'play':
-                this.play(instruments);
+                this.play();
                 break;
             case 'pause':
                 this.pause();
@@ -90,11 +112,14 @@ class SamplerManager extends Component {
         Tone.Transport.bpm.value = value || 1;
     }
 
-    updateSamples(instruments){
+    updateSamples(instrumentsById){
         let oldSamples = {...this.samples};
         let newSamples = {};
+        let ids = Object.keys(instrumentsById);
 
-        instruments.forEach(instrument => {
+        ids.forEach(instrumentId => {
+            let instrument = instrumentsById[instrumentId];
+
             if(oldSamples[instrument.name]){
                 newSamples[instrument.name] = oldSamples[instrument.name];
             }else{
@@ -162,25 +187,45 @@ class SamplerManager extends Component {
         }, {});
     }
 
-    updateMatrix(instruments){
-        this.matrix = this.createMatrix(instruments);
+    updateMatrix(instrumentsById, instrumentsSteps){
+        this.matrix = this.createMatrix(instrumentsById, instrumentsSteps);
     }
 
-    createMatrix(instruments){
-        return instruments.reduce((matrix, instrument) => {
+    createMatrix(instrumentsById, instrumentsSteps){
+        let ids = Object.keys(instrumentsById);
 
-            instrument.notes.forEach((note, i) => {
+        let matrix = ids.reduce((matrix, instrumentId) => {
+            let instrument = instrumentsById[instrumentId];
+            let steps = instrumentsSteps[instrumentId];
+
+            steps.forEach((step, i) => {
                 matrix[i] = matrix[i] || {};
 
-                if((note === undefined) || !instrument.active) { return; }
+                if((step === undefined) || !instrument.active) { return; }
 
                 let {volume, path, name} = instrument;
 
-                matrix[i][name] = {note, volume, path, name};
+                matrix[i][name] = {step, volume, path, name};
             });
 
             return matrix;
         }, []);
+
+        if(!matrix.length){
+            matrix = this.generateEmptyMatrix(this.props.stepsAmount);
+        }
+
+        return matrix;
+    }
+
+    generateEmptyMatrix(stepsAmount){
+        let matrix = [];
+
+        for(let i = 0; i < stepsAmount; i++){
+            matrix.push({});
+        }
+
+        return matrix;
     }
 
     createSequencer(){
@@ -213,7 +258,7 @@ class SamplerManager extends Component {
 
     initializeInstruments(){
         let onLoad = () => {
-            this.updateSamples(this.props.instruments);
+            this.updateSamples(this.props.instrumentsById);
             this.updateInstrumentsEffects(this.props.instrumentsEffects);
             Tone.Buffer.off('load', onLoad);
         }
@@ -222,31 +267,6 @@ class SamplerManager extends Component {
     }
 }
 
-SamplerManager.propTypes = {
-    instruments: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string,
-            volume: PropTypes.number,
-            path: PropTypes.string,
-            active: PropTypes.bool,
-            notes: PropTypes.array
-        })
-    ),
-    play: PropTypes.string,
-    bpm: function(props, propName, componentName) {
-        let isNumber = typeof props[propName] === 'number';
-        let isEmptyString = props[propName] === '';
-
-        if (!isNumber && !isEmptyString)  {
-            return new Error(
-                'Invalid prop `' + propName + '` supplied to' +
-                ' `' + componentName + '`. Validation failed.'
-            );
-        }
-    },
-    updatePlayedStep: PropTypes.func,
-    updateLoadingState: PropTypes.func,
-};
-
 export default connect(mapStateToProps, {
     updatePlayedStep,
     updateLoadingState
@@ -254,10 +274,12 @@ export default connect(mapStateToProps, {
 
 function mapStateToProps(state){
     return {
-        instruments: state.instruments,
+        instrumentsById: state.instruments.byId,
         instrumentsEffects: state.instrumentsEffects,
+        instrumentsSteps: state.instrumentsSteps,
         play: state.play,
         bpm: state.bpm,
         samples: state.samples,
+        stepsAmount: state.stepsAmount,
     };
 }
