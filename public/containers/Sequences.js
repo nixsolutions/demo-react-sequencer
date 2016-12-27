@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {connect} from 'react-redux';
 import {addInstrument} from 'modules/instruments';
+import {updatePlay} from 'modules/play';
 
 class SequencesBlock extends Component {
     componentWillMount() {
+        document.addEventListener('visibilitychange', () => {
+            this.props.updatePlay('stop');
+        });
+
         this.addInitialInstruments(3);
     }
 
@@ -22,6 +27,7 @@ class SequencesBlock extends Component {
 }
 
 export default connect(mapStateToProps, {
+    updatePlay,
     addInstrument,
 })(SequencesBlock);
 
