@@ -4,12 +4,10 @@ import React, {Component, PropTypes} from 'react';
 
 class Step extends Component {
     static propTypes = {
-        active: PropTypes.bool,
-        isEven: PropTypes.bool,
-        isHighlighted: PropTypes.bool,
-        index: PropTypes.number,
-        note: PropTypes.number,
-        onStepClick: PropTypes.func,
+        instrumentId: PropTypes.string,
+        indexInSequence: PropTypes.number,
+        isActive: PropTypes.bool,
+        onToggleStep: PropTypes.func,
     };
 
     constructor(props){
@@ -19,17 +17,21 @@ class Step extends Component {
     }
 
     render() {
-        let {active, isEven} = this.props;
-        let evenClass = isEven ? 'even' : '';
-        let activeClass = active ? 'active' : '';
+        let {isActive, indexInSequence} = this.props;
+        let evenClass = this.isEven(indexInSequence) ? 'even' : '';
+        let activeClass = isActive ? 'active' : '';
         let className = ['step', evenClass, activeClass].join(' ');
 
         return <div styleName={className} onClick={this.onClick}></div>
     }
 
     onClick(){
-        let {note, index} = this.props;
-        this.props.onStepClick && this.props.onStepClick(note, index);
+        let {indexInSequence, instrumentId} = this.props;
+        this.props.onToggleStep(indexInSequence, instrumentId);
+    }
+
+    isEven(indexInSequence){
+        return Math.floor(indexInSequence / 4) % 2 !== 0;
     }
 }
 
