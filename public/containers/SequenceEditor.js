@@ -6,6 +6,6 @@ export default connect(mapStateToProps)(SequenceEditor);
 
 function mapStateToProps(state, props) {
     return {
-        steps: state.instrumentsSteps[props.instrumentId]
+        stepsAmount: state.instrumentsSteps[props.instrumentId].length
     };
 }

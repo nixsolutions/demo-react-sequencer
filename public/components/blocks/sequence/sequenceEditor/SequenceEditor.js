@@ -6,31 +6,33 @@ import SequenceStep from 'containers/SequenceStep';
 class SequenceEditor extends Component {
     static propTypes = {
         instrumentId: PropTypes.string,
-        steps: PropTypes.array,
+        stepsAmount: PropTypes.number,
     };
 
-    render() {
-        let {steps} = this.props; 
-        let items = this.createSteps(steps);
+    render() { 
+        let items = this.createSteps();
 
         return <ul styleName="sequence-editor">{items}</ul>
     }
 
-    createSteps(steps){
-        let {instrumentId} = this.props;
+    createSteps(){
+        let {instrumentId, stepsAmount} = this.props;
+        let steps = [];
 
-        return steps.map((step, i) => {
+        for(let i = 0; i < stepsAmount; i++){
             let stepProps = {
                 instrumentId,
                 indexInSequence: i
             };
 
-            return (
+            steps.push(
                 <li key={i}>
                     <SequenceStep {...stepProps} />
                 </li>
             );
-        })
+        }
+
+        return steps;
     }
 }
 

@@ -15,7 +15,6 @@ class Sequence extends Component {
 
         let sequenceEditorProps = {
             instrumentId,
-            onToggleStep: toggleStep
         };
 
 
