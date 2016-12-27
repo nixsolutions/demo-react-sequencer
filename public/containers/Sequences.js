@@ -14,7 +14,7 @@ class SequencesBlock extends Component {
     }
 
     render(){
-        return <Sequences {...this.props}/>;
+        return <Sequences instrumentsIds={this.props.instrumentsIds}/>;
     }
 
     addInitialInstruments(instrumentsAmount) {
