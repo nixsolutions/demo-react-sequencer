@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
-import { noteToPitch, volumeToDecibels} from 'utils/notes';
+import { noteToPitch, percentsToDecibels} from 'utils/notes';
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 import {updateLoadingState} from 'modules/loadingState';
 
@@ -54,7 +54,7 @@ class PianoManager extends Component {
 
         this.playedNotes[note] = sample;
 
-        sample.volume.value = volumeToDecibels(this.props.pianoVolume);
+        sample.volume.value = percentsToDecibels(this.props.pianoVolume);
         sample.triggerAttackRelease(pitch);
     }
 

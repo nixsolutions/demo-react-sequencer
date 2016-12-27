@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Tone from 'tone';
 import {updateAnalyser} from 'modules/analyser';
 import {updateLoadingState} from 'modules/loadingState';
-import {volumeToDecibels} from 'utils/notes';
+import {percentsToDecibels} from 'utils/notes';
 
 class Master extends Component {
     constructor(props, context){
@@ -37,7 +37,7 @@ class Master extends Component {
     }
 
     updateVolume(volumePercents){
-        Tone.Master.volume.value = volumeToDecibels(volumePercents);
+        Tone.Master.volume.value = percentsToDecibels(volumePercents);
     }
 
     initAnalyser(){

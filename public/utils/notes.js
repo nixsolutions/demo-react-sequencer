@@ -7,7 +7,7 @@ export let noteToPitch = note => {
     let octaveLength = OCTAVE_NOTES.length;
     let noteIndex = OCTAVE_NOTES.indexOf(pureNote);
 
-    let octavesOffset = octave - START_OCTAVE; 
+    let octavesOffset = octave - START_OCTAVE;
     let pitch = (octavesOffset * octaveLength) + noteIndex;
 
     return pitch;
@@ -27,6 +27,6 @@ export let getFrequencyOfNote = note => {
     return 440 * Math.pow(2, (key_number - 49) / 12);
 }
 
-export let volumeToDecibels = volume => {
-        return -40 + ((40 / 100) * volume);
-    }
+export let percentsToDecibels = percents => {
+    return Math.round(1000000000 * 20 * (Math.log(percents * 0.01) / Math.log(10))) / 1000000000;;
+}
