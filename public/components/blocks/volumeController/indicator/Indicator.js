@@ -24,10 +24,14 @@ class Indicator extends Component {
     }
 
     isActiveItem(itemIndex){
-        let ITEM_WEIGHT = 100 / this.props.amount;
+        if(this.props.value === 0){
+            return false;
+        }
+
+        let ITEM_WEIGHT = 100 / (this.props.amount - 1);
         let itemValue = itemIndex * ITEM_WEIGHT;
 
-        return this.props.value > itemValue;
+        return this.props.value >= itemValue;
     }
 
     getItemHeight(itemIndex){
