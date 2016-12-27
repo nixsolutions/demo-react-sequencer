@@ -6,6 +6,18 @@ import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 import {updateLoadingState} from 'modules/loadingState';
 
 class PianoManager extends Component {
+    static propTypes = {
+        playedNotes: PropTypes.array,
+        samples: PropTypes.array,
+        pianoVolume: PropTypes.number,
+        accompanimentInstrument: PropTypes.shape({
+            name: PropTypes.string,
+            path: PropTypes.string
+        }),
+        updateLoadingState: PropTypes.func,
+        updateAccompanimentInstrument: PropTypes.func,
+    }
+
     constructor(props, state){
         super(props, state);
 
@@ -76,18 +88,6 @@ class PianoManager extends Component {
         this.buffer = new Tone.Buffer(path);
     }
 }
-
-PianoManager.propTypes = {
-    playedNotes: PropTypes.array,
-    samples: PropTypes.array,
-    pianoVolume: PropTypes.number,
-    accompanimentInstrument: PropTypes.shape({
-        name: PropTypes.string,
-        path: PropTypes.string
-    }),
-    updateLoadingState: PropTypes.func,
-    updateAccompanimentInstrument: PropTypes.func,
-};
 
 export default connect(mapStateToProps, {
     updateLoadingState,
