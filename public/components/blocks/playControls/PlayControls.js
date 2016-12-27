@@ -39,6 +39,7 @@ class PlayControls extends Component {
 
     bindPlay() {
         let onMouseDown = (e) => {
+            e.preventDefault();
             let value = (this.props.playState === 'play') ? 'pause' : 'play';
 
             this.props.updatePlay(value);
