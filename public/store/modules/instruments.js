@@ -3,25 +3,10 @@ import {generateId} from 'utils/helper';
 
 export const TOGGLE_INSTRUMENT = 'TOGGLE_INSTRUMENT';
 export const REMOVE_INSTRUMENT = 'REMOVE_INSTRUMENT';
-export const TOGGLE_STEP = 'TOGGLE_STEP';
 export const UPDATE_INSTRUMENT_VOLUME = 'UPDATE_INSTRUMENT_VOLUME';
 export const ADD_INSTRUMENT = 'ADD_INSTRUMENT';
 
 const DEFAULT_INSTRUMENT_VOLUME = 70;
-
-function toggleStepHandler(state, payload){
-    return state.map(instrument => {
-        if(instrument.name === payload.name){
-            let notes = [...instrument.notes];
-
-            notes[payload.noteIndex] = payload.noteValue;
-
-            return {...instrument, notes};
-        }
-
-        return instrument;
-    });
-}
 
 function addInstrumentHandler(state, payload){
     let newInstrument = {
@@ -67,9 +52,6 @@ function byId(state = {}, action){
     let {payload} = action;
 
     switch(action.type){
-        case TOGGLE_STEP:
-            return toggleStepHandler(state, payload);
-
         case ADD_INSTRUMENT:
             return addInstrumentHandler(state, payload);
 

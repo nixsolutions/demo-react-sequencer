@@ -6,12 +6,14 @@ export const ADD_INSTRUMENT = 'ADD_INSTRUMENT';
 const DEFAULT_INSTRUMENT_VOLUME = 70;
 
 function toggleStepHandler(state, payload){
-    let {noteIndex, noteValue, id} = payload;
-    let notes = [...state[id]];
+    let {indexInSequence, instrumentId} = payload;
+    let steps = [...state[instrumentId]];
+    let step = steps[indexInSequence];
+    let toggledStepValue = step === undefined ? 0 : undefined;
 
-    notes.splice(noteIndex, 1, noteValue);
+    steps.splice(indexInSequence, 1, toggledStepValue);
 
-    return {...state, [id]: notes};
+    return {...state, [instrumentId]: steps};
 }
 
 function addInstrumentHandler(state, payload){
@@ -51,13 +53,12 @@ function createDefaultSteps(stepsAmount){
     return steps;
 }
 
-export function toggleStep(note, noteIndex, instrument){
+export function toggleStep(indexInSequence, instrumentId){
     return {
         type: TOGGLE_STEP,
         payload: {
-            name: instrument.name,
-            noteValue: note === undefined ? 0 : undefined,
-            noteIndex
+            instrumentId,
+            indexInSequence
         }
     }
 }
