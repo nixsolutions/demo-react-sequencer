@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
-class Indicator extends Component {
+class Indicator extends PureComponent {
     static defaultProps = {
         value: 0,
         amount: 10,

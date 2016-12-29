@@ -1,10 +1,10 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import Controller from 'components/common/controller/Controller';
 
 
-class EffectController extends Component {
+class EffectController extends PureComponent {
     static propTypes = {
         value: PropTypes.number,
         label: PropTypes.string,

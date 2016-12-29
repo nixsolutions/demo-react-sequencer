@@ -1,6 +1,6 @@
 import 'shared/reset.less';
 import 'shared/layouts.less';
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
 import SamplerManager from 'containers/SamplerManager';
@@ -11,7 +11,7 @@ import KeyboardNavigation from 'containers/KeyboardNavigation';
 import Master from 'containers/Master';
 import Spinner from './Spinner';
 
-class App extends Component {
+class App extends PureComponent {
     render() {
         return (
             <div>

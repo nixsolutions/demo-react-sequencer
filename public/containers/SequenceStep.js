@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Step from 'components/blocks/sequence/sequenceEditor/step/Step';
 import {connect} from 'react-redux';
 import {toggleStep} from 'modules/instrumentsSteps';

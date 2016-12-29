@@ -1,11 +1,11 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import {
     OCTAVE_NOTES
 } from 'utils/notes';
 
-class Octave extends Component {
+class Octave extends PureComponent {
     static propTypes = {
         number: PropTypes.number,
         onKeyDown: PropTypes.func,

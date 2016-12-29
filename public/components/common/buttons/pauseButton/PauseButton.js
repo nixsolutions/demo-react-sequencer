@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-class PauseButton extends Component {
+class PauseButton extends PureComponent {
     static propTypes = {
         children: PropTypes.node,
         active: PropTypes.bool,

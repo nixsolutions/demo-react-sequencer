@@ -1,11 +1,11 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
 import MasterVolume from 'containers/MasterVolume';
 import Analyser from 'containers/Analyser';
 
-class PanelControls extends Component {
+class PanelControls extends PureComponent {
     render() {
         return (
             <div styleName="panel-controls">

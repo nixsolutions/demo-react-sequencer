@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
-class MuteButton extends Component {
+class MuteButton extends PureComponent {
     static propTypes = {
         instrumentId: PropTypes.string,
         toggleInstrument: PropTypes.func,

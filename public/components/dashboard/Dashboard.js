@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
-class Dashboard extends Component {
+class Dashboard extends PureComponent {
     render() {
         return <div styleName="dashboard">
             <div styleName="dashboard-holder">

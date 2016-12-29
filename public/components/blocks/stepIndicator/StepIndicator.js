@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
-class StepIndicator extends Component {
+class StepIndicator extends PureComponent {
     static defaultProps = {
         stepsAmount: 16,
         activeIndex: -1,

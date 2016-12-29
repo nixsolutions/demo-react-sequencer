@@ -1,5 +1,5 @@
 import CSSModules from 'react-css-modules';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Effects from 'components/blocks/effects/Effects';
 import {
@@ -8,7 +8,7 @@ import {
     changeSettingInstrumentEffect,
 } from 'modules/instrumentsEffects';
 
-class InstrumentEffects extends Component {
+class InstrumentEffects extends PureComponent {
     static propTypes = {
         instrumentName: PropTypes.string,
         instrumentsEffects: PropTypes.object,

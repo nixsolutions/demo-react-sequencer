@@ -1,9 +1,9 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import Indicator from './indicator/Indicator';
 
-class Controller extends Component {
+class Controller extends PureComponent {
     static propTypes = {
         value: function(props, propName, componentName) {
             let value = props[propName];

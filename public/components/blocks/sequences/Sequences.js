@@ -1,9 +1,9 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import Sequence from 'components/blocks/sequence/Sequence';
 
-class Sequences extends Component {
+class Sequences extends PureComponent {
     static propTypes = {
         instrumentsIds: PropTypes.arrayOf(PropTypes.string),
     };

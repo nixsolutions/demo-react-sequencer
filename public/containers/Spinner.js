@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Spinner from 'components/common/spinner/Spinner';
 import {connect} from 'react-redux';
 

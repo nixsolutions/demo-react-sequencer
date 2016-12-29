@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 import { createEffect } from 'utils/effects';
 
-class MasterEffectsManager extends Component {
+class MasterEffectsManager extends PureComponent {
     static propTypes = {
         masterEffects: PropTypes.array
     };

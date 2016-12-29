@@ -1,14 +1,14 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import Octave from './octave/Octave';
 import {
     OCTAVE_NOTES
 } from 'utils/notes';
 import {PIANO_KEYS} from 'utils/keys';
 
-class Piano extends Component {
+class Piano extends PureComponent {
     static propTypes = {
         playedNotes: PropTypes.array,
         onKeyDown: PropTypes.func,

@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
-class Step extends Component {
+class Step extends PureComponent {
     static propTypes = {
         instrumentId: PropTypes.string,
         indexInSequence: PropTypes.number,

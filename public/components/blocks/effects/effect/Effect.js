@@ -1,11 +1,11 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import Controller from 'components/common/controller/Controller';
 import EffectController from './effectController/EffectController';
 
 
-class Effect extends Component {
+class Effect extends PureComponent {
     static propTypes = {
         effect: PropTypes.shape({
             id: PropTypes.string,

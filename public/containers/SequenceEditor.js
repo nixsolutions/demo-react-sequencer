@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import SequenceEditor from 'components/blocks/sequence/sequenceEditor/SequenceEditor';
 import {connect} from 'react-redux';
 

@@ -1,6 +1,6 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
@@ -10,7 +10,7 @@ import SequencesDropdown from 'containers/SequencesDropdown';
 import SequencesPlayControlls from 'containers/SequencesPlayControlls';
 import SequencesStepIndicator from 'containers/SequencesStepIndicator';
 
-class SequencesDashboard extends Component {
+class SequencesDashboard extends PureComponent {
     render() {
         return (
             <div>

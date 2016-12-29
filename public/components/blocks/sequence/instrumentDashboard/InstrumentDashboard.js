@@ -1,11 +1,11 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import MuteInstrumentButton from 'containers/MuteInstrumentButton';
 import InstrumentVolumeController from 'containers/InstrumentVolumeController';
 import FxButton from '../fxButton/FxButton';
 
-class InstrumentDashboard extends Component {
+class InstrumentDashboard extends PureComponent {
     static propTypes = {
         instrumentId: PropTypes.string,
         instrumentName: PropTypes.string,

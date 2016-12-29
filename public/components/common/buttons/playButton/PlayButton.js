@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
-class PlayButton extends Component {
+class PlayButton extends PureComponent {
     static propTypes = {
         children: PropTypes.node,
         active: PropTypes.bool,

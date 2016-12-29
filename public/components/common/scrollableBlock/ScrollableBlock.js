@@ -1,9 +1,9 @@
 import styles from './styles.less';
 import { Scrollbars } from 'react-custom-scrollbars';
 import CSSModules from 'react-css-modules';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
-class ScrollableBlock extends Component {
+class ScrollableBlock extends PureComponent {
   render() {
     let thumbCss = this.props.styles['thumb-vertical'];
 

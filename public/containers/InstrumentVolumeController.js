@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Controller from 'components/common/controller/Controller';
 import {connect} from 'react-redux';
 import {updateInstrumentVolume} from 'modules/instruments';
 
-class InstrumentVolumeController extends Component{
+class InstrumentVolumeController extends PureComponent{
     constructor(props){
         super(props);
 

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Piano from 'components/blocks/piano/Piano';
 import {connect} from 'react-redux';
 import {addPlayedNote, removePlayedNote} from 'modules/playedNotes';

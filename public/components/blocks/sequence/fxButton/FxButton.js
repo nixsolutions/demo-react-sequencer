@@ -1,11 +1,11 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 
 import Modal from 'components/common/modal/Modal';
 import InstrumentEffects from 'containers/InstrumentEffects';
 
-class FxButton extends Component {
+class FxButton extends PureComponent {
     static propTypes = {
         instrumentId: PropTypes.string,
         instrumentName: PropTypes.string,

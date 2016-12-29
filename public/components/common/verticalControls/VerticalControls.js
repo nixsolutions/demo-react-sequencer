@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 
-class VerticalControls extends Component {
+class VerticalControls extends PureComponent {
     render() {
         return <div styleName="vertical-controls">{this.props.children}</div>
     }
@@ -14,7 +14,7 @@ VerticalControls.propTypes = {
 
 export default CSSModules(VerticalControls, styles, {allowMultiple: true});
 
-class VerticalControlsItem extends Component {
+class VerticalControlsItem extends PureComponent {
     render() {
         return <div styleName="vertical-controls-item">
                     <span styleName="label">{this.props.label}</span>

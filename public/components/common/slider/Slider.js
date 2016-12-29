@@ -1,9 +1,9 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {Component, PropTypes} from 'react';
+import React, {PureComponent, PropTypes} from 'react';
 import ReactSlider from 'react-slider';
 
-class Slider extends Component {
+class Slider extends PureComponent {
     static defaultProps = {
         width: 100,
         height: 20,
