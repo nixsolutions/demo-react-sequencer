@@ -1,11 +1,11 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 import {updateAnalyser} from 'modules/analyser';
 import {updateLoadingState} from 'modules/loadingState';
 import {percentsToDecibels} from 'utils/notes';
 
-class Master extends PureComponent {
+class Master extends Component {
     constructor(props, context){
         super(props, context);
 

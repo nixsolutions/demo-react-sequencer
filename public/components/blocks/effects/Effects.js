@@ -1,9 +1,9 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import Effect from './effect/Effect';
 
-class Effects extends PureComponent {
+class Effects extends Component {
     static propTypes = {
         effects: PropTypes.arrayOf(PropTypes.shape({
             label: PropTypes.string,

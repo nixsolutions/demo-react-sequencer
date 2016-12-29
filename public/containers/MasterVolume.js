@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import VolumeController from 'components/blocks/volumeController/VolumeController';
 import {connect} from 'react-redux';
 import { updateVolume } from 'modules/volume';

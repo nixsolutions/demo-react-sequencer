@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import BpmEditor from 'components/blocks/bpmEditor/BpmEditor';
 import {connect} from 'react-redux';
 import {updateBPM} from 'modules/bpm';

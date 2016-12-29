@@ -1,9 +1,9 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import {updatePlayedStep} from 'modules/playedStep';
 import * as midi from 'utils/midi';
 
-class KeyboardNavigation extends PureComponent {
+class KeyboardNavigation extends Component {
     static propTypes = {
         children: PropTypes.node
     };

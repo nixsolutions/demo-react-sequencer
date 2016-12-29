@@ -1,12 +1,12 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import PlayButton from 'components/common/buttons/playButton/PlayButton';
 import PauseButton from 'components/common/buttons/pauseButton/PauseButton';
 import StopButton from 'components/common/buttons/stopButton/StopButton';
 import { SPACE_KEY } from 'utils/keys';
 
-class PlayControls extends PureComponent {
+class PlayControls extends Component {
     componentWillMount() {
         this.bindPlay();
     }

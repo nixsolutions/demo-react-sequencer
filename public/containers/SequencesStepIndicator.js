@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import StepIndicator from 'components/blocks/stepIndicator/StepIndicator';
 import {connect} from 'react-redux';
 

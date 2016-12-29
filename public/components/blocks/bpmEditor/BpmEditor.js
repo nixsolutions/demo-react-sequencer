@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 
-class BpmEditor extends PureComponent {
+class BpmEditor extends Component {
     constructor(props) {
         super(props);
 

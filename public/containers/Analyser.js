@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import Analyser from 'components/blocks/analyser/Analyser';
 import {connect} from 'react-redux';
 

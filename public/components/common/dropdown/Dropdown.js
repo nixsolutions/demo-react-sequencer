@@ -1,10 +1,10 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import ScrollableBlock from 'components/common/scrollableBlock/ScrollableBlock';
 
-class DropdownItem extends PureComponent {
+class DropdownItem extends Component {
     static propTypes = {
         value: PropTypes.any,
         title: PropTypes.string,
@@ -26,7 +26,7 @@ class DropdownItem extends PureComponent {
     }
 };
 
-class DropdownComponent extends PureComponent {
+class DropdownComponent extends Component {
     static propTypes = {
         items: PropTypes.arrayOf(PropTypes.shape({
             title: React.PropTypes.string,

@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-class Analyser extends PureComponent {
+class Analyser extends Component {
     static defaultProps = {
         segmentsInStack: 17,
         gridColor: 'rgba(241, 101, 34, 0.2)',

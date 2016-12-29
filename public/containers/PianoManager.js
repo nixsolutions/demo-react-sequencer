@@ -1,11 +1,11 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 import { noteToPitch, percentsToDecibels} from 'utils/notes';
 import {updateAccompanimentInstrument} from 'modules/accompanimentInstrument';
 import {updateLoadingState} from 'modules/loadingState';
 
-class PianoManager extends PureComponent {
+class PianoManager extends Component {
     static propTypes = {
         playedNotes: PropTypes.array,
         samples: PropTypes.array,

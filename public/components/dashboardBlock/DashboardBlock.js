@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 
-class DashBoardBlock extends PureComponent {
+class DashBoardBlock extends Component {
     render() {
         return <div styleName="dashboard-block">{this.props.children}</div>
     }

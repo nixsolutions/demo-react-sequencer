@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import MuteButton from 'components/blocks/sequence/muteButton/MuteButton';
 import {connect} from 'react-redux';
 import {toggleInstrument} from 'modules/instruments';

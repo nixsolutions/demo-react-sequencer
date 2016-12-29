@@ -1,9 +1,9 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Modal from 'components/common/modal/Modal';
 
-class RemoveButton extends PureComponent {
+class RemoveButton extends Component {
     static propTypes = {
         instrumentId: PropTypes.string,
         removeInstrument: PropTypes.func,

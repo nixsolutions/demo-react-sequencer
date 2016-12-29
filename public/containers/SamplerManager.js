@@ -1,4 +1,4 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import Tone from 'tone';
 import {updatePlayedStep} from 'modules/playedStep';
@@ -6,7 +6,7 @@ import {updateLoadingState} from 'modules/loadingState';
 import {createEffect, applySettingsToEffect} from 'utils/effects';
 import {mapObject} from 'utils/helper';
 
-class SamplerManager extends PureComponent {
+class SamplerManager extends Component {
     static propTypes = {
         instrumentsById: PropTypes.object,
         stepsAmount: PropTypes.number,

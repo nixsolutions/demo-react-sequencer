@@ -1,10 +1,10 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import Slider from 'components/common/slider/Slider';
 import Indicator from './indicator/Indicator';
 
-class VolumeConroller extends PureComponent {
+class VolumeConroller extends Component {
     static defaultProps = {
         width: 100,
         height: 30

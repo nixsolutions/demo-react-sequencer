@@ -1,6 +1,6 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 
 import Tabs from 'components/common/tabs/Tabs';
 
@@ -12,7 +12,7 @@ import PianoVolume from 'containers/PianoVolume';
 import PianoManager from 'containers/PianoManager';
 import PianoInstrumentDropdown from 'containers/PianoInstrumentDropdown';
 
-class Accompaniment extends PureComponent {
+class Accompaniment extends Component {
     render() {
         return <Tabs>
             <div styleName="section-holder" label="piano">

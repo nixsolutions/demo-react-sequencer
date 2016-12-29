@@ -1,11 +1,11 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import SequenceEditor from 'containers/SequenceEditor';
 import InstrumentDashboard from 'containers/InstrumentDashboard';
 import RemoveInstrumentButton from 'containers/RemoveInstrumentButton';
 
-class Sequence extends PureComponent {
+class Sequence extends Component {
     static propTypes = {
         instrumentId: PropTypes.string
     };

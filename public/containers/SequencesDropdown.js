@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import Dropdown from 'components/common/dropdown/Dropdown';
 import {connect} from 'react-redux';
 import { addInstrument } from 'modules/instruments';

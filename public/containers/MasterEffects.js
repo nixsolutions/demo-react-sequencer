@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import Effects from 'components/blocks/effects/Effects';
 import {connect} from 'react-redux';
 import {

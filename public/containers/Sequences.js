@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import Sequences from 'components/blocks/sequences/Sequences';
 import {connect} from 'react-redux';
 import {addInstrument} from 'modules/instruments';
 import {updatePlay} from 'modules/play';
 
-class SequencesBlock extends PureComponent {
+class SequencesBlock extends Component {
     componentWillMount() {
         document.addEventListener('visibilitychange', () => {
             this.props.updatePlay('stop');

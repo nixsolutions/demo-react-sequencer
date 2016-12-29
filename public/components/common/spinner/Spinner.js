@@ -1,9 +1,9 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 
-import React, {PureComponent, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 
-class Spinner extends PureComponent {
+class Spinner extends Component {
     render() {
         let cssClass = ['spinner', this.props.active ? 'active' : ''].join(' ');
 

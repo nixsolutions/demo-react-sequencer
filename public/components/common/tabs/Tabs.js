@@ -1,8 +1,8 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-class TabsControl extends PureComponent {
+class TabsControl extends Component {
     static propTypes = {
         cssClass: PropTypes.string,
         label: PropTypes.string,
@@ -33,7 +33,7 @@ class TabsControl extends PureComponent {
 
 let TabsControlStyled = CSSModules(TabsControl, styles, { allowMultiple: true });
 
-class TabsComponent extends PureComponent {
+class TabsComponent extends Component {
     static propTypes = {
         children: PropTypes.node,
     };
