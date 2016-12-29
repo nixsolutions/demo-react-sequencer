@@ -74,7 +74,10 @@ class DropdownComponent extends PureComponent {
         return <div styleName={`dropdown-holder ${this.props.styleMode}`}>
             <div styleName="dropdown-wrapper">
                 <Dropdown {...dropdownProps}>
-                    <DropdownTrigger styleName="dropdown-trigger-area">{this.props.title} <span styleName="arrow"></span></DropdownTrigger>
+                    <DropdownTrigger styleName="dropdown-trigger-area">
+                        <span styleName="value" title={this.props.title}>{this.props.title}</span>
+                        <span styleName="arrow"></span>
+                    </DropdownTrigger>
                     <DropdownContent>
                         <div styleName="holder">
                             <ScrollableBlock autoHeightMax={122}>{content}</ScrollableBlock>
