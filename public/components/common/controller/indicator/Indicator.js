@@ -15,7 +15,7 @@ class Indicator extends Component {
     }
 
     componentDidMount(){
-        this.context = this.refs.canvas.getContext("2d");
+        this.canvasContext = this.refs.canvas.getContext("2d");
         this.draw(this.props.value);
     }
 
@@ -34,7 +34,7 @@ class Indicator extends Component {
 
         this.clear();
 
-        this.context.beginPath();
+        this.canvasContext.beginPath();
         
         this.drawUnfilled();
         this.drawIndication(valueDegrees);
@@ -44,12 +44,12 @@ class Indicator extends Component {
         let center = (this.props.size / 2);
         let radius = (this.props.size - this.props.lineWidth) / 2;
 
-        this.context.lineWidth = this.props.lineWidth;
-        this.context.strokeStyle = this.props.unfillerColor;
+        this.canvasContext.lineWidth = this.props.lineWidth;
+        this.canvasContext.strokeStyle = this.props.unfillerColor;
 
-        this.context.beginPath();
-        this.context.arc(center, center, radius, this.processDegrees(this.props.minAngle), this.processDegrees(this.props.maxAngle));
-        this.context.stroke();
+        this.canvasContext.beginPath();
+        this.canvasContext.arc(center, center, radius, this.processDegrees(this.props.minAngle), this.processDegrees(this.props.maxAngle));
+        this.canvasContext.stroke();
     }
 
     drawIndication(valueDegrees){
@@ -57,16 +57,16 @@ class Indicator extends Component {
         let radius = (this.props.size - this.props.lineWidth) / 2;
         let counterClockwise = valueDegrees < 0;
 
-        this.context.lineWidth = this.props.lineWidth;
-        this.context.strokeStyle = this.props.indicationColor;
+        this.canvasContext.lineWidth = this.props.lineWidth;
+        this.canvasContext.strokeStyle = this.props.indicationColor;
 
-        this.context.beginPath();
-        this.context.arc(center, center, radius, this.processDegrees(this.props.startAngle), this.processDegrees(valueDegrees), counterClockwise);
-        this.context.stroke();
+        this.canvasContext.beginPath();
+        this.canvasContext.arc(center, center, radius, this.processDegrees(this.props.startAngle), this.processDegrees(valueDegrees), counterClockwise);
+        this.canvasContext.stroke();
     }
 
     clear(){
-        this.context.clearRect(0, 0, this.props.size, this.props.size);
+        this.canvasContext.clearRect(0, 0, this.props.size, this.props.size);
     }
 
     degreesToRadians(degrees){
