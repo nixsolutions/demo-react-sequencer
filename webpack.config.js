@@ -15,10 +15,6 @@ module.exports = {
         publicPath: '/docs/'
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-        }),
-        new webpack.HotModuleReplacementPlugin(),
         new SpritesmithPlugin({
             src: {
                 cwd: path.resolve(__dirname, 'public/images'),
@@ -76,8 +72,11 @@ module.exports = {
     }
 };
 
-if (process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
     module.exports.plugins.push(
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
@@ -85,5 +84,9 @@ if (process.env.NODE_ENV === 'production'){
                 unsafe: true
             }
         })
+    )
+} else {
+    module.exports.plugins.push(
+        new webpack.HotModuleReplacementPlugin()
     )
 }
