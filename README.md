@@ -1,11 +1,11 @@
 Online Sampler
 ====================================================
-    You can create your own melody in browser.
-    Sampler has sequences panel where you can create beat for your melody.
+You can create your own melody in browser.
+    - Sampler has sequences panel where you can create beat for your melody.
 Here you can manage sequences instruments (adding / removing / mutting / setting effects for instruments / manage melody sequence).
-    Sampler has accompaniment panel where you can play menody real-time.
+    - Sampler has accompaniment panel where you can play menody real-time.
 Here you can change instrument for accompaniment.
-    In accompaniment section you can switch to master effects section where you can manage it.
+    - In accompaniment section you can switch to master effects section where you can manage it.
 
 [Demo](https://nixsolutions.github.io/demo-react-sequencer/). 
 
