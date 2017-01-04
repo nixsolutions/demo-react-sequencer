@@ -4,6 +4,7 @@
   "description": "sampler",
   "scripts": {
     "start": "node server.js",
+    "build-githubpages": "export NODE_ENV=githubpages&& webpack",
     "lint": "eslint src"
   },
   "repository": {
