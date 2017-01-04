@@ -1,9 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 var SpritesmithPlugin = require('webpack-spritesmith');
+var isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    devtool: 'source-map',
+    devtool: !isProduction && 'source-map',
     entry: [
         'webpack-hot-middleware/client',
         './public/index'
