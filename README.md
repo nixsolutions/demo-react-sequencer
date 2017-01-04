@@ -7,7 +7,7 @@ Sampler has accompaniment panel where you can play menody real-time.
 Here you can change instrument for accompaniment.
 In accompaniment section you can switch to master effects section where you can manage it.
 
-[Demo](https://nixsolutions.github.io/demo-react-sequencer/). 
+[Demo](https://nixsolutions.github.io/demo-react-sequencer/)
 
 Features
 --------
