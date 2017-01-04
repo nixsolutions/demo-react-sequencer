@@ -73,6 +73,11 @@ module.exports = {
 };
 
 if (process.env.NODE_ENV === 'production') {
+
+    module.exports.entry = [
+        './public/index'
+    ];
+
     module.exports.plugins.push(
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')
