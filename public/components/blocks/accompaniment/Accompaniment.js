@@ -9,7 +9,6 @@ import MasterEffectsManager from 'containers/MasterEffectsManager';
 
 import Piano from 'containers/Piano';
 import PianoVolume from 'containers/PianoVolume';
-import PianoManager from 'containers/PianoManager';
 import PianoInstrumentDropdown from 'containers/PianoInstrumentDropdown';
 
 class Accompaniment extends Component {
@@ -35,7 +34,6 @@ class Accompaniment extends Component {
                         </div>
                     </div>
                 </Tabs>
-                <PianoManager/>
                 <MasterEffectsManager/>
             </div>
         )
