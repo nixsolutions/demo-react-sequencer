@@ -14,27 +14,31 @@ import PianoInstrumentDropdown from 'containers/PianoInstrumentDropdown';
 
 class Accompaniment extends Component {
     render() {
-        return <Tabs>
-            <div styleName="section-holder" label="piano">
-                <div styleName="controls-panel">
-                    <PianoInstrumentDropdown />
-                    <div styleName="piano-volume">
-                        <PianoVolume />
+        return (
+            <div>
+                <Tabs>
+                    <div styleName="section-holder" label="piano">
+                        <div styleName="controls-panel">
+                            <PianoInstrumentDropdown />
+                            <div styleName="piano-volume">
+                                <PianoVolume />
+                            </div>
+                        </div>
+                        <div styleName="instrument-holder">
+                            <Piano/>
+                        </div>
                     </div>
-                </div>
-                <div styleName="instrument-holder">
-                    <Piano/>
-                    <PianoManager/>
-                </div>
+                    <div styleName="section-holder" label="effects">
+                        <div styleName="controls-panel"></div>
+                        <div styleName="instrument-holder">
+                            <MasterEffects/>
+                        </div>
+                    </div>
+                </Tabs>
+                <PianoManager/>
+                <MasterEffectsManager/>
             </div>
-            <div styleName="section-holder" label="effects">
-                <div styleName="controls-panel"></div>
-                <div styleName="instrument-holder">
-                    <MasterEffects/>
-                    <MasterEffectsManager/>
-                </div>
-            </div>
-        </Tabs>
+        )
     }
 }
 
