@@ -13,6 +13,6 @@ function mapStateToProps() {
 
     return (state) => ({
         title: "Add instrument",
-        items: dropdownItems(state.samples)
+        items: dropdownItems(state)
     })
 }

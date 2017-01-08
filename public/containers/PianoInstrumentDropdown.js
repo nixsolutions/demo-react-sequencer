@@ -13,7 +13,7 @@ function mapStateToProps() {
 
     return (state) => ({
         styleMode: 'style2',
-        items: dropdownItems(state.samples),
+        items: dropdownItems(state),
         title: state.accompanimentInstrument.name || 'Select instrument'
     })
 }
