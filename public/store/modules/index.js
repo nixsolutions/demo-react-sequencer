@@ -14,8 +14,9 @@ import accompanimentInstrument from './accompanimentInstrument';
 import masterEffects from './masterEffects';
 import instrumentsEffects from './instrumentsEffects';
 import instrumentsSteps from './instrumentsSteps';
+import { combineReducers } from 'redux';
 
-export default {
+export default combineReducers({
     bpm,
     instruments,
     play,
@@ -32,4 +33,4 @@ export default {
     masterEffects,
     instrumentsEffects,
     instrumentsSteps
-};
+});

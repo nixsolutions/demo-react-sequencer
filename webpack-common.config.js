@@ -6,6 +6,7 @@ var isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
     devtool: !isProduction && 'source-map',
     entry: [
+        'babel-polyfill',
         'webpack-hot-middleware/client',
         './public/index'
     ],
@@ -70,6 +71,7 @@ module.exports = {
             shared: path.join(__dirname, '/public/shared'),
             utils: path.join(__dirname, '/public/utils'),
             selectors: path.join(__dirname, '/public/selectors'),
+            sagas: path.join(__dirname, '/public/sagas'),
         },
         extensions: ['', '.js', '.less']
     }
