@@ -35,9 +35,7 @@ class InstrumentEffects extends Component {
         };
 
         return (
-            <div styleName="instrument-effects">
-                <Effects {...effectsProps}/>
-            </div>
+            <Effects {...effectsProps} />
         );
     }
 
