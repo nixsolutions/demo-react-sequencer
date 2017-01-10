@@ -80,7 +80,7 @@ class DropdownComponent extends Component {
                     </DropdownTrigger>
                     <DropdownContent>
                         <div styleName="holder">
-                            <ScrollableBlock autoHeightMax={192}>{content}</ScrollableBlock>
+                            <ScrollableBlock autoHeightMax={192} autoHide={true}>{content}</ScrollableBlock>
                         </div>
                     </DropdownContent>
                 </Dropdown>
