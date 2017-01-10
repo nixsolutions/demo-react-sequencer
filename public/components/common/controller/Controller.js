@@ -102,10 +102,10 @@ class Controller extends Component {
     }
 
     getCoord(e) {
-        let {pageX, pageY} = e;
+        let {clientX, clientY} = e;
 
-        let x = pageX;
-        let y = pageY;
+        let x = clientX;
+        let y = clientY;
 
         return {x, y};
     }
