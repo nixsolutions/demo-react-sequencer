@@ -5,6 +5,7 @@ import React, { Component, PropTypes } from 'react';
 class PauseButton extends Component {
     static propTypes = {
         children: PropTypes.node,
+        type: PropTypes.string,
         active: PropTypes.bool,
         disabled: PropTypes.bool,
         onClick: PropTypes.func,
@@ -19,12 +20,14 @@ class PauseButton extends Component {
     }
 
     render() {
-        let activeClass = this.props.active ? 'active' : '';
-        let styleName = ['pause-button', activeClass].join(' ');
+        const { type, active, disabled } = this.props;
+
+        let activeClass = active ? 'active' : '';
+        let styleName = ['control-button', type, activeClass].join(' ');
         let buttonProps = {
             styleName,
             onClick: this.onClick,
-            disabled: this.props.disabled
+            disabled: disabled
         };
         
         return (

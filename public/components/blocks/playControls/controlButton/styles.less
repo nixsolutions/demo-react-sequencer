@@ -1,0 +1,32 @@
+@import '~shared/mixins.less';
+
+.icon(@index){
+  @part-width: 30px;
+  @part-height: 30px;
+
+  .button-1({
+      background: url(../../../../images/sprite-icons.png) (@index * @part-width) -32px;
+      width: 30px;
+      height: 30px;
+    }, {
+    background-position-y: -2px;
+  })
+}
+
+.control-button{
+  &.play{
+    .icon(1);
+  }
+
+  &.pause{
+    .icon(2);
+  }
+
+  &.stop{
+    .icon(0);
+  }
+} 
+
+.button-wrapper{
+  .box-4();
+}
