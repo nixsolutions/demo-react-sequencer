@@ -37,6 +37,8 @@ class Controller extends Component {
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
+
+        window.addEventListener('mousemove', this.onMouseMove);
     }
 
     state = {down: false};
@@ -81,9 +83,6 @@ class Controller extends Component {
             styleName: 'controller-wrapper',
             style: commonStyles,
             onMouseDown: this.onMouseDown,
-            onMouseMove: this.onMouseMove,
-            onMouseUp: this.onMouseUp,
-            onMouseLeave: this.onMouseUp,
         };
 
         return (
@@ -94,7 +93,8 @@ class Controller extends Component {
                 <div {...controllerWrapperProps}>
                     <div styleName="controller-holder">
                         <div styleName="controller"
-                             style={styles}></div>
+                             style={styles}
+                             ref="controller"></div>
                     </div>
                 </div>
             </div>
@@ -102,17 +102,19 @@ class Controller extends Component {
     }
 
     getCoord(e) {
-        let {offsetX, offsetY, layerX, layerY} = e.nativeEvent;
+        let {pageX, pageY} = e;
 
-        let x = offsetX || layerX;
-        let y = offsetY || layerY;
+        let x = pageX;
+        let y = pageY;
 
         return {x, y};
     }
 
     getDeg(pointer) {
-        let x = pointer.x - this.center;
-        let y = pointer.y - this.center;
+        const center = this.getCenter();
+        const x = pointer.x - center.x;
+        const y = pointer.y - center.y;
+
         let deg = Math.atan(y / x) * 180 / Math.PI;
 
         if ((x < 0 && y >= 0) || (x < 0 && y < 0)) {
@@ -125,6 +127,14 @@ class Controller extends Component {
         return finalDeg;
     }
 
+    getCenter(){
+        const rect = this.refs.controller.getBoundingClientRect();
+        const x = rect.left + (rect.width / 2);
+        const y = rect.top + (rect.height / 2);
+
+        return { x, y };
+    }
+
     onMouseDown(e) {
         e.preventDefault();
 
@@ -134,6 +144,8 @@ class Controller extends Component {
         this.setState({
             down: true
         });
+
+        window.addEventListener('mouseup', this.onMouseUp);
     }
 
     onMouseMove(e) {
@@ -142,6 +154,7 @@ class Controller extends Component {
         if (!this.state.down) {
             return;
         }
+
         let pointer = this.getCoord(e);
         let deg = this.getDeg(pointer);
         this.updateValue(deg);
@@ -153,10 +166,12 @@ class Controller extends Component {
         if (!this.state.down) {
             return;
         }
-
+        console.log('mouseup')
         this.setState({
             down: false
         });
+
+        window.removeEventListener('mouseup', this.onMouseUp);
     }
 
     getValue(deg) {
