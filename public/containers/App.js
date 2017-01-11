@@ -27,7 +27,6 @@ class App extends Component {
                   </DashboardBlock>
                 </Dashboard>
                 <Master/>
-                <SamplerManager/>
                 <KeyboardNavigation/>
                 <Spinner/>
               </div>
