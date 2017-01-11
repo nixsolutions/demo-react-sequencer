@@ -3,7 +3,6 @@ import 'shared/layouts.less';
 import React, {Component} from 'react';
 import Dashboard from 'components/dashboard/Dashboard';
 import DashboardBlock from 'components/dashboardBlock/DashboardBlock';
-import SamplerManager from 'containers/SamplerManager';
 import Accompaniment from 'components/blocks/accompaniment/Accompaniment';
 import SequencesDashboard from 'containers/SequencesDashboard';
 import PanelControls from 'components/blocks/panelControls/PanelControls';
