@@ -1,21 +1,22 @@
 import Tone from 'tone';
 import {mapObject} from 'utils/helper';
+import {createEffect, applySettingsToEffect} from 'utils/effects';
+import {EventEmitter} from 'events';
 
-export default class Sampler {
+export default class Sampler extends EventEmitter{
+    events = ['played-step.updated', 'loading']; 
     sequencer = null;
     matrix = [];
     samples = {};
     buffers = {};
     instrumentsEffects = {};
+    stepsAmount = null;
 
-    init(samplesPaths){
-        this.loadBuffers(samplesPaths);
-        this.createSequencer(this.matrix, this.samples);
-        this.applyUpdates(this.props);
-        this.updateMatrix(this.props.instrumentsById, this.props.instrumentsSteps);
-        this.updateSequence();
+    init(samplesPaths, stepsAmount){
+        this.stepsAmount = stepsAmount;
 
-        this.initializeInstruments();
+        return this.loadBuffers(samplesPaths)
+            .then(this.createSequencer.bind(this));
     }
 
     play(){
@@ -29,16 +30,18 @@ export default class Sampler {
 
     stop(){
         this.sequencer.stop();
-        this.props.updatePlayedStep(-1);
+        this.emit('played-step.updated', -1)
     }
 
-    updateSamples(instrumentsById){
+    updateSamples(instruments){
+        this.instruments = instruments || this.instruments;
+
         let oldSamples = {...this.samples};
         let newSamples = {};
-        let ids = Object.keys(instrumentsById);
+        let ids = Object.keys(this.instruments);
 
         ids.forEach(instrumentId => {
-            let instrument = instrumentsById[instrumentId];
+            let instrument = this.instruments[instrumentId];
 
             if(oldSamples[instrument.name]){
                 newSamples[instrument.name] = oldSamples[instrument.name];
@@ -99,16 +102,23 @@ export default class Sampler {
     }
 
     loadBuffers(samplesPaths){
-        this.props.updateLoadingState(true);
-    
-        this.buffers = samplesPaths.reduce((result, samplePath) => {
-            result[samplePath] = new Tone.Buffer(samplePath);
-            return result;
-        }, {});
+        this.emit('loading', true);
+
+        let promises = samplesPaths.map(samplePath => new Promise((resolve, reject) => {
+            new Tone.Buffer(samplePath, sample => {
+                this.buffers[samplePath] = sample;
+                resolve(sample);
+            });
+        }));
+
+        return Promise.all(promises);
     }
 
-    updateMatrix(instrumentsById, instrumentsSteps){
-        this.matrix = this.createMatrix(instrumentsById, instrumentsSteps);
+    updateMatrix(instruments = [], instrumentsSteps = {}){
+        this.instruments = instruments;
+        this.instrumentsSteps = instrumentsSteps;
+
+        this.matrix = this.createMatrix(this.instruments, this.instrumentsSteps);
     }
 
     createMatrix(instrumentsById, instrumentsSteps){
@@ -132,7 +142,7 @@ export default class Sampler {
         }, []);
 
         if(!matrix.length){
-            matrix = this.generateEmptyMatrix(this.props.stepsAmount);
+            matrix = this.generateEmptyMatrix(this.stepsAmount);
         }
 
         return matrix;
@@ -159,7 +169,8 @@ export default class Sampler {
             }
     
             let currentStepIndex = this.matrix.indexOf(step);
-            this.props.updatePlayedStep(currentStepIndex);
+
+            this.emit('played-step.updated', currentStepIndex);
         }, [], "16n");
 
         this.sequencer.loopStart = '0m';
@@ -174,15 +185,5 @@ export default class Sampler {
         this.matrix.forEach((item, i) => {
             this.sequencer.add(i, item);
         });
-    }
-
-    initializeInstruments(){
-        let onLoad = () => {
-            this.updateSamples(this.props.instrumentsById);
-            this.updateInstrumentsEffects(this.props.instrumentsEffects);
-            Tone.Buffer.off('load', onLoad);
-        }
-
-        Tone.Buffer.on('load', onLoad);
     }
 }
