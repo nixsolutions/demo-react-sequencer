@@ -11,17 +11,6 @@ class SamplerManager extends Component {
         instrumentsById: PropTypes.object,
         stepsAmount: PropTypes.number,
         play: PropTypes.string,
-        bpm: function(props, propName, componentName) {
-            let isNumber = typeof props[propName] === 'number';
-            let isEmptyString = props[propName] === '';
-
-            if (!isNumber && !isEmptyString)  {
-                return new Error(
-                    'Invalid prop `' + propName + '` supplied to' +
-                    ' `' + componentName + '`. Validation failed.'
-                );
-            }
-        },
         updatePlayedStep: PropTypes.func,
         updateLoadingState: PropTypes.func,
     }
@@ -42,7 +31,6 @@ class SamplerManager extends Component {
         this.loadBuffers(buffersPaths);
         this.createSequencer(this.matrix, this.samples);
         this.applyUpdates(this.props);
-        this.updateBPM(this.props.bpm);
         this.updateMatrix(this.props.instrumentsById, this.props.instrumentsSteps);
         this.updateSequence();
 
@@ -56,11 +44,7 @@ class SamplerManager extends Component {
     render(){ return <div></div> }
 
     applyUpdates(nextProps){
-        let {instrumentsById, instrumentsEffects, play, bpm, volume, instrumentsSteps} = nextProps;
-
-        if (bpm !== this.props.bpm) {
-            this.updateBPM(bpm);
-        }
+        let {instrumentsById, instrumentsEffects, play, volume, instrumentsSteps} = nextProps;
 
         if ((instrumentsById !== this.props.instrumentsById) || (instrumentsSteps !== this.props.instrumentsSteps)) {
             this.updateMatrix(instrumentsById, instrumentsSteps);
@@ -104,13 +88,8 @@ class SamplerManager extends Component {
     }
 
     stop(){
-        // Tone.Transport.stop();
         this.sequencer.stop();
         this.props.updatePlayedStep(-1);
-    }
-
-    updateBPM(value){
-        Tone.Transport.bpm.value = value || 1;
     }
 
     updateSamples(instrumentsById){
@@ -279,7 +258,6 @@ function mapStateToProps(state){
         instrumentsEffects: state.instrumentsEffects,
         instrumentsSteps: state.instrumentsSteps,
         play: state.play,
-        bpm: state.bpm,
         samples: state.samples,
         stepsAmount: state.stepsAmount,
     };
