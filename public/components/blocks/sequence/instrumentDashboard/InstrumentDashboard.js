@@ -15,7 +15,7 @@ class InstrumentDashboard extends Component {
         let {instrumentId, instrumentName} = this.props;
     
         return (
-            <div styleName="sequence-control">
+            <div styleName="instrument-dashboard">
                 <MuteInstrumentButton instrumentId={instrumentId} />
                 <div styleName="instrument-block">
                     <div styleName="name" title={instrumentName}>{instrumentName}</div>

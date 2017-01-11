@@ -11,6 +11,18 @@ import SequencesPlayControlls from 'containers/SequencesPlayControlls';
 import SequencesStepIndicator from 'containers/SequencesStepIndicator';
 
 class SequencesDashboard extends Component {
+    static propTypes = {
+        instrumentsAmount: PropTypes.number
+    }
+
+    componentWillReceiveProps(){
+        this.updateScrollBar();
+    }
+
+    updateScrollBar(){
+        this.refs.scrollbar.update();
+    }
+
     render() {
         return (
             <div>
@@ -21,7 +33,7 @@ class SequencesDashboard extends Component {
                 </div>
                 <div styleName="sequences-holder">
                     <div styleName="sequences-wrapper">
-                        <ScrollableBlock autoHeightMax={170}>
+                        <ScrollableBlock autoHeightMax={170} ref="scrollbar">
                             <Sequences />
                         </ScrollableBlock>
                     </div>

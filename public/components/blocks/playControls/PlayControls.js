@@ -1,40 +1,71 @@
 import CSSModules from 'react-css-modules';
 import styles from './styles.less';
 import React, { Component, PropTypes } from 'react';
-import PlayButton from 'components/common/buttons/playButton/PlayButton';
-import PauseButton from 'components/common/buttons/pauseButton/PauseButton';
-import StopButton from 'components/common/buttons/stopButton/StopButton';
+import ControlButton from './controlButton/ControlButton';
 import { SPACE_KEY } from 'utils/keys';
 
 class PlayControls extends Component {
+    constructor(props){
+        super(props);
+
+        this.onPlayClick = this.onPlayClick.bind(this);
+        this.onPauseClick = this.onPauseClick.bind(this);
+        this.onStopClick = this.onStopClick.bind(this);
+    }
     componentWillMount() {
         this.bindPlay();
     }
 
     render() {
+        const { playState } = this.props;
+
         let playButtonProps = {
-            active: (this.props.playState === 'play'),
-            onClick: this.props.updatePlay
+            type: 'play',
+            active: (playState === 'play'),
+            onClick: this.onPlayClick
         }
 
         let pauseButtonProps = {
-            active: (this.props.playState === 'pause'),
-            onClick: this.props.updatePlay
+            type: 'pause',
+            active: (playState === 'pause'),
+            onClick: this.onPauseClick
         }
 
         let stopButtonProps = {
-            active: (this.props.playState === 'stop'),
-            disabled: (this.props.playState === 'stop'),
-            onClick: this.props.updatePlay
+            type: 'stop',
+            active: (playState === 'stop'),
+            disabled: (playState === 'stop'),
+            onClick: this.onStopClick
         }
 
         return (
             <ul styleName="play-controls">
-                <li><PlayButton {...playButtonProps} /></li>
-                <li><PauseButton {...pauseButtonProps} /></li>
-                <li><StopButton {...stopButtonProps} /></li>
+                <li><ControlButton {...playButtonProps} /></li>
+                <li><ControlButton {...pauseButtonProps} /></li>
+                <li><ControlButton {...stopButtonProps} /></li>
             </ul>
         )
+    }
+
+    onPlayClick() {
+        const { playState, updatePlay } = this.props;
+        const value = playState === 'play' ? 'pause' : 'play';
+
+        updatePlay(value);
+    }
+
+    onPauseClick() {
+        const { playState, updatePlay } = this.props;
+        const value = playState === 'pause' ? 'play' : 'pause';
+
+        updatePlay(value);
+    }
+
+    onStopClick() {
+        const { playState, updatePlay } = this.props;
+        const value = playState === 'stop' ? 'play' : 'stop';
+
+        updatePlay(value);
     }
 
     bindPlay() {
