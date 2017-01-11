@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 export const pianoVolume = state => state.pianoVolume;
 export const samples = state => state.samples;
+export const bpmSelector = state => state.bpm;
 export const instrumentsSelector = state => state.instruments.byId;
 export const instrumentsStepsSelector = state => state.instrumentsSteps;
 export const stepsAmountSelector = state => state.stepsAmount;
