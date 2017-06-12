@@ -1,5 +1,5 @@
 export let connect = (downFn, upFn) => {
-    let AudioContext = AudioContext || webkitAudioContext;
+    let AudioContext = window.AudioContext || window.webkitAudioContext;
     let context = new AudioContext();
 
     if (navigator.requestMIDIAccess) {
